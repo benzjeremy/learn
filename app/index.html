@@ -27,8 +27,13 @@
   <header class="app-header">
     <div class="header-inner">
       <div class="brand-section">
-        <a href="../" class="back-link" title="Zurück zur Landingpage">
-          <span>← Zurück zur Projektübersicht</span>
+        <a href="../" class="back-link" title="Zurück zur Projektübersicht">
+          <span class="lang-de">← Projektübersicht</span>
+          <span class="lang-en" style="display:none;">← Project Hub</span>
+        </a>
+        <a href="../wiki/" class="back-link" title="Zum Web-Wiki &amp; Handbuch">
+          <span class="lang-de">📖 Wiki &amp; Handbuch</span>
+          <span class="lang-en" style="display:none;">📖 Wiki &amp; Manual</span>
         </a>
         <a href="index.html" class="app-brand">
           <img src="assets/icon.png" alt="learn Logo" class="app-logo" width="30" height="30">
@@ -207,6 +212,19 @@
 
     </div>
   </div>
+
+  <!-- APP FOOTER -->
+  <footer style="padding: 2rem 1.5rem; text-align: center; border-top: 1px solid var(--border-subtle); margin-top: 3rem; color: var(--text-muted); font-size: 0.8125rem;">
+    <div style="display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 0.75rem; flex-wrap: wrap;">
+      <a href="../" style="color: var(--text-secondary); text-decoration: none;">🏠 <span class="lang-de">Projekt-Übersicht</span><span class="lang-en" style="display:none;">Project Showcase</span></a>
+      <a href="../wiki/" style="color: var(--text-secondary); text-decoration: none;">📖 <span class="lang-de">Web-Wiki &amp; Handbuch</span><span class="lang-en" style="display:none;">Web-Wiki &amp; Manual</span></a>
+      <a href="https://github.com/benzjeremy/learn" target="_blank" rel="noopener noreferrer" style="color: var(--text-secondary); text-decoration: none;">GitHub</a>
+      <a href="https://github.com/benzjeremy/learn/releases" target="_blank" rel="noopener noreferrer" style="color: var(--text-secondary); text-decoration: none;">Releases</a>
+      <a href="https://benzjeremy.github.io/impressum.html" target="_blank" rel="noopener noreferrer" style="color: var(--text-secondary); text-decoration: none;">Impressum</a>
+      <a href="https://benzjeremy.github.io/datenschutz.html" target="_blank" rel="noopener noreferrer" style="color: var(--text-secondary); text-decoration: none;">Datenschutz</a>
+    </div>
+    <p>© 2026 Jeremy Benz &bull; learn &bull; GNU GPL-3.0</p>
+  </footer>
 
   <!-- APP SCRIPT -->
   <script src="app.js"></script>

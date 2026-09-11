@@ -58,6 +58,10 @@
           <span class="lang-de">Über das Projekt</span>
           <span class="lang-en" style="display:none;">About</span>
         </a>
+        <a href="wiki/">
+          <span class="lang-de">📖 Wiki &amp; Handbuch</span>
+          <span class="lang-en" style="display:none;">📖 Wiki &amp; Manual</span>
+        </a>
         <a href="app/" class="btn-card highlight">
           <span class="lang-de">🚀 Web App</span>
           <span class="lang-en" style="display:none;">🚀 Web App</span>
@@ -81,6 +85,7 @@
       <div class="container hero-container">
         
         <div class="hero-badges">
+          <a href="https://github.com/benzjeremy/learn/releases/tag/v1.0" target="_blank" rel="noopener noreferrer" class="hero-badge badge-cyan">📦 Release v1.0 [Major]</a>
           <span class="hero-badge badge-cyan">🏛️ Fachinformatiker-Ausbildungsstandard</span>
           <span class="hero-badge badge-violet">⏱️ 90-Minuten-Abschlussprüfungen</span>
           <span class="hero-badge">🔒 100% Privacy &amp; Zero-Telemetry</span>
@@ -111,6 +116,10 @@
         <div class="hero-cta-group">
           <a href="app/" class="btn-primary">
             <span>🚀 Web App starten (/learn/app)</span>
+          </a>
+          <a href="wiki/" class="btn-secondary">
+            <span class="lang-de">📖 Web-Wiki &amp; Handbuch</span>
+            <span class="lang-en" style="display:none;">📖 Web Wiki &amp; Manual</span>
           </a>
           <a href="#download" class="btn-secondary">
             <span class="lang-de">📱 Android APK &amp; Downloads</span>
@@ -235,6 +244,98 @@
       </div>
     </section>
 
+    <!-- 3-BRANCH & 3-WEB ARCHITECTURE SECTION -->
+    <section class="features-section" style="background: var(--bg-surface); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-tag">
+            <span class="lang-de">Architektur-Standard</span>
+            <span class="lang-en" style="display:none;">Architectural Standard</span>
+          </p>
+          <h2 class="section-title">
+            <span class="lang-de">Das 3-Web &amp; 3-Branch Ökosystem</span>
+            <span class="lang-en" style="display:none;">The 3-Web &amp; 3-Branch Ecosystem</span>
+          </h2>
+          <p class="section-subtitle">
+            <span class="lang-de">Perfekte Entkopplung von Kern-Engine, didaktischen Lehrinhalten und statischer Web-Infrastruktur.</span>
+            <span class="lang-en" style="display:none;">Clean separation of core engine, didactic curricula, and static web infrastructure.</span>
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <!-- Web 1: Main-Web -->
+          <div class="feature-card">
+            <div class="f-card-icon amber">🌐</div>
+            <h3>
+              <span class="lang-de">1. Main-Web (Showcase)</span>
+              <span class="lang-en" style="display:none;">1. Main-Web (Showcase)</span>
+            </h3>
+            <p>
+              <span class="lang-de"><code>/learn/</code> &bull; Die offizielle Projekt-Landingpage nach untis-go Standard mit Feature-Übersicht, F-Droid &amp; Binaries-Download und Lizenz-Sektion.</span>
+              <span class="lang-en" style="display:none;"><code>/learn/</code> &bull; The official project landing page following the untis-go standard with feature overview, F-Droid/binary downloads, and license section.</span>
+            </p>
+            <a href="#features" class="btn-card" style="margin-top: 1rem;">
+              <span class="lang-de">Hier verweilen</span>
+              <span class="lang-en" style="display:none;">Stay here</span>
+            </a>
+          </div>
+
+          <!-- Web 2: Wiki -->
+          <div class="feature-card">
+            <div class="f-card-icon violet">📖</div>
+            <h3>
+              <span class="lang-de">2. Web-Wiki (Handbuch)</span>
+              <span class="lang-en" style="display:none;">2. Web-Wiki (Documentation)</span>
+            </h3>
+            <p>
+              <span class="lang-de"><code>/learn/wiki/</code> &bull; Ausführliche Dokumentation, Curriculums-Referenzen, Compiler-Labor Anleitung, 90-Min-Prüfungsnotenschlüssel und F-Droid Setup.</span>
+              <span class="lang-en" style="display:none;"><code>/learn/wiki/</code> &bull; Comprehensive documentation, curriculum reference, compiler lab guide, 90-min exam grading keys, and F-Droid setup.</span>
+            </p>
+            <a href="wiki/" class="btn-card" style="margin-top: 1rem;">
+              <span class="lang-de">📖 Zum Web-Wiki</span>
+              <span class="lang-en" style="display:none;">📖 Open Web-Wiki</span>
+            </a>
+          </div>
+
+          <!-- Web 3: App -->
+          <div class="feature-card">
+            <div class="f-card-icon emerald">🚀</div>
+            <h3>
+              <span class="lang-de">3. Web-App (Lern-Cockpit)</span>
+              <span class="lang-en" style="display:none;">3. Web-App (Learning Cockpit)</span>
+            </h3>
+            <p>
+              <span class="lang-de"><code>/learn/app/</code> &bull; Das interaktive In-Browser Lern-Cockpit mit 9 Kernfächern, Compiler-Labor, Inline-Code-Aufgaben und 90-Minuten-Abschlussprüfungen.</span>
+              <span class="lang-en" style="display:none;"><code>/learn/app/</code> &bull; The interactive in-browser learning cockpit with 9 core subjects, compiler lab, inline code tasks, and 90-minute final exams.</span>
+            </p>
+            <a href="app/" class="btn-card highlight" style="margin-top: 1rem;">
+              <span class="lang-de">🚀 Zur Web-App</span>
+              <span class="lang-en" style="display:none;">🚀 Launch Web App</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 3-Branch Row -->
+        <div class="about-layout-grid" style="margin-top: 2rem;">
+          <div class="about-box">
+            <h3>🌿 Branch <code>main</code> &amp; 📚 Branch <code>content</code></h3>
+            <p style="color: var(--text-secondary); font-size: 0.875rem;">
+              <span class="lang-de"><strong>main:</strong> Reiner Go 1.22 Quellcode, native Android APK Engine, Pure-Go SQLite WAL Speicher, CLI-Runner &bull; <strong>content:</strong> Entkoppelte JSON-Schemas, Lektionen und Prüfungen für einfache Community-Beiträge via Pull Request.</span>
+              <span class="lang-en" style="display:none;"><strong>main:</strong> Pure Go 1.22 source code, native Android APK engine, Pure-Go SQLite WAL storage, CLI runner &bull; <strong>content:</strong> Decoupled JSON schemas, lessons, and exams for simple community PR contributions.</span>
+            </p>
+          </div>
+          <div class="about-box">
+            <h3>🌐 Branch <code>web</code></h3>
+            <p style="color: var(--text-secondary); font-size: 0.875rem;">
+              <span class="lang-de">Beherbergt die gesamte statische Web-Infrastruktur für GitHub Pages: Das Main-Web (<code>/learn/</code>), das Web-Wiki (<code>/learn/wiki/</code>) und die Web-App (<code>/learn/app/</code>).</span>
+              <span class="lang-en" style="display:none;">Hosts the complete static web infrastructure for GitHub Pages: Main-Web (<code>/learn/</code>), Web-Wiki (<code>/learn/wiki/</code>), and Web-App (<code>/learn/app/</code>).</span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <!-- DOWNLOADS SECTION -->
     <section class="download-section" id="download">
       <div class="container">
@@ -272,11 +373,11 @@
           <div class="download-card">
             <h3>📱 Android (APK &amp; F-Droid)</h3>
             <p>
-              <span class="lang-de">Natives Go/Fyne v2 APK für Smartphones &amp; Tablets. Verfügbar via F-Droid, IzzyOnDroid und direkte GitHub Releases.</span>
-              <span class="lang-en" style="display:none;">Native Go/Fyne v2 APK for phones &amp; tablets. Available via F-Droid, IzzyOnDroid, and direct GitHub releases.</span>
+              <span class="lang-de">Natives Go/Fyne v2 APK für Smartphones &amp; Tablets. Verfügbar via myfdroid, IzzyOnDroid und GitHub Releases.</span>
+              <span class="lang-en" style="display:none;">Native Go/Fyne v2 APK for phones &amp; tablets. Available via myfdroid, IzzyOnDroid, and GitHub releases.</span>
             </p>
-            <a href="https://github.com/benzjeremy/learn/releases" target="_blank" rel="noopener noreferrer" class="btn-card">
-              <span>📦 GitHub Releases (APK)</span>
+            <a href="https://github.com/benzjeremy/learn/releases/tag/v1.0" target="_blank" rel="noopener noreferrer" class="btn-card">
+              <span>📦 GitHub Releases (v1.0)</span>
             </a>
           </div>
 
@@ -284,12 +385,17 @@
           <div class="download-card">
             <h3>💻 Desktop (Linux &amp; Windows)</h3>
             <p>
-              <span class="lang-de">Single Binary für Linux (native Wayland/X11) und Windows x86_64. Kein CGO-Zwang auf Windows.</span>
-              <span class="lang-en" style="display:none;">Single binary for Linux (Wayland/X11) and Windows x86_64. No runtime dependencies.</span>
+              <span class="lang-de">Single Binary für Linux (native Wayland/X11) und Windows x86_64. Sofort einsatzbereit.</span>
+              <span class="lang-en" style="display:none;">Single binary for Linux (Wayland/X11) and Windows x86_64. Ready to run.</span>
             </p>
-            <a href="https://github.com/benzjeremy/learn/releases" target="_blank" rel="noopener noreferrer" class="btn-card">
-              <span>📥 Desktop Binaries</span>
-            </a>
+            <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+              <a href="https://github.com/benzjeremy/learn/releases/download/v1.0/learn-v1.0-linux.tar.gz" class="btn-card" style="flex:1;">
+                <span>🐧 Linux (tar.gz)</span>
+              </a>
+              <a href="https://github.com/benzjeremy/learn/releases/download/v1.0/learn-v1.0-windows.zip" class="btn-card" style="flex:1;">
+                <span>🪟 Windows (zip)</span>
+              </a>
+            </div>
           </div>
 
         </div>
@@ -355,6 +461,7 @@
         <span>© 2026 Jeremy Benz · Open-Source Educational Software</span>
       </div>
       <div class="footer-links">
+        <a href="wiki/">Web-Wiki</a>
         <a href="app/">Web App</a>
         <a href="https://github.com/benzjeremy/learn" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://github.com/benzjeremy/learn/releases" target="_blank" rel="noopener noreferrer">Releases</a>

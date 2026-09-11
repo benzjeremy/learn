@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self';" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>learn Wiki &bull; Handbuch, Architektur &amp; Prüfungen</title>
+  <meta name="description" content="Offizielles Web-Wiki für learn: 3-Branch &amp; 3-Web System, Curricula, Compiler-Labor, 90-Minuten-Abschlussprüfungen und F-Droid Integration.">
+  <link rel="icon" type="image/png" sizes="512x512" href="../assets/icon.png">
+  <link rel="stylesheet" href="wiki.css">
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('site_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- WIKI HEADER -->
+  <header class="wiki-header">
+    <div class="wiki-header-container">
+      <div class="wiki-brand-group">
+        <a href="https://benzjeremy.github.io/" class="eco-back-link" title="Zurück zum zentralen Portfolio">
+          <span>← benzjeremy.github.io</span>
+        </a>
+        <a href="../" class="wiki-brand-link" title="Zurück zur Landingpage">
+          <img src="../assets/icon.png" alt="learn Logo" class="wiki-brand-logo">
+          <span class="wiki-brand-title">learn</span>
+          <span class="wiki-brand-badge">Wiki v1.0</span>
+        </a>
+      </div>
+
+      <div class="wiki-nav-tools">
+        <div class="wiki-search-box">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 14z"/></svg>
+          <input type="text" id="wikiSearch" class="wiki-search-input" placeholder="Im Wiki suchen..." oninput="filterWiki()">
+        </div>
+
+        <div class="lang-switch">
+          <button class="lang-btn active" id="btn-lang-de" onclick="setWikiLang('de')">DE</button>
+          <button class="lang-btn" id="btn-lang-en" onclick="setWikiLang('en')">EN</button>
+        </div>
+
+        <button class="theme-toggle-btn" id="themeToggle" onclick="toggleWikiTheme()" title="Theme wechseln">🌙</button>
+
+        <a href="../" class="wiki-btn">
+          <span class="lang-de">🏠 Startseite</span>
+          <span class="lang-en" style="display:none;">🏠 Home</span>
+        </a>
+
+        <a href="../app/" class="wiki-btn primary">
+          <span class="lang-de">🚀 Web-App</span>
+          <span class="lang-en" style="display:none;">🚀 Web App</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- WIKI LAYOUT -->
+  <div class="wiki-layout">
+    
+    <!-- SIDEBAR -->
+    <aside class="wiki-sidebar">
+      <nav>
+        <div class="wiki-nav-section">
+          <div class="wiki-nav-heading">
+            <span class="lang-de">1. Grundlagen</span>
+            <span class="lang-en" style="display:none;">1. Basics</span>
+          </div>
+          <ul class="wiki-nav-list">
+            <li class="wiki-nav-item"><a href="#uebersicht"><span class="lang-de">Übersicht &amp; Philosophie</span><span class="lang-en" style="display:none;">Overview &amp; Ethos</span></a></li>
+            <li class="wiki-nav-item"><a href="#architektur"><span class="lang-de">3-Branch &amp; 3-Web System</span><span class="lang-en" style="display:none;">3-Branch &amp; 3-Web System</span></a></li>
+          </ul>
+        </div>
+
+        <div class="wiki-nav-section">
+          <div class="wiki-nav-heading">
+            <span class="lang-de">2. Didaktik &amp; Labor</span>
+            <span class="lang-en" style="display:none;">2. Didactics &amp; Lab</span>
+          </div>
+          <ul class="wiki-nav-list">
+            <li class="wiki-nav-item"><a href="#faecher"><span class="lang-de">Curricula &amp; Fächer</span><span class="lang-en" style="display:none;">Curricula &amp; Subjects</span></a></li>
+            <li class="wiki-nav-item"><a href="#compiler-labor"><span class="lang-de">Compiler-Labor &amp; Fixes</span><span class="lang-en" style="display:none;">Compiler Lab &amp; Bugfixing</span></a></li>
+            <li class="wiki-nav-item"><a href="#pruefungen"><span class="lang-de">90-Minuten-Prüfungen</span><span class="lang-en" style="display:none;">90-Minute Final Exams</span></a></li>
+            <li class="wiki-nav-item"><a href="#didaktik-feedback"><span class="lang-de">Distraktor-Didaktik</span><span class="lang-en" style="display:none;">Distractor Didactics</span></a></li>
+          </ul>
+        </div>
+
+        <div class="wiki-nav-section">
+          <div class="wiki-nav-heading">
+            <span class="lang-de">3. Client &amp; Distribution</span>
+            <span class="lang-en" style="display:none;">3. Clients &amp; Distribution</span>
+          </div>
+          <ul class="wiki-nav-list">
+            <li class="wiki-nav-item"><a href="#notifications"><span class="lang-de">Lokale Erinnerungen</span><span class="lang-en" style="display:none;">Local Reminders</span></a></li>
+            <li class="wiki-nav-item"><a href="#fdroid"><span class="lang-de">F-Droid &amp; Android APK</span><span class="lang-en" style="display:none;">F-Droid &amp; Android APK</span></a></li>
+            <li class="wiki-nav-item"><a href="#cli"><span class="lang-de">CLI &amp; Desktop-Engine</span><span class="lang-en" style="display:none;">CLI &amp; Desktop Engine</span></a></li>
+            <li class="wiki-nav-item"><a href="#faq"><span class="lang-de">Häufige Fragen (FAQ)</span><span class="lang-en" style="display:none;">Frequently Asked Questions</span></a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="wiki-content">
+      <article class="wiki-article">
+        
+        <div class="wiki-hero-header">
+          <p class="wiki-category-tag">
+            <span class="lang-de">Offizielles Projekthandbuch</span>
+            <span class="lang-en" style="display:none;">Official Project Manual</span>
+          </p>
+          <h1 class="wiki-title">
+            <span class="lang-de">learn Dokumentation &amp; Referenz</span>
+            <span class="lang-en" style="display:none;">learn Documentation &amp; Reference</span>
+          </h1>
+          <p class="wiki-lead">
+            <span class="lang-de">Vollständiges technisches und didaktisches Handbuch zur Open-Source Lern-Engine, dem 3-Branch/3-Web System, Compiler-Labor und Abschlussprüfungen nach Fachinformatiker-Standard.</span>
+            <span class="lang-en" style="display:none;">Complete technical and didactic handbook covering the open-source learning engine, the 3-branch/3-web architecture, compiler lab, and 90-minute final exams.</span>
+          </p>
+        </div>
+
+        <!-- 1. ÜBERSICHT -->
+        <section class="wiki-section" id="uebersicht">
+          <h2>
+            <span>💡</span>
+            <span class="lang-de">1. Übersicht &amp; Philosophie</span>
+            <span class="lang-en" style="display:none;">1. Overview &amp; Ethos</span>
+          </h2>
+          <p>
+            <span class="lang-de"><strong>learn</strong> ist als radikal datenschutzfreundliche, paywall-freie Alternative zu kommerziellen Lern-Apps wie Mimo oder SoloLearn konzipiert. Kommerzielle Apps setzen oft auf künstliche Verknappung („Herzen aufgebraucht“, Zwangswerbung, Paywalls vor Prüfungen), intransparente Tracking-SDKs und oberflächliche Multiple-Choice-Klickereien.</span>
+            <span class="lang-en" style="display:none;"><strong>learn</strong> is designed as a radically privacy-first, paywall-free alternative to commercial learning apps like Mimo or SoloLearn. Commercial platforms frequently enforce artificial scarcity ("out of hearts", forced ads, exam paywalls), invasive tracking SDKs, and superficial multiple-choice clicking.</span>
+          </p>
+
+          <div class="callout success">
+            <div class="callout-title">
+              <span>🛡️</span>
+              <span class="lang-de">Unsere Kernprinzipien</span>
+              <span class="lang-en" style="display:none;">Our Core Principles</span>
+            </div>
+            <p>
+              <span class="lang-de">100% Freie Software (GPL-3.0) &bull; Keine künstlichen Paywalls &bull; Zero-Telemetry (kein Firebase, kein Google Analytics) &bull; 100% Offline-First via SQLite WAL &amp; IndexedDB &bull; Echte Code-Schreib-Befähigung statt Auswendiglernen.</span>
+              <span class="lang-en" style="display:none;">100% Free Software (GPL-3.0) &bull; No artificial paywalls &bull; Zero-Telemetry (no Firebase, no Google Analytics) &bull; 100% Offline-First via SQLite WAL &amp; IndexedDB &bull; Real code-writing capability over memorization.</span>
+            </p>
+          </div>
+        </section>
+
+        <!-- 2. ARCHITEKTUR -->
+        <section class="wiki-section" id="architektur">
+          <h2>
+            <span>🏗️</span>
+            <span class="lang-de">2. Das 3-Branch &amp; 3-Web System</span>
+            <span class="lang-en" style="display:none;">2. The 3-Branch &amp; 3-Web Architecture</span>
+          </h2>
+          <p>
+            <span class="lang-de">Um Codebase, Lehrmaterial und Webauftritt sauber zu entkoppeln, setzt <strong>learn</strong> auf eine strikte 3-Branch- und 3-Web-Architektur:</span>
+            <span class="lang-en" style="display:none;">To cleanly decouple codebase, learning material, and web presentation, <strong>learn</strong> employs a strict 3-branch and 3-web architecture:</span>
+          </p>
+
+          <div class="wiki-cards-grid">
+            <div class="wiki-card">
+              <h4>🌿 Branch 1: <code>main</code></h4>
+              <p>
+                <span class="lang-de">Reiner Go 1.22 Quellcode, CLI-Runner, native Fyne v2 Android/Desktop-Engine, Pure-Go SQLite WAL-Speicher, Notification-Service und GitHub Actions CI/CD.</span>
+                <span class="lang-en" style="display:none;">Pure Go 1.22 source code, CLI runner, native Fyne v2 Android/Desktop engine, Pure-Go SQLite WAL storage, notification service, and GitHub Actions CI/CD.</span>
+              </p>
+            </div>
+            <div class="wiki-card">
+              <h4>📚 Branch 2: <code>content</code></h4>
+              <p>
+                <span class="lang-de">Vollständig entkoppeltes Curriculum. Enthält JSON-Schemas (`schemas/chapter-v1.json`), Kursmanifeste, Lektionen, Compiler-Bugfix-Szenarien und 90-Min-Prüfungen.</span>
+                <span class="lang-en" style="display:none;">Fully decoupled curriculum. Contains JSON schemas (`schemas/chapter-v1.json`), course manifests, lessons, compiler bugfix scenarios, and 90-min exams.</span>
+              </p>
+            </div>
+            <div class="wiki-card">
+              <h4>🌐 Branch 3: <code>web</code></h4>
+              <p>
+                <span class="lang-de">Die vollständige statische Web-Präsenz auf GitHub Pages. Beherbergt das 3-Web-Trio: Showcase (`/learn/`), Web-Wiki (`/learn/wiki/`) und Web-App (`/learn/app/`).</span>
+                <span class="lang-en" style="display:none;">The complete static web presence on GitHub Pages. Hosts the 3-web trio: Showcase (`/learn/`), Web-Wiki (`/learn/wiki/`), and Web-App (`/learn/app/`).</span>
+              </p>
+            </div>
+          </div>
+
+          <h3>
+            <span class="lang-de">Das 3-Web-Trio im Detail</span>
+            <span class="lang-en" style="display:none;">The 3-Web Trio in Detail</span>
+          </h3>
+          <table class="wiki-table">
+            <thead>
+              <tr>
+                <th>Web-Komponente</th>
+                <th>URL-Pfad</th>
+                <th>Zweck &amp; Funktion</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. Main-Web (Showcase)</strong></td>
+                <td><code>https://benzjeremy.github.io/learn/</code></td>
+                <td>
+                  <span class="lang-de">Landingpage nach untis-go Standard: Hero, Feature-Grid, APK &amp; Binary Downloads, Installationsanleitungen, GPL-3.0 Lizenz und Credits.</span>
+                  <span class="lang-en" style="display:none;">Landing page following the untis-go standard: Hero, feature grid, APK &amp; binary downloads, install guides, GPL-3.0 license, and credits.</span>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>2. Web-Wiki (Handbuch)</strong></td>
+                <td><code>https://benzjeremy.github.io/learn/wiki/</code></td>
+                <td>
+                  <span class="lang-de">Umfassende Dokumentation, Curriculums-Referenz, Compiler-Labor Anleitung, Prüfungs-Modus, F-Droid Setup und Problembehebung.</span>
+                  <span class="lang-en" style="display:none;">Comprehensive documentation, curriculum reference, compiler lab guide, exam guidelines, F-Droid setup, and troubleshooting.</span>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>3. Web-App (Cockpit)</strong></td>
+                <td><code>https://benzjeremy.github.io/learn/app/</code></td>
+                <td>
+                  <span class="lang-de">Die eigentliche interaktive Lern-Applikation: 9 Fächer, Lektionen-Player, Compiler-Editor, 90-Minuten-Prüfungen mit Countdown und lokaler Persistenz.</span>
+                  <span class="lang-en" style="display:none;">The interactive learning application: 9 subjects, lesson player, compiler editor, 90-minute exams with countdown timer, and local persistence.</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- 3. CURRICULA & FÄCHER -->
+        <section class="wiki-section" id="faecher">
+          <h2>
+            <span>🎓</span>
+            <span class="lang-de">3. Curricula &amp; Kernfächer</span>
+            <span class="lang-en" style="display:none;">3. Curricula &amp; Core Subjects</span>
+          </h2>
+          <p>
+            <span class="lang-de">Die Curricula orientieren sich an der staatlichen Ausbildungsordnung für Fachinformatiker (Anwendungsentwicklung &amp; Systemintegration). Jedes Fach umfasst strukturierte Theorie, interaktive Quizzes, Inline-Code-Aufgaben, Compiler-Bugfixes und eine abschließende Fachprüfung:</span>
+            <span class="lang-en" style="display:none;">The curricula align with vocational standards for software engineers and systems specialists. Each course includes structured theory, interactive quizzes, inline code exercises, compiler bugfixes, and a final subject exam:</span>
+          </p>
+
+          <ul>
+            <li><strong>Go (Golang):</strong> 8 vollständige Kapitel von Syntax, Kontrollfluss, Slices/Pointers, Structs/Interfaces über Concurrency/Channels bis Tooling &amp; HTTP-Server.</li>
+            <li><strong>Cybersecurity:</strong> OWASP Top 10, Zero-Trust, symmetrische/asymmetrische Kryptografie (AES-256-GCM, PBKDF2), CSRF &amp; DNS-Rebinding Schutz.</li>
+            <li><strong>SQL &amp; Datenbanken:</strong> Relationale Modellierung (1:1, 1:n, n:m), DDL/DML, Normalisierung (1NF–3NF), Indizes, ACID-Transaktionen.</li>
+            <li><strong>C# &amp; .NET:</strong> OOP, Delegates/Events, LINQ, Garbage Collection, async/await und CLR-Internals.</li>
+            <li><strong>Astro &amp; Modern Web:</strong> Island Architecture, Zero-JS by Default, Content Collections, Static Site Generation (SSG) &amp; SSR.</li>
+            <li><strong>Python:</strong> Datenstrukturen, List Comprehensions, Decorator, Generatoren, OOP und idiomatische CLI-Tools.</li>
+            <li><strong>HTML5 &amp; CSS3:</strong> Semantisches Web, Flexbox, CSS Grid, Container Queries, responsive Typografie und Barrierefreiheit (WCAG AAA).</li>
+            <li><strong>JavaScript:</strong> ESNext, Event Loop, Promises, Closures, DOM-Manipulation, Strict Mode und Prototypal Inheritance.</li>
+            <li><strong>PHP:</strong> Modernes PHP 8+, Type Hinting, Attributes, PSR-Standards, Composer, PDO und Prepared Statements.</li>
+          </ul>
+        </section>
+
+        <!-- 4. COMPILER-LABOR -->
+        <section class="wiki-section" id="compiler-labor">
+          <h2>
+            <span>🛠️</span>
+            <span class="lang-de">4. Interaktives Compiler-Labor</span>
+            <span class="lang-en" style="display:none;">4. Interactive Compiler Lab</span>
+          </h2>
+          <p>
+            <span class="lang-de">Damit Lernende nicht nur passive Multiple-Choice-Fragen beantworten, sondern echte Code-Schreib-Kompetenz entwickeln, enthält <strong>learn</strong> ein interaktives Compiler-Labor direkt im Browser:</span>
+            <span class="lang-en" style="display:none;">To ensure learners acquire real code-writing competence rather than just clicking through multiple-choice questions, <strong>learn</strong> includes an in-browser compiler lab:</span>
+          </p>
+
+          <pre><code>// Beispiel aus Go Kapitel 1 (Abschnitt 5: Compiler-Labor)
+package main
+
+import "fmt"
+
+func main() {
+    // BUG: fmt.Printlln existiert nicht!
+    fmt.Println("Hallo Welt aus Go!")
+}</code></pre>
+
+          <div class="callout warning">
+            <div class="callout-title">
+              <span>⚠️</span>
+              <span class="lang-de">Realistische Terminal-Ausgaben</span>
+              <span class="lang-en" style="display:none;">Realistic Terminal Diagnostics</span>
+            </div>
+            <p>
+              <span class="lang-de">Wird der Fehler nicht behoben, meldet das Terminal <code>Exit Code 1</code> mit exakter Zeilenangabe: <code>./main.go:6:5: undefined: fmt.Printlln (did you mean fmt.Println?)</code>. Erst bei fehlerfreier Korrektur meldet das Terminal <code>Exit Code 0: Compilation &amp; Run Successful</code>.</span>
+              <span class="lang-en" style="display:none;">If uncorrected, the terminal reports <code>Exit Code 1</code> with exact line coordinates: <code>./main.go:6:5: undefined: fmt.Printlln (did you mean fmt.Println?)</code>. Only upon correct syntax does the terminal emit <code>Exit Code 0: Compilation &amp; Run Successful</code>.</span>
+            </p>
+          </div>
+        </section>
+
+        <!-- 5. PRÜFUNGEN -->
+        <section class="wiki-section" id="pruefungen">
+          <h2>
+            <span>🎓</span>
+            <span class="lang-de">5. 90-Minuten-Abschlussprüfungen</span>
+            <span class="lang-en" style="display:none;">5. 90-Minute Final Exam Simulations</span>
+          </h2>
+          <p>
+            <span class="lang-de">Jedes Fach schließt mit einer umfassenden Abschlussprüfung ab. Diese simuliert eine reale 90-minütige Fachprüfung unter Prüfungsbedingungen:</span>
+            <span class="lang-en" style="display:none;">Each subject concludes with a comprehensive final examination simulating real vocational certification conditions:</span>
+          </p>
+
+          <table class="wiki-table">
+            <thead>
+              <tr>
+                <th>Prozentbereich</th>
+                <th>Deutsche Schulnote</th>
+                <th>Bewertung</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>92% – 100%</td><td>Note 1</td><td>Sehr gut (Auszeichnung)</td></tr>
+              <tr><td>81% – 91%</td><td>Note 2</td><td>Gut (Überdurchschnittlich)</td></tr>
+              <tr><td>67% – 80%</td><td>Note 3</td><td>Befriedigend (Solide Basis)</td></tr>
+              <tr><td>50% – 66%</td><td>Note 4</td><td>Ausreichend (Bestanden)</td></tr>
+              <tr><td>30% – 49%</td><td>Note 5</td><td>Mangelhaft (Wiederholungsbedarf)</td></tr>
+              <tr><td>0% – 29%</td><td>Note 6</td><td>Ungenügend (Nicht bestanden)</td></tr>
+            </tbody>
+          </table>
+
+          <p>
+            <span class="lang-de"><strong>Prüfungs-Features:</strong> 90-Minuten Countdown-Timer mit visueller Warnung unter 15 Minuten &bull; Durchmischter Fragenpool &bull; Dozenten-Musterlösung nach Abgabe &bull; Lokale Archivierung aller Prüfungsversuche in IndexedDB.</span>
+            <span class="lang-en" style="display:none;"><strong>Exam Features:</strong> 90-minute countdown timer with visual alert under 15 mins &bull; Randomized question pool &bull; Master reference solutions after submission &bull; Local exam history in IndexedDB.</span>
+          </p>
+        </section>
+
+        <!-- 6. DISTRAKTOR-DIDAKTIK -->
+        <section class="wiki-section" id="didaktik-feedback">
+          <h2>
+            <span>💡</span>
+            <span class="lang-de">6. Distraktor-Didaktik ohne Lösungs-Spoilen</span>
+            <span class="lang-en" style="display:none;">6. Distractor Didactics (Zero Solution-Spoiling)</span>
+          </h2>
+          <p>
+            <span class="lang-de">In traditionellen Apps führt eine falsche Antwort oft dazu, dass sofort die richtige Lösung eingeblendet wird. Dadurch lernt der Nutzer jedoch nichts, sondern merkt sich nur die Position der richtigen Option.</span>
+            <span class="lang-en" style="display:none;">Traditional learning apps often immediately reveal the correct solution upon a wrong choice, preventing true retention.</span>
+          </p>
+          <div class="callout">
+            <div class="callout-title">
+              <span>🧠</span>
+              <span class="lang-de">Wie learn Feedback liefert</span>
+              <span class="lang-en" style="display:none;">How learn Delivers Feedback</span>
+            </div>
+            <p>
+              <span class="lang-de">Wählt der Nutzer beispielsweise <code>:=</code> statt des Channel-Operators <code>&lt;-</code>, blendet das System ein: <em>„Didaktischer Hinweis: <code>:=</code> ist der Kurzdeklarations-Operator für Variablen (z. B. <code>x := 42</code>) und hat keinen Bezug zu Goroutine-Channels.“</em> Die Optionen bleiben aktiv, und der Nutzer erarbeitet sich die Lösung selbst.</span>
+              <span class="lang-en" style="display:none;">If a user selects <code>:=</code> instead of the channel operator <code>&lt;-</code>, the app explains: <em>"Didactic Note: <code>:=</code> is the short variable declaration operator (e.g. <code>x := 42</code>) and is not used for goroutine channels."</em> The options remain interactive, encouraging self-guided discovery.</span>
+            </p>
+          </div>
+        </section>
+
+        <!-- 7. NOTIFICATIONS -->
+        <section class="wiki-section" id="notifications">
+          <h2>
+            <span>🔔</span>
+            <span class="lang-de">7. Lokales Erinnerungssystem</span>
+            <span class="lang-en" style="display:none;">7. Local Reminder System</span>
+          </h2>
+          <p>
+            <span class="lang-de"><strong>learn</strong> respektiert die Privatsphäre des Nutzers. Daher gibt es keinen zentralen Push-Server und keine Cloud-Tracker. Das Benachrichtigungssystem läuft zu 100% lokal auf dem Endgerät:</span>
+            <span class="lang-en" style="display:none;"><strong>learn</strong> respects privacy. There is no central push notification server or cloud tracker. Reminders run 100% locally on the device:</span>
+          </p>
+          <ul>
+            <li><strong>Tägliche Erinnerung:</strong> Frei wählbare Uhrzeit (z. B. 18:00 Uhr) zur Etablierung einer täglichen Lern-Gewohnheit.</li>
+            <li><strong>Höflicher Inaktivitäts-Nudge:</strong> Erkennt die App nach 3–5 Tagen keine Aktivität, erinnert sie dezent daran, wieder ein kurzes Kapitel zu absolvieren.</li>
+            <li><strong>Web Notifications API:</strong> Im Browser über native HTML5 Notifications nach einmaliger Erlaubnis.</li>
+            <li><strong>Android AlarmManager:</strong> Unter Android über energiesparende Betriebssystem-Alarme ohne Hintergrund-Batterieverbrauch.</li>
+          </ul>
+        </section>
+
+        <!-- 8. F-DROID -->
+        <section class="wiki-section" id="fdroid">
+          <h2>
+            <span>📱</span>
+            <span class="lang-de">8. F-Droid &amp; Android Distribution</span>
+            <span class="lang-en" style="display:none;">8. F-Droid &amp; Android Distribution</span>
+          </h2>
+          <p>
+            <span class="lang-de">Die Android-App ist als echtes, natives Go/Fyne v2 Paket kompiliert (&lt; 20 MB Paketgröße, ~25 MB RAM). Die Distribution erfolgt primär über freie Repositories:</span>
+            <span class="lang-en" style="display:none;">The Android app is compiled as a native Go/Fyne v2 package (&lt; 20 MB APK, ~25 MB RAM). Distribution is handled via free repositories:</span>
+          </p>
+
+          <pre><code># F-Droid Fastlane Metadaten-Struktur:
+fastlane/metadata/android/
+├── de-DE/ (title.txt, short_description.txt, full_description.txt)
+├── en-US/ (title.txt, short_description.txt, full_description.txt)
+└── images/ (icon.png 512x512, featureGraphic.png 1024x500)</code></pre>
+
+          <p>
+            <span class="lang-de">Zusätzlich steht das offizielle F-Droid Repository <strong>myfdroid</strong> unter <code>https://benzjeremy.github.io/myfdroid/repo</code> zur direkten Einbindung in F-Droid, Neo Store und Droid-ify zur Verfügung.</span>
+            <span class="lang-en" style="display:none;">Additionally, the official F-Droid repository <strong>myfdroid</strong> is available at <code>https://benzjeremy.github.io/myfdroid/repo</code> for 1-click addition to F-Droid, Neo Store, and Droid-ify.</span>
+          </p>
+        </section>
+
+        <!-- 9. CLI -->
+        <section class="wiki-section" id="cli">
+          <h2>
+            <span>💻</span>
+            <span class="lang-de">9. CLI &amp; Desktop-Engine</span>
+            <span class="lang-en" style="display:none;">9. CLI &amp; Desktop Engine</span>
+          </h2>
+          <p>
+            <span class="lang-de">Für Entwickler und Power-User steht das schlanke Go-Binary für Linux und Windows zur Verfügung:</span>
+            <span class="lang-en" style="display:none;">For developers and power users, a lightweight Go binary is available for Linux and Windows:</span>
+          </p>
+
+          <pre><code># Installation via Go CLI
+go install github.com/benzjeremy/learn/cmd/learn@latest
+
+# Interaktiver Terminal-Modus
+learn --cli
+
+# Erinnerungs-Check ausführen
+learn --check-reminder
+
+# Lokale SQLite-Datenbank anzeigen
+learn --version</code></pre>
+        </section>
+
+        <!-- 10. FAQ -->
+        <section class="wiki-section" id="faq">
+          <h2>
+            <span>❓</span>
+            <span class="lang-de">10. Häufige Fragen (FAQ)</span>
+            <span class="lang-en" style="display:none;">10. Frequently Asked Questions (FAQ)</span>
+          </h2>
+          
+          <h3><span class="lang-de">Werden meine Daten in der Cloud gespeichert?</span><span class="lang-en" style="display:none;">Is my progress stored in the cloud?</span></h3>
+          <p>
+            <span class="lang-de">Nein. Alle Fortschritte, XP-Punkte, Streaks und Prüfungsergebnisse werden zu 100% lokal gespeichert (SQLite WAL auf Desktop/Android, isolierte IndexedDB im Web-Browser). Null Cloud-Speicher, null Tracking.</span>
+            <span class="lang-en" style="display:none;">No. All progress, XP, streaks, and exam results are stored 100% locally (SQLite WAL on desktop/Android, isolated IndexedDB in web browsers). Zero cloud storage, zero telemetry.</span>
+          </p>
+
+          <h3><span class="lang-de">Kostet die App oder ein Zertifikat Geld?</span><span class="lang-en" style="display:none;">Does the app or certification cost money?</span></h3>
+          <p>
+            <span class="lang-de">Nein. Alle Kurse, Übungen, Compiler-Prüfungen und Notenbescheinigungen sind unter der GNU General Public License v3.0 bedingungslos kostenlos und open source.</span>
+            <span class="lang-en" style="display:none;">No. All courses, exercises, compiler challenges, and exam report cards are unconditionally free and open source under GNU General Public License v3.0.</span>
+          </p>
+
+          <h3><span class="lang-de">Wie kann ich neue Lektionen beitragen?</span><span class="lang-en" style="display:none;">How can I contribute new lessons?</span></h3>
+          <p>
+            <span class="lang-de">Über den Branch <code>content</code>! Öffne einen Pull Request gegen das Repository <code>benzjeremy/learn</code> auf GitHub. Nach automatisierter Schema-Validierung wird dein Kurs im nächsten Release freigeschaltet.</span>
+            <span class="lang-en" style="display:none;">Via the <code>content</code> branch! Open a Pull Request against <code>benzjeremy/learn</code> on GitHub. Following automated schema validation, your curriculum is included in the next update.</span>
+          </p>
+        </section>
+
+        <!-- WIKI FOOTER -->
+        <footer class="wiki-footer">
+          <div>
+            <span>© 2026 Jeremy Benz &bull; learn Wiki</span>
+          </div>
+          <div style="display:flex; gap:1rem;">
+            <a href="../">Startseite</a>
+            <a href="../app/">Web-App</a>
+            <a href="https://github.com/benzjeremy/learn" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://benzjeremy.github.io/impressum.html" target="_blank" rel="noopener noreferrer">Impressum</a>
+            <a href="https://benzjeremy.github.io/datenschutz.html" target="_blank" rel="noopener noreferrer">Datenschutz</a>
+          </div>
+        </footer>
+
+      </article>
+    </main>
+
+  </div>
+
+  <!-- WIKI SCRIPTS -->
+  <script>
+    function setWikiLang(lang) {
+      const isDe = lang === 'de';
+      document.querySelectorAll('.lang-de').forEach(el => el.style.display = isDe ? '' : 'none');
+      document.querySelectorAll('.lang-en').forEach(el => el.style.display = isDe ? 'none' : '');
+      document.getElementById('btn-lang-de').classList.toggle('active', isDe);
+      document.getElementById('btn-lang-en').classList.toggle('active', !isDe);
+      localStorage.setItem('learn_lang', lang);
+    }
+
+    function toggleWikiTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('site_theme', next);
+      document.getElementById('themeToggle').textContent = next === 'dark' ? '🌙' : '☀️';
+    }
+
+    function filterWiki() {
+      const query = document.getElementById('wikiSearch').value.toLowerCase().trim();
+      const sections = document.querySelectorAll('.wiki-section');
+      sections.forEach(sec => {
+        if (!query) {
+          sec.style.display = '';
+        } else {
+          const text = sec.innerText.toLowerCase();
+          sec.style.display = text.includes(query) ? '' : 'none';
+        }
+      });
+    }
+
+    // Initialize Language & Theme
+    (function() {
+      const savedLang = localStorage.getItem('learn_lang') || 'de';
+      setWikiLang(savedLang);
+      const savedTheme = localStorage.getItem('site_theme') || 'dark';
+      document.getElementById('themeToggle').textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+    })();
+  </script>
+</body>
+</html>
