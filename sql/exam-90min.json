@@ -1,0 +1,128 @@
+{
+  "id": "sql-exam-90min",
+  "courseId": "sql",
+  "chapterIndex": 2,
+  "type": "exam_90min",
+  "examDurationMinutes": 90,
+  "maxScore": 100,
+  "passingScore": 50,
+  "title": {
+    "de": "🏛️ IHK-Prüfungsmodul (90 Min): Datenbankdesign & SQL-Abfragen",
+    "en": "🏛️ IHK Exam Module (90 Min): Database Design & SQL Queries"
+  },
+  "description": {
+    "de": "Realistische IHK-Klausur nach bundeseinheitlichem Standard: Relationale Datenmodellierung, Kardinalitäten, Normalisierung und komplexe SQL-Abfragen.",
+    "en": "Realistic IHK exam according to official standards: Relational modeling, cardinalities, normalization, and complex SQL queries."
+  },
+  "scenario": {
+    "de": "Handlungssituation: Sie sind Anwendungsentwickler/in bei einem Logistikdienstleister. Für die Erfassung von Frachtaufträgen, LKW-Flotten und Fahrern soll ein neues relationales Datenbankschema entworfen und optimiert werden. Beantworten Sie die anstehenden Fachfragen zur Datenmodellierung und SQL-Syntax.",
+    "en": "Scenario: You are a software developer at a logistics provider. A new relational schema for freight orders, vehicle fleets, and drivers must be designed and tuned. Answer the questions regarding data modeling and SQL syntax."
+  },
+  "sections": [
+    {
+      "id": "exam-sql-q01",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 1 (20 Punkte): Auflösung einer n:m Kardinalität", "en": "Question 1 (20 Points): Resolving an n:m Cardinality" },
+      "prompt": {
+        "de": "Ein Fahrer kann mehrere Fahrzeuge führen, und ein Fahrzeug kann von mehreren Fahrern genutzt werden (n:m Beziehung). Wie wird diese Beziehung in einem relationalen Datenbankschema fachgerecht aufgelöst?",
+        "en": "A driver can operate multiple vehicles, and a vehicle can be driven by multiple drivers (n:m relationship). How is this relationship correctly resolved in a relational schema?"
+      },
+      "options": [
+        "Durch Hinzufügen einer kommagetrennten Fahrzeug-Liste in die Tabelle `fahrer`.",
+        "Über eine eigenständige Zuordnungstabelle (Assoziationstabelle), die Fremdschlüssel auf Fahrer und Fahrzeug enthält.",
+        "Indem der Primärschlüssel der Fahrzeugtabelle direkt als Fremdschlüssel in die Fahrertabelle eingefügt wird.",
+        "Eine n:m Beziehung kann in SQL-Datenbanken prinzipbedingt nicht abgebildet werden."
+      ],
+      "solution": 1,
+      "explanation": {
+        "de": "Relational können n:m Beziehungen ausschließlich über eine eigenständige Zwischentabelle (z. B. `fahrer_fahrzeug`) aufgelöst werden. Diese enthält Fremdschlüssel auf beide Entitäten, die zusammen oft den zusammengesetzten Primärschlüssel bilden.",
+        "en": "In relational theory, n:m relationships must be resolved through a junction (associative) table holding foreign keys referencing both primary entities."
+      }
+    },
+    {
+      "id": "exam-sql-q02",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 2 (20 Punkte): Filterung von Aggregaten mit HAVING", "en": "Question 2 (20 Points): Aggregate Filtering with HAVING" },
+      "prompt": {
+        "de": "Sie möchten alle Kunden ermitteln, die in Summe mehr als 1.000 € Umsatz generiert haben. Welcher Filter-Befehl muss für die Bedingung `SUM(betrag) > 1000` verwendet werden?",
+        "en": "You want to find all customers who generated total sales exceeding 1,000 €. Which clause must filter the condition `SUM(betrag) > 1000`?"
+      },
+      "options": [
+        "WHERE SUM(betrag) > 1000",
+        "HAVING SUM(betrag) > 1000",
+        "ORDER BY SUM(betrag) > 1000",
+        "GROUP BY SUM(betrag) > 1000"
+      ],
+      "solution": 1,
+      "explanation": {
+        "de": "`WHERE` filtert einzelne Zeilen VOR der Gruppierung. `HAVING` filtert Gruppen NACH der Aggregation. Bedingungen mit Aggregatfunktionen wie `SUM()` oder `COUNT()` verlangen zwingend `HAVING`.",
+        "en": "`WHERE` filters individual rows BEFORE grouping. `HAVING` filters aggregated groups AFTER `GROUP BY`. Aggregate functions must be placed in `HAVING`."
+      }
+    },
+    {
+      "id": "exam-sql-q03",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 3 (20 Punkte): Verhalten von LEFT JOIN bei fehlenden Partnerdaten", "en": "Question 3 (20 Points): LEFT JOIN Behavior on Missing Data" },
+      "prompt": {
+        "de": "Ein `LEFT OUTER JOIN` verbindet die linke Tabelle `kunden` mit der rechten Tabelle `bestellungen`. Was steht in den Spalten der Tabelle `bestellungen`, wenn ein Kunde bisher noch keine Bestellung aufgegeben hat?",
+        "en": "A `LEFT OUTER JOIN` connects left table `kunden` with right table `bestellungen`. What values appear in the `bestellungen` columns if a customer has placed no orders?"
+      },
+      "options": [
+        "Die Zeile dieses Kunden wird in der Ergebnismenge komplett ignoriert.",
+        "Die Spalten enthalten den Wert `NULL`.",
+        "Die Spalten enthalten die Zahl 0 bzw. Leerstrings.",
+        "Die Datenbank bricht die Abfrage mit einem Constraint-Error ab."
+      ],
+      "solution": 1,
+      "explanation": {
+        "de": "Ein `LEFT JOIN` liefert immer alle Zeilen der linken Tabelle. Findet sich in der rechten Tabelle kein korrespondierender Datensatz, werden alle Spalten der rechten Seite mit `NULL` aufgefüllt.",
+        "en": "A `LEFT JOIN` guarantees preservation of all rows from the left table. If no match exists in the right table, right-side columns are populated with `NULL`."
+      }
+    },
+    {
+      "id": "exam-sql-q04",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 4 (20 Punkte): B-Tree Indexierung & Query Performance", "en": "Question 4 (20 Points): B-Tree Indexing & Query Performance" },
+      "prompt": {
+        "de": "Eine Tabelle mit 5.000.000 Kundendatensätzen wird häufig über die Spalte `email` abgefragt (`WHERE email = ?`). Wie verhindert man einen zeitintensiven Full Table Scan?",
+        "en": "A table with 5,000,000 customer records is frequently queried via `email` (`WHERE email = ?`). How do you avoid a slow full table scan?"
+      },
+      "options": [
+        "Anlegen eines B-Tree Indexes: `CREATE INDEX idx_kunden_email ON kunden(email);`",
+        "Verkürzen der E-Mail-Adressen auf maximal 5 Zeichen",
+        "Löschen von 4.000.000 Datensätzen aus der Datenbank",
+        "Nutzung von `SELECT *` statt gezielter Spaltenauswahl"
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Ein B-Tree-Index ermöglicht logarithmische Suchzeiten `O(log n)` anstelle linearer Tabellenabtastung `O(n)`. Der Datenbank-Optimizer nutzt den Index gezielt für Index-Seek-Operationen.",
+        "en": "A B-Tree index provides logarithmic search complexity `O(log n)` instead of linear scans `O(n)`. The query optimizer uses index seeks."
+      }
+    },
+    {
+      "id": "exam-sql-q05",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 5 (20 Punkte): Verhinderung von SQL-Injections", "en": "Question 5 (20 Points): Preventing SQL Injections" },
+      "prompt": {
+        "de": "Ein Login-Formular prüft Benutzername und Passwort. Welche Methode schützt auf Software-Ebene absolut zuverlässig gegen SQL-Injection-Angriffe?",
+        "en": "A login form validates username and password. Which method reliably protects against SQL injection on application level?"
+      },
+      "options": [
+        "Die konsequente Verwendung von Prepared Statements mit gebundenen Parametern.",
+        "Das Ersetzen von einfachen Anführungszeichen durch doppelte Anführungszeichen via Regex.",
+        "Die Verschlüsselung des Webservers mit BitLocker.",
+        "Das Deaktivieren der Fehleranzeige in der HTML-Oberfläche."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Prepared Statements trennen den SQL-Befehlscode strikt von den Benutzereingabedaten. Nutzereingaben werden vom RDBMS-Parser niemals als SQL-Syntax interpretiert.",
+        "en": "Prepared statements strictly separate executable SQL grammar from user parameter values. Untrusted input is never parsed as SQL syntax."
+      }
+    }
+  ]
+}

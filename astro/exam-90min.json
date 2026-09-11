@@ -1,0 +1,128 @@
+{
+  "id": "astro-exam-90min",
+  "courseId": "astro",
+  "chapterIndex": 2,
+  "type": "exam_90min",
+  "examDurationMinutes": 90,
+  "maxScore": 100,
+  "passingScore": 50,
+  "title": {
+    "de": "🏛️ IHK-Prüfungsmodul (90 Min): Web-Architektur & Performance",
+    "en": "🏛️ IHK Exam Module (90 Min): Web Architecture & Performance"
+  },
+  "description": {
+    "de": "Prüfungssimulation für Web-Architektur nach IHK-Standard: Core Web Vitals (LCP, INP, CLS), Static Site Generation (SSG), serverseitiges Rendering und Barrierefreiheit.",
+    "en": "Web architecture exam simulation: Core Web Vitals (LCP, INP, CLS), Static Site Generation (SSG), server-side rendering, and web accessibility."
+  },
+  "scenario": {
+    "de": "Handlungssituation: Sie arbeiten in einer Digitalagentur. Ein Medienverlag klagt über schlechte Google-Rankings und hohe Absprungraten auf mobilen Endgeräten. Sie sollen die bestehende SPA-Architektur analysieren und auf ein modernes, performantes Static-Site- bzw. Island-Architekturmodell migrieren.",
+    "en": "Scenario: You are working at a digital agency. A media publishing client reports dropping search rankings and high mobile bounce rates caused by SPA overhead. You must evaluate the architecture and migrate to modern Island Architecture and SSG."
+  },
+  "sections": [
+    {
+      "id": "exam-astro-q01",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 1 (20 Punkte): Core Web Vitals - LCP Optimierung", "en": "Question 1 (20 Points): Core Web Vitals - LCP Optimization" },
+      "prompt": {
+        "de": "Was misst die Google Core Web Vital Metrik 'Largest Contentful Paint' (LCP) und wie verbessert serverseitiges Pre-Rendering (SSG) diesen Wert maßgeblich?",
+        "en": "What does the Largest Contentful Paint (LCP) metric measure, and how does SSG improve it?"
+      },
+      "options": [
+        "LCP misst die Zeit bis zum Rendern des größten sichtbaren Inhaltselements. SSG liefert fertiges HTML direkt vom Server, sodass der Browser den Inhalt ohne vorherigen JS-Download sofort anzeigen kann.",
+        "LCP misst die Anzahl der Zeilen im JavaScript-Code.",
+        "LCP misst die Downloadzeit der Favicon-Datei.",
+        "LCP misst die Reaktionszeit der Maus auf Klicks."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "LCP misst die Ladezeit des Hauptinhalts. Bei klassischen SPAs muss erst das JavaScript geladen und ausgeführt werden, bevor das DOM aufgebaut wird. SSG liefert fertiges HTML direkt aus, was den LCP drastisch verkürzt.",
+        "en": "LCP tracks main content paint time. SSG delivers pre-rendered HTML on the initial network response, eliminating render-blocking client JavaScript execution."
+      }
+    },
+    {
+      "id": "exam-astro-q02",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 2 (20 Punkte): Cumulative Layout Shift (CLS) Vermeidung", "en": "Question 2 (20 Points): Cumulative Layout Shift (CLS) Mitigation" },
+      "prompt": {
+        "de": "Wie verhindert man das plötzliche visuelle Springen von Texten und Layout-Elementen (CLS), wenn Bilder über das Netzwerk nachgeladen werden?",
+        "en": "How do you prevent unexpected visual layout jumps (CLS) when images finish loading over the network?"
+      },
+      "options": [
+        "Durch explizite Angabe der Attribute `width` und `height` auf dem `<img>`-Tag oder per CSS `aspect-ratio`.",
+        "Indem alle Bilder im PNG-Format statt WebP gespeichert werden.",
+        "Durch Deaktivierung des Browser-Caches.",
+        "Indem man Bildern `display: none` zuweist."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Mit gesetzten `width`- und `height`-Attributen berechnet der Browser das Seitenverhältnis (`aspect-ratio`) bereits vor dem Download des Bildes und reserviert den benötigten Platz im Layout. Dadurch springt der umgebende Text nicht nach.",
+        "en": "Specifying `width` and `height` attributes allows the browser to compute the aspect-ratio and reserve layout space before the image binary is fetched."
+      }
+    },
+    {
+      "id": "exam-astro-q03",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 3 (20 Punkte): Static Site Generation (SSG) vs. Server-Side Rendering (SSR)", "en": "Question 3 (20 Points): SSG vs. SSR" },
+      "prompt": {
+        "de": "Wann ist SSG (Generierung zur Build-Zeit) gegenüber dynamischem SSR (Generierung bei jedem HTTP-Request) klar zu bevorzugen?",
+        "en": "When is SSG (build-time generation) clearly superior to SSR (per-request generation)?"
+      },
+      "options": [
+        "Wenn sich die Seiteninhalte nicht bei jedem einzelnen Request ändern (z. B. Dokumentationen, Landingpages, Blogs), wodurch statische HTML-Dateien extrem schnell und günstig über CDNs ausgeliefert werden können.",
+        "Wenn minütlich wechselnde Aktienkurse dargestellt werden müssen.",
+        "Wenn personalisierte Live-Bankkontostände berechnet werden.",
+        "SSG sollte niemals verwendet werden, da Server-Requests immer schneller sind."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "SSG generiert unveränderliche HTML-Dateien vorab beim Deployment. Diese können weltweit über Edge-CDNs ohne Server-CPU-Last und mit Antwortzeiten von unter 20 ms ausgeliefert werden.",
+        "en": "SSG compiles unchanging content during build time, enabling instant, serverless delivery via global CDNs with sub-20ms TTFB."
+      }
+    },
+    {
+      "id": "exam-astro-q04",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 4 (20 Punkte): Interaction to Next Paint (INP)", "en": "Question 4 (20 Points): Interaction to Next Paint (INP)" },
+      "prompt": {
+        "de": "Welche Ursache führt im Browser zu einem schlechten INP-Wert (Verzögerung der UI-Reaktion nach Benutzerinteraktion)?",
+        "en": "What browser-level condition primarily degrades Interaction to Next Paint (INP)?"
+      },
+      "options": [
+        "Lange laufende synchrone JavaScript-Aufgaben (Long Tasks > 50ms), die den Main Thread blockieren und Rendering-Updates aufschieben.",
+        "Die Nutzung von HTTPS anstelle von unverschlüsseltem HTTP.",
+        "Das Vorhandensein von semantischen HTML-Tags.",
+        "Die Komprimierung von CSS-Dateien via Gzip."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Da der Browser den Main Thread für JavaScript und das Rendering teilt, blockieren schwere synchrone JS-Ausführungen den Thread. Der Browser kann den nächsten Bildframe (Next Paint) erst zeichnen, wenn der Main Thread frei wird.",
+        "en": "JavaScript execution and UI painting share the main thread. Synchronous long tasks (>50ms) block frame rendering, causing noticeable input latency."
+      }
+    },
+    {
+      "id": "exam-astro-q05",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 5 (20 Punkte): Barrierefreiheit nach WCAG 2.1 AAA", "en": "Question 5 (20 Points): WCAG 2.1 AAA Accessibility" },
+      "prompt": {
+        "de": "Welches Mindestkontrastverhältnis zwischen normalem Text und Hintergrund verlangt die Stufe AAA der Web Content Accessibility Guidelines (WCAG)?",
+        "en": "What minimum contrast ratio for regular text does WCAG 2.1 Level AAA require?"
+      },
+      "options": [
+        "Mindestens 7:1 für normalen Fließtext.",
+        "Mindestens 3:1.",
+        "Mindestens 4.5:1 (dies ist nur Stufe AA).",
+        "Ein Kontrast ist laut WCAG nicht vorgeschrieben."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "WCAG Level AA verlangt 4.5:1 für Fließtext und 3:1 für Großtext. Der strengere Standard **WCAG Level AAA** verlangt mindestens **7:1** für normalen Text und **4.5:1** für Großtext.",
+        "en": "While WCAG Level AA mandates 4.5:1 for body text, Level AAA requires a minimum contrast ratio of 7:1 for normal text."
+      }
+    }
+  ]
+}

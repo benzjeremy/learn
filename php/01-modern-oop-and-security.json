@@ -1,0 +1,71 @@
+{
+  "id": "php-01-oop-security",
+  "courseId": "php",
+  "chapterIndex": 1,
+  "title": {
+    "de": "1. Warum PHP 8? Lifecycle, OOP & PDO-Sicherheit",
+    "en": "1. Why PHP 8? Lifecycle, OOP & PDO Security"
+  },
+  "description": {
+    "de": "Moderne Backend-Entwicklung mit PHP 8+: Das 'Shared Nothing'-Architekturmodell, Constructor Property Promotion, strikte Typisierung und PDO Prepared Statements.",
+    "en": "Modern backend development with PHP 8+: The 'Shared Nothing' execution model, constructor property promotion, strict typing, and PDO prepared statements."
+  },
+  "sections": [
+    {
+      "id": "php-01-sec-01",
+      "type": "concept",
+      "title": { "de": "Das 'Shared Nothing' Architekturmodell von PHP", "en": "PHP's 'Shared Nothing' Architecture Model" },
+      "contentMarkdown": {
+        "de": "Warum treibt PHP auch heute noch über drei Viertel aller Websites und Content-Management-Systeme weltweit an?\n\n* **Isolierter Request-Lifecycle:** Bei jedem HTTP-Request instanziiert der PHP-FPM-Prozess die Laufzeitumgebung völlig neu. Nach Beantwortung des Requests wird der gesamte Arbeitsspeicher restlos freigegeben.\n* **Keine akkumulierten Speicherlecks:** Ein memory leak in einem einzelnen Skript kann niemals über Stunden den gesamten Server zum Absturz bringen, wie es bei dauerhaft im RAM laufenden Node- oder Java-Daemons passieren kann.\n* **PHP 8 Revolution:** Just-In-Time (JIT) Compiler, Attributes, Enums und strikte Typisierung (`declare(strict_types=1);`).",
+        "en": "Why does PHP power over 75% of websites worldwide?\n\n* **Isolated Request Lifecycle:** FastCGI Process Manager (PHP-FPM) provisions fresh runtime state per request and flushes memory completely upon response completion.\n* **No Cumulative Memory Leaks:** A leak in one request cannot starve server RAM over time.\n* **Modern PHP 8:** JIT compilation, native attributes, enums, and strict typing."
+      },
+      "codeSnippet": "<?php\ndeclare(strict_types=1);\n\n// PHP 8 Constructor Promotion & Readonly Properties\nfinal class UserDTO {\n    public function __construct(\n        public readonly int $id,\n        public readonly string $email,\n        public string $displayName\n    ) {}\n}"
+    },
+    {
+      "id": "php-01-sec-02",
+      "type": "concept",
+      "title": { "de": "Datenbankzugriff mit PDO & Prepared Statements", "en": "Database Access with PDO & Prepared Statements" },
+      "contentMarkdown": {
+        "de": "Veralteter PHP-Code nutzte unsichere `mysql_*`-Funktionen. Der moderne IHK-Standard verlangt ausnahmslos **PDO (PHP Data Objects)**:\n\n* **Zweistufige Ausführung:** `prepare()` sendet die Abfragestruktur an die Datenbank-Engine; `execute()` bindet die Nutzereingaben getrennt an Platzhalter (`:param`).\n* **Emulated Prepares deaktivieren:** Mit `PDO::ATTR_EMULATE_PREPARES => false` zwingt man den Datenbanktreiber, echte serverseitige Prepared Statements des RDBMS zu verwenden.",
+        "en": "Legacy PHP relied on flawed `mysql_*` routines. Modern standards mandate **PDO (PHP Data Objects)**:\n\n* **Two-Step Execution:** `prepare()` compiles grammar; `execute()` binds parameters separately.\n* **Disable Emulation:** Set `PDO::ATTR_EMULATE_PREPARES => false` to enforce true native database-level parameterized execution."
+      },
+      "codeSnippet": "$stmt = $pdo->prepare('SELECT id, password_hash FROM users WHERE email = :email');\n$stmt->execute(['email' => $userEmail]);\n$user = $stmt->fetch(PDO::FETCH_ASSOC);"
+    },
+    {
+      "id": "php-01-sec-03",
+      "type": "quiz_choice",
+      "title": { "de": "Passwort-Hashing nach aktuellem BSI-Standard", "en": "Password Hashing per Security Guidelines" },
+      "prompt": {
+        "de": "Welche native PHP-Funktion erzeugt kryptografisch sichere, mit Salt und Work-Factor versehene Hashes nach modernen Standards wie Argon2id oder Bcrypt?",
+        "en": "Which native PHP function produces cryptographically secure, salted hashes using standards like Argon2id or Bcrypt?"
+      },
+      "options": [
+        "`password_hash($password, PASSWORD_ARGON2ID)`",
+        "`md5($password)`",
+        "`sha1($password . 'salt')`",
+        "`base64_encode($password)`"
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "`password_hash()` wählt kryptografisch sichere Salze, steuert Arbeitsfaktoren und nutzt standardmäßig modernste Algorithmen (Argon2id bzw. Bcrypt). Zum Verifizieren dient `password_verify()`.",
+        "en": "`password_hash()` generates secure cryptographic salts and work factors using Argon2id/Bcrypt. Paired with `password_verify()`, it prevents timing attacks."
+      }
+    },
+    {
+      "id": "php-01-sec-04",
+      "type": "quiz_code_puzzle",
+      "title": { "de": "Code-Puzzle: Strikte Typisierung aktivieren", "en": "Code Puzzle: Enabling Strict Types" },
+      "prompt": {
+        "de": "Mit welcher Direktive an oberster Stelle einer PHP-Datei wird die implizite Typkonvertierung von Argumenten und Rückgabewerten unterbunden?",
+        "en": "Which directive at the top of a PHP file enforces strict type checks on arguments and return values?"
+      },
+      "starterCode": "declare(___ = 1);",
+      "options": ["strict_types", "type_check", "strict_mode", "enforce_types"],
+      "solution": "strict_types",
+      "explanation": {
+        "de": "`declare(strict_types=1);` zwingt PHP dazu, bei Typabweichungen einen fatalen `TypeError` auszulösen, anstatt Typen stillschweigend umzuwandeln.",
+        "en": "`declare(strict_types=1);` triggers fatal `TypeError` exceptions upon type mismatches rather than performing silent casting."
+      }
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "id": "py-01-core-concepts",
+  "courseId": "python",
+  "chapterIndex": 1,
+  "title": {
+    "de": "1. Warum Python? Typsystem, GIL & Automation",
+    "en": "1. Why Python? Type System, GIL & Automation"
+  },
+  "description": {
+    "de": "Die Entstehungsphilosophie von Guido van Rossum ('Readability counts'), dynamische Typisierung mit Type Hints, der Global Interpreter Lock (GIL) und idiomatisches Scripting.",
+    "en": "Guido van Rossum's design philosophy ('Readability counts'), dynamic typing with type hints, Global Interpreter Lock (GIL), and idiomatic scripting."
+  },
+  "sections": [
+    {
+      "id": "py-01-sec-01",
+      "type": "concept",
+      "title": { "de": "Die Philosophie von Python & Das Speichermodell", "en": "Python Philosophy & Memory Model" },
+      "contentMarkdown": {
+        "de": "Python wurde um 1991 mit dem Fokus auf maximale menschliche Lesbarkeit konzipiert.\n\n* **Alles ist ein Objekt:** In Python ist jede Zahl, Funktion und Klasse ein First-Class-Objekt auf dem Heap mit einem Header (`PyObject`), der Referenzzähler und Typzeiger enthält.\n* **Speicherbereinigung:** Primär über **Reference Counting** (wird der Zähler 0, erfolgt sofortige Freigabe) ergänzt durch einen zyklischen Garbage Collector für Selbstreferenzen.\n* **Der GIL (Global Interpreter Lock):** CPython nutzt einen Mutex, der sicherstellt, dass zu jedem Zeitpunkt nur ein nativer Thread Python-Bytecode ausführt. Echte CPU-Parallelität erfordert Multiprocessing (`multiprocessing`).",
+        "en": "Python was designed in 1991 emphasizing readability and developer productivity.\n\n* **Everything is an Object:** All variables, functions, and classes are first-class heap objects with reference counting headers.\n* **Memory Reclamation:** Primarily driven by reference counting alongside a generational cyclic GC.\n* **The GIL:** CPython uses a global lock ensuring only one thread executes bytecode at a time. True parallelism requires multiprocessing."
+      },
+      "codeSnippet": "import sys\n\nx = [1, 2, 3]\nprint(f\"Speicheradresse: {hex(id(x))}\")\nprint(f\"Referenzzähler: {sys.getrefcount(x) - 1}\")"
+    },
+    {
+      "id": "py-01-sec-02",
+      "type": "quiz_choice",
+      "title": { "de": "Mutable vs. Immutable Datenstrukturen", "en": "Mutable vs. Immutable Data Structures" },
+      "prompt": {
+        "de": "Welche der folgenden Datenstrukturen in Python ist 'immutable' (unveränderlich) und kann daher gefahrlos als Schlüssel in einem `dict` verwendet werden?",
+        "en": "Which of the following Python data structures is immutable and can safely serve as a `dict` key?"
+      },
+      "options": [
+        "Tuple (`(1, 2, 3)`)",
+        "List (`[1, 2, 3]`)",
+        "Set (`{1, 2, 3}`)",
+        "Dictionary (`{'a': 1}`)"
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Tupel (`tuple`) sind nach ihrer Erzeugung unveränderlich (`immutable`) und besitzen einen unveränderlichen Hash-Wert, sofern ihre Elemente ebenfalls hashbar sind. Listen und Sets sind veränderlich (`mutable`) und erzeugen einen `TypeError: unhashable type`.",
+        "en": "Tuples are immutable and hashable (provided contained elements are hashable). Lists and sets are mutable and unhashable."
+      }
+    },
+    {
+      "id": "py-01-sec-03",
+      "type": "quiz_code_puzzle",
+      "title": { "de": "Code-Puzzle: Sichere Dateiverwaltung mit Context Manager", "en": "Code Puzzle: Safe File Management with Context Manager" },
+      "prompt": {
+        "de": "Welches Schlüsselwort garantiert, dass eine geöffnete Datei selbst bei einem unerwarteten Fehler garantiert geschlossen wird?",
+        "en": "Which keyword guarantees a file handle is closed cleanly even if an exception occurs?"
+      },
+      "starterCode": "___ open(\"server.log\", \"r\") as f:\n    data = f.read()",
+      "options": ["with", "using", "try", "open"],
+      "solution": "with",
+      "explanation": {
+        "de": "Das `with`-Statement ruft den Context Manager auf (`__enter__` und `__exit__`), der den Dateideskriptor beim Verlassen des Blocks deterministisch schließt.",
+        "en": "The `with` statement utilizes context managers (`__enter__` and `__exit__`) to reliably close file handles."
+      }
+    }
+  ]
+}

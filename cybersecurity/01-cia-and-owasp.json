@@ -1,0 +1,71 @@
+{
+  "id": "cyber-01-fundamentals",
+  "courseId": "cybersecurity",
+  "chapterIndex": 1,
+  "title": {
+    "de": "1. Schutzziele (CIA), Bedrohungen & OWASP Top 10",
+    "en": "1. Protection Goals (CIA), Threats & OWASP Top 10"
+  },
+  "description": {
+    "de": "Grundlagen der Informationssicherheit nach BSI und ISO/IEC 27001: Die CIA-Triade, Injection-Angriffe und kryptografische Standards.",
+    "en": "Information security fundamentals according to BSI and ISO/IEC 27001: The CIA triad, injection attacks and cryptographic standards."
+  },
+  "sections": [
+    {
+      "id": "cyber-01-sec-01",
+      "type": "concept",
+      "title": { "de": "Die CIA-Triade: Das Fundament aller Sicherheitskonzepte", "en": "The CIA Triad: Foundation of All Security Concepts" },
+      "contentMarkdown": {
+        "de": "Bevor eine einzige Zeile Code geschrieben wird, muss jedes Softwaresystem gegen die drei klassischen Schutzziele evaluiert werden:\n\n1. **Confidentiality (Vertraulichkeit):** Daten dürfen ausschließlich von autorisierten Entitäten eingesehen werden. Mittel: Ende-zu-Ende-Verschlüsselung (AES-256-GCM), Zugriffskontrolllisten (ACLs, RBAC).\n2. **Integrity (Integrität):** Daten dürfen nicht unbemerkt modifiziert oder gelöscht werden. Mittel: Kryptografische Hashes (SHA-256), HMACs, digitale Signaturen.\n3. **Availability (Verfügbarkeit):** Dienste und Systeme müssen für berechtigte Nutzer erreichbar sein. Mittel: Redundanz, USV, Lastverteilung, DDoS-Schutz, 3-2-1 Backup-Strategie.",
+        "en": "Before writing a single line of code, any system must be evaluated against the three classic security objectives:\n\n1. **Confidentiality:** Data must only be accessible to authorized entities. Tools: End-to-end encryption (AES-256-GCM), Access Control Lists (ACLs, RBAC).\n2. **Integrity:** Data cannot be modified or deleted undetected. Tools: Cryptographic hashes (SHA-256), HMACs, digital signatures.\n3. **Availability:** Services and data must be accessible to authorized users when needed. Tools: Redundancy, UPS, load balancing, DDoS mitigation, 3-2-1 backup strategy."
+      },
+      "codeSnippet": "// Zero-Dummy-Security: Strikte Authentifizierung und Integrität\n// 1. AES-256-GCM für Vertraulichkeit & Manipulationserkennung\n// 2. PBKDF2 (100.000 Iterationen) oder Argon2id für Schlüsselableitung"
+    },
+    {
+      "id": "cyber-01-sec-02",
+      "type": "quiz_choice",
+      "title": { "de": "IHK-Fallanalyse: Zuordnung von Schutzzielen", "en": "IHK Case Analysis: Protection Goal Mapping" },
+      "prompt": {
+        "de": "Ein Angreifer verändert unbemerkt die IBAN in einer noch nicht ausgeführten Überweisungsdatei auf einem Server. Welches Schutzziel der Informationssicherheit wurde hierbei primär verletzt?",
+        "en": "An attacker covertly alters the IBAN in an unexecuted bank transfer file stored on a server. Which primary security objective has been violated?"
+      },
+      "options": [
+        "Vertraulichkeit (Confidentiality)",
+        "Integrität (Integrity)",
+        "Verfügbarkeit (Availability)",
+        "Nichtabstreitbarkeit (Non-Repudiation)"
+      ],
+      "solution": 1,
+      "explanation": {
+        "de": "Die Integrität garantiert die Korrektheit und Unverfälschtheit von Daten. Da die Kontonummer verändert wurde, ist der Datenbestand manipuliert worden (Integritätsverletzung).",
+        "en": "Integrity guarantees the accuracy and completeness of data. Since the account number was altered, data has been tampered with (loss of integrity)."
+      }
+    },
+    {
+      "id": "cyber-01-sec-03",
+      "type": "concept",
+      "title": { "de": "OWASP Top 10: SQL-Injection & Prepared Statements", "en": "OWASP Top 10: SQL Injection & Prepared Statements" },
+      "contentMarkdown": {
+        "de": "SQL-Injection tritt auf, wenn unvalidierte Nutzereingaben direkt in SQL-Befehlsstrings verkettet werden (`\"SELECT * FROM users WHERE user = '\" + input + \"'\"`).\n\n**Die einzige wirksame Schutzmaßnahme auf Code-Ebene:**\nNiemals Eingaben in den SQL-String einbauen! Verwende **Prepared Statements** (parametrisierte Abfragen). Hierbei sendet der Treiber zuerst die Abfragestruktur mit Platzhaltern an die Datenbank und in einem getrennten Schritt die Rohdaten. Die Datenbank-Engine behandelt Eingaben prinzipbedingt als reine Werte und niemals als ausführbaren SQL-Code.",
+        "en": "SQL Injection occurs when untrusted user input is directly concatenated into SQL query strings.\n\n**The only reliable defense on code level:**\nNever concatenate raw input! Use **Prepared Statements** (parameterized queries). The query structure is compiled first, and parameters are sent separately. The database engine treats parameters strictly as data, rendering code injection impossible."
+      },
+      "codeSnippet": "// FALSCH (Gefahr von SQL-Injection):\n// db.Query(\"SELECT * FROM users WHERE name = '\" + userInput + \"'\")\n\n// RICHTIG (Prepared Statement mit Platzhalter):\nstmt, err := db.Prepare(\"SELECT id, email FROM users WHERE name = ?\")\nrows, err := stmt.Query(userInput)"
+    },
+    {
+      "id": "cyber-01-sec-04",
+      "type": "quiz_code_puzzle",
+      "title": { "de": "Code-Puzzle: Sicheres Passwort-Hashing", "en": "Code Puzzle: Secure Password Hashing" },
+      "prompt": {
+        "de": "Passwörter dürfen niemals im Klartext oder mit schnellen Algorithmen wie MD5/SHA-1 gespeichert werden. Welcher kryptografische Schlüsselableitungsstandard verlangsamt Brute-Force-Angriffe?",
+        "en": "Passwords must never be stored in plaintext or with fast algorithms like MD5/SHA-1. Which key derivation standard slows down brute-force attacks?"
+      },
+      "starterCode": "hashedKey := ___ .Key([]byte(password), salt, 100000, 32, sha256.New)",
+      "options": ["pbkdf2", "md5", "rot13", "base64"],
+      "solution": "pbkdf2",
+      "explanation": {
+        "de": "PBKDF2 (Password-Based Key Derivation Function 2) wendet mit 100.000 Iterationen gezielt Rechenzeit auf, um Wörterbuch- und Brute-Force-Attacken wirtschaftlich sinnlos zu machen.",
+        "en": "PBKDF2 applies 100,000 iterations to make dictionary and brute-force attacks computationally impractical."
+      }
+    }
+  ]
+}

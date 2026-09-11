@@ -1,6 +1,7 @@
 {
-  "version": 1,
-  "lastUpdated": "2026-09-11T22:30:00Z",
+  "version": 2,
+  "lastUpdated": "2026-09-11T23:15:00Z",
+  "curriculum": "IHK Fachinformatiker Anwendungsentwicklung & Systemintegration",
   "courses": [
     {
       "id": "go",
@@ -8,12 +9,51 @@
       "icon": "golang",
       "badge": "Modern Systems",
       "description": {
-        "de": "Moderne Systemprogrammierung, Goroutines, Channels & Microservices.",
-        "en": "Modern systems programming, goroutines, channels & microservices."
+        "de": "Systemprogrammierung, CSP-Concurrency (Goroutines, Channels), Kompilation & Microservices.",
+        "en": "Systems programming, CSP concurrency (goroutines, channels), compilation & microservices."
       },
-      "level": "beginner-to-advanced",
-      "totalChapters": 4,
+      "level": "IHK-Curriculum",
+      "totalChapters": 3,
       "manifestUrl": "go/manifest.json"
+    },
+    {
+      "id": "cybersecurity",
+      "title": { "de": "Cybersecurity & IT-Sicherheit", "en": "Cybersecurity & IT Security" },
+      "icon": "shield",
+      "badge": "IHK Kernfach",
+      "description": {
+        "de": "CIA-Schutzziele, OWASP Top 10, Kryptografie (AES-256-GCM, PBKDF2), Härtung & DSGVO/LDI.",
+        "en": "CIA triad, OWASP Top 10, cryptography (AES-256-GCM, PBKDF2), hardening & GDPR compliance."
+      },
+      "level": "IHK-Curriculum",
+      "totalChapters": 2,
+      "manifestUrl": "cybersecurity/manifest.json"
+    },
+    {
+      "id": "sql",
+      "title": { "de": "SQL & Relationale Datenbanken", "en": "SQL & Relational Databases" },
+      "icon": "database",
+      "badge": "Data Integrity",
+      "description": {
+        "de": "Relationales Modell, ACID, Normalisierung (1NF–3NF), Joins, Indizes & Transaktionen.",
+        "en": "Relational model, ACID, normalization (1NF–3NF), joins, indexes & transactions."
+      },
+      "level": "IHK-Curriculum",
+      "totalChapters": 2,
+      "manifestUrl": "sql/manifest.json"
+    },
+    {
+      "id": "csharp",
+      "title": { "de": "C# & .NET Enterprise", "en": "C# & .NET Enterprise" },
+      "icon": "csharp",
+      "badge": "Enterprise Core",
+      "description": {
+        "de": "Kompilierte CLR, Managed Memory, Garbage Collection, LINQ, OOP & Entwurfsmuster.",
+        "en": "Compiled CLR, managed memory, garbage collection, LINQ, OOP & design patterns."
+      },
+      "level": "IHK-Curriculum",
+      "totalChapters": 2,
+      "manifestUrl": "csharp/manifest.json"
     },
     {
       "id": "astro",
@@ -24,8 +64,8 @@
         "de": "Island Architecture, SSR und Content-First Webentwicklung mit Zero-JS-Default.",
         "en": "Island architecture, SSR and content-first web development with zero-JS default."
       },
-      "level": "all-levels",
-      "totalChapters": 1,
+      "level": "IHK-Curriculum",
+      "totalChapters": 2,
       "manifestUrl": "astro/manifest.json"
     },
     {
@@ -34,11 +74,11 @@
       "icon": "python",
       "badge": "Scripting & AI",
       "description": {
-        "de": "Vielseitige Syntax, Data Science, KI-Pipelines und moderne Typisierung.",
-        "en": "Versatile syntax, data science, AI pipelines and modern typing."
+        "de": "Vielseitige Syntax, Systemautomation, Data Science, GIL & moderne Typisierung.",
+        "en": "Versatile syntax, system automation, data science, GIL & modern typing."
       },
-      "level": "beginner-to-advanced",
-      "totalChapters": 1,
+      "level": "IHK-Curriculum",
+      "totalChapters": 2,
       "manifestUrl": "python/manifest.json"
     },
     {
@@ -47,11 +87,11 @@
       "icon": "html",
       "badge": "Web Foundation",
       "description": {
-        "de": "Semantisches Webdesign, Grid, Flexbox, Design Tokens & Barrierefreiheit.",
-        "en": "Semantic web design, Grid, Flexbox, design tokens & accessibility."
+        "de": "Semantisches HTML, Box-Modell, CSS Grid, Flexbox, Design Tokens & Barrierefreiheit.",
+        "en": "Semantic HTML, box model, CSS grid, flexbox, design tokens & accessibility."
       },
-      "level": "beginner-to-advanced",
-      "totalChapters": 1,
+      "level": "IHK-Curriculum",
+      "totalChapters": 2,
       "manifestUrl": "html-css/manifest.json"
     },
     {
@@ -60,11 +100,11 @@
       "icon": "javascript",
       "badge": "Client & Server",
       "description": {
-        "de": "Moderne ECMAScript-Features, Asynchronität, Promises und statische Typisierung.",
-        "en": "Modern ECMAScript features, async/await, promises and static typing."
+        "de": "Event Loop, Call Stack, Microtasks, Async/Await & statische Typisierung mit TypeScript.",
+        "en": "Event loop, call stack, microtasks, async/await & static typing with TypeScript."
       },
-      "level": "beginner-to-advanced",
-      "totalChapters": 1,
+      "level": "IHK-Curriculum",
+      "totalChapters": 2,
       "manifestUrl": "javascript/manifest.json"
     },
     {
@@ -73,11 +113,11 @@
       "icon": "php",
       "badge": "Backend Engine",
       "description": {
-        "de": "Objektorientierte Architektur, Attributes, JIT-Compiler & robuste Backend-APIs.",
-        "en": "Object-oriented architecture, attributes, JIT compiler & robust backend APIs."
+        "de": "Shared-Nothing Lifecycle, Constructor Promotion, PDO Prepared Statements & OOP.",
+        "en": "Shared-nothing lifecycle, constructor promotion, PDO prepared statements & OOP."
       },
-      "level": "beginner-to-advanced",
-      "totalChapters": 1,
+      "level": "IHK-Curriculum",
+      "totalChapters": 2,
       "manifestUrl": "php/manifest.json"
     }
   ]

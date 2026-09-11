@@ -1,0 +1,128 @@
+{
+  "id": "py-exam-90min",
+  "courseId": "python",
+  "chapterIndex": 2,
+  "type": "exam_90min",
+  "examDurationMinutes": 90,
+  "maxScore": 100,
+  "passingScore": 50,
+  "title": {
+    "de": "🏛️ IHK-Prüfungsmodul (90 Min): Python Automation & Data Structures",
+    "en": "🏛️ IHK Exam Module (90 Min): Python Automation & Data Structures"
+  },
+  "description": {
+    "de": "Prüfungssimulation für Systemintegration und Anwendungsentwicklung: Automatisierungsskripte, Datenverarbeitung, Fehlerbehandlung und Multiprocessing.",
+    "en": "Exam simulation for systems and software engineers: Automation scripts, data wrangling, exception management, and multiprocessing."
+  },
+  "scenario": {
+    "de": "Handlungssituation: Als Fachinformatiker/in für Systemintegration (FISI) sollen Sie ein automatisiertes Monitoring- und Log-Parsing-Tool für eine Server-Farm entwerfen. Das Tool soll Logfiles im Terabyte-Bereich speicherschonend durchsuchen, Fehler filtern und Statusberichte per API übertragen.",
+    "en": "Scenario: As an IT systems engineer, you are designing a memory-efficient log parsing and alerting pipeline for a server cluster. The script must process multi-gigabyte log archives without memory exhaustion."
+  },
+  "sections": [
+    {
+      "id": "exam-py-q01",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 1 (20 Punkte): Speicheroptimierung mit Generatoren (yield)", "en": "Question 1 (20 Points): Memory Optimization with Generators (yield)" },
+      "prompt": {
+        "de": "Ein Logfile ist 50 GB groß. Ein Skript soll jede Zeile auf das Wort 'CRITICAL' prüfen. Warum führt `f.readlines()` zum Absturz und wie lautet die fachgerechte Lösung?",
+        "en": "A logfile is 50 GB. Why does `f.readlines()` trigger an Out-Of-Memory crash, and what is the proper solution?"
+      },
+      "options": [
+        "`readlines()` lädt die gesamten 50 GB auf einmal in den RAM. Lösung: Zeilenweises Iterieren mit einem Generator (`for line in f:`), wodurch immer nur eine einzelne Zeile im RAM liegt.",
+        "`readlines()` ist nur für Bilddateien gedacht.",
+        "Man muss den Server neu starten und das Logfile löschen.",
+        "Man muss Python auf 32-Bit downgraden."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Dateiobjekte in Python implementieren das Iterator-Protokoll (Generator-Prinzip). Beim Durchlaufen mit `for line in f:` wird immer nur die aktuelle Zeile in den Speicher gestreamt, was selbst riesige Dateien mit wenigen Kilobyte RAM lesbar macht.",
+        "en": "Python file objects implement the iterator protocol. Iterating with `for line in f:` streams line-by-line, consuming constant memory regardless of file size."
+      }
+    },
+    {
+      "id": "exam-py-q02",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 2 (20 Punkte): Default-Argument-Falle bei veränderlichen Typen", "en": "Question 2 (20 Points): Mutable Default Argument Trap" },
+      "prompt": {
+        "de": "Was geschieht, wenn eine Funktion mit dem Standard-Parameter `def append_to(item, target_list=[])` mehrfach ohne zweiten Parameter aufgerufen wird?",
+        "en": "What happens when calling `def append_to(item, target_list=[])` multiple times without supplying a second argument?"
+      },
+      "options": [
+        "Die Liste `target_list` wird nur einmalig beim Definieren der Funktion erzeugt und behält Werte über nachfolgende Aufrufe hinweg bei (unerwarteter Seiteneffekt).",
+        "Bei jedem Aufruf wird garantiert eine neue leere Liste erzeugt.",
+        "Python meldet beim zweiten Aufruf einen SyntaxError.",
+        "Die Elemente werden automatisch gelöscht."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "In Python werden Standardargumente genau einmal beim Parsen der Funktionsdefinition ausgewertet. Veränderliche Typen (`list`, `dict`) werden geteilt. Die korrekte Lösung lautet: `target_list=None` und im Funktionskörper `if target_list is None: target_list = []`.",
+        "en": "Default arguments evaluate once at function definition time. Mutable defaults accumulate across calls. Use `target_list=None` and initialize inside the body."
+      }
+    },
+    {
+      "id": "exam-py-q03",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 3 (20 Punkte): Paralleles Multiprocessing vs. Multithreading", "en": "Question 3 (20 Points): Multiprocessing vs. Multithreading under GIL" },
+      "prompt": {
+        "de": "Für eine rechenintensive Bildkonvertierung (CPU-Bound) auf einer 16-Core-Workstation soll Python eingesetzt werden. Warum muss das Modul `multiprocessing` statt `threading` gewählt werden?",
+        "en": "For CPU-bound image encoding on a 16-core system, why must Python use `multiprocessing` instead of `threading`?"
+      },
+      "options": [
+        "Weil der Global Interpreter Lock (GIL) in CPython verhindert, dass mehrere Threads echten CPU-Code parallel auf mehreren Kernen ausführen; Multiprocessing startet eigenständige OS-Prozesse mit je eigenem Interpreter.",
+        "Weil Threads in Python keine Zahlen berechnen können.",
+        "Weil `threading` seit Python 3.8 verboten ist.",
+        "Weil Multiprocessing keinen Arbeitsspeicher verbraucht."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Aufgrund des GIL kann immer nur ein Thread gleichzeitig Python-Bytecode ausführen. Für CPU-intensive Aufgaben nutzt man `multiprocessing`, da jeder Prozess eine eigene Instanz des Python-Interpreters und damit echte CPU-Kern-Parallelität besitzt.",
+        "en": "The GIL restricts bytecode execution to one thread at a time. CPU-bound concurrency requires `multiprocessing` to fork independent interpreter instances across cores."
+      }
+    },
+    {
+      "id": "exam-py-q04",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 4 (20 Punkte): Virtuelle Umgebungen (venv)", "en": "Question 4 (20 Points): Virtual Environments (venv)" },
+      "prompt": {
+        "de": "Warum verlangt der IHK-Qualitätsstandard für Softwareentwicklung, dass Python-Projekte immer in einer virtuellen Umgebung (`python -m venv .venv`) betrieben werden?",
+        "en": "Why do software engineering standards mandate isolating Python projects inside virtual environments (`python -m venv .venv`)?"
+      },
+      "options": [
+        "Um Abhängigkeiten und Paketversionen für jedes Projekt isoliert zu halten und Versionskonflikte mit systemweiten Linux-Paketen (`apt`/`dnf`) zu verhindern.",
+        "Damit der Code im Dark Mode ausgeführt wird.",
+        "Um Festplattenspeicherplatz auf dem Computer einzusparen.",
+        "Weil Python ohne venv nicht starten kann."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Virtuelle Umgebungen isolieren `site-packages`. Dadurch wird verhindert, dass Projekt A mit Package-Version 1.0 durch ein Update von Projekt B auf Version 2.0 bricht (Dependency Hell) oder das Host-Betriebssystem beschädigt wird (PEP 668).",
+        "en": "Virtual environments isolate package dependencies per project, eliminating version conflicts with host OS packages and ensuring reproducible deployments."
+      }
+    },
+    {
+      "id": "exam-py-q05",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 5 (20 Punkte): Ausnahmebehandlung mit 'finally'", "en": "Question 5 (20 Points): Exception Handling with 'finally'" },
+      "prompt": {
+        "de": "Wann wird der `finally`-Block eines `try-except-finally`-Konstrukts garantiert ausgeführt?",
+        "en": "Under which condition does the `finally` block in `try-except-finally` execute?"
+      },
+      "options": [
+        "Ausnahmslos immer, egal ob im `try`-Block ein Fehler aufgetreten ist oder nicht, und selbst wenn der Block per `return` verlassen wird.",
+        "Nur wenn ein Fehler aufgetreten ist.",
+        "Nur wenn kein Fehler aufgetreten ist.",
+        "Nur wenn der Administrator im Betriebssystem angemeldet ist."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Der `finally`-Block wird unabhängig vom Erfolg oder Misserfolg des `try`-Blocks immer ausgeführt. Er dient klassischen Aufräumarbeiten, Freigabe von Sperren oder dem Schließen von Sockets.",
+        "en": "The `finally` block runs unconditionally, whether an exception occurred, was handled, or a return statement was executed."
+      }
+    }
+  ]
+}

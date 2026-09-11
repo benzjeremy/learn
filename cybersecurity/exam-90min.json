@@ -1,0 +1,128 @@
+{
+  "id": "cyber-exam-90min",
+  "courseId": "cybersecurity",
+  "chapterIndex": 2,
+  "type": "exam_90min",
+  "examDurationMinutes": 90,
+  "maxScore": 100,
+  "passingScore": 50,
+  "title": {
+    "de": "🏛️ IHK-Prüfungsmodul (90 Min): Security Audit & Härtung",
+    "en": "🏛️ IHK Exam Module (90 Min): Security Audit & Hardening"
+  },
+  "description": {
+    "de": "Ganzheitliche schriftliche IHK-Prüfungssimulation: Handlungsbezogene Aufgabenstellungen zu Netzwerksegmentierung, Kryptografie, Incident Response und OWASP Top 10.",
+    "en": "Holistic written IHK exam simulation: Scenario-based tasks on network segmentation, cryptography, incident response and OWASP Top 10."
+  },
+  "scenario": {
+    "de": "Ausgangssituation: Sie sind Fachinformatiker/in bei der CyberSecure GmbH. Ihr Kunde betreibt einen webbasierten Onlineshop mit angeschlossener Kundendatenbank. Im Rahmen eines Sicherheitsaudits sollen Sie die Architektur auf Schwachstellen prüfen, Incident-Response-Maßnahmen festlegen und Härtungsstandards nach BSI IT-Grundschutz umsetzen.",
+    "en": "Scenario: You are an IT specialist at CyberSecure GmbH. Your client operates an e-commerce shop connected to a customer database. In a comprehensive security audit, you must identify vulnerabilities, specify incident response measures, and enforce hardening standards."
+  },
+  "sections": [
+    {
+      "id": "exam-cyb-q01",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 1 (20 Punkte): Netzwerkarchitektur & DMZ", "en": "Question 1 (20 Points): Network Architecture & DMZ" },
+      "prompt": {
+        "de": "Der Webserver des Kunden kommuniziert mit der MySQL-Kundendatenbank. Welche Platzierung entspricht dem BSI-Sicherheitsstandard für eine mehrstufige Firewall-Architektur?",
+        "en": "The client's web server communicates with the MySQL customer database. Which placement conforms to security best practices for a tiered firewall architecture?"
+      },
+      "options": [
+        "Sowohl Webserver als auch Datenbankserver stehen direkt im ungeschützten WAN.",
+        "Der Webserver steht in der DMZ (Demilitarisierte Zone); der Datenbankserver steht im internen, geschützten LAN.",
+        "Der Datenbankserver steht in der DMZ; der Webserver steht im internen LAN.",
+        "Beide Server stehen zusammen in der DMZ und sind von außen direkt über Port 3306 erreichbar."
+      ],
+      "solution": 1,
+      "explanation": {
+        "de": "Öffentlich erreichbare Dienste (wie HTTP/HTTPS) gehören in eine DMZ. Sensible Backend-Datenbanken dürfen niemals direkt aus dem WAN erreichbar sein, sondern stehen im internen Netz und dürfen nur über strikte Firewall-Regeln exklusiv von der DMZ angesprochen werden.",
+        "en": "Public-facing services (HTTP/HTTPS) belong in a DMZ. Sensitive databases must never be directly accessible from the WAN; they reside in the internal network with strictly filtered ingress from the DMZ."
+      }
+    },
+    {
+      "id": "exam-cyb-q02",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 2 (20 Punkte): OWASP Broken Object Level Authorization (IDOR)", "en": "Question 2 (20 Points): OWASP Broken Object Level Authorization (IDOR)" },
+      "prompt": {
+        "de": "Ein angemeldeter Kunde (User-ID 402) ruft seine Rechnung über die URL `https://shop.example.com/api/invoice/402` ab. Ändert er die Zahl in der URL manuell auf 403, erhält er die Rechnung eines anderen Kunden. Welches Schutzkonzept fehlt hier?",
+        "en": "An authenticated user (ID 402) accesses an invoice via `https://shop.example.com/api/invoice/402`. Changing the URL to 403 displays another user's invoice. What protection is missing?"
+      },
+      "options": [
+        "Serverseitige Autorisierungsprüfung auf Objektebene (Rechteprüfung: Gehört Objekt 403 zur authentifizierten Session?)",
+        "Eine Umstellung von HTTPS auf HTTP",
+        "Ausblendung der URL-Leiste im Browser des Benutzers",
+        "Erhöhung der Passwortlänge des Nutzers auf mindestens 20 Zeichen"
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Das Phänomen heißt IDOR (Insecure Direct Object Reference / OWASP A01). Eine Authentifizierung (Wer bist du?) genügt nicht – der Server muss bei jeder Anfrage autorisieren (Darf dieser Nutzer auf genau diese Ressourcen-ID zugreifen?).",
+        "en": "This is IDOR (Insecure Direct Object Reference / OWASP A01). Authentication alone is insufficient; every request requires object-level authorization checking whether the session owns the resource."
+      }
+    },
+    {
+      "id": "exam-cyb-q03",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 3 (20 Punkte): Hybrid-Kryptografie im TLS-Handshake", "en": "Question 3 (20 Points): Hybrid Cryptography in TLS Handshake" },
+      "prompt": {
+        "de": "Warum nutzt TLS (HTTPS) ein hybrides Verschlüsselungsverfahren aus asymmetrischer und symmetrischer Kryptografie?",
+        "en": "Why does TLS (HTTPS) employ hybrid encryption combining asymmetric and symmetric cryptography?"
+      },
+      "options": [
+        "Asymmetrische Verschlüsselung ist rechenintensiv, daher dient sie nur zum Schlüsselaustausch; die eigentlichen Nutzdaten werden schnell und effizient symmetrisch (z. B. AES-GCM) verschlüsselt.",
+        "Symmetrische Verschlüsselung ist sicherer als asymmetrische, weshalb asymmetrische Verfahren gar nicht mehr genutzt werden.",
+        "Weil Zertifikate nur mit unverschlüsselten Texten funktionieren.",
+        "Um Daten doppelt zu verschlüsseln, damit zwei Passwörter gleichzeitig eingegeben werden müssen."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Asymmetrische Verfahren (RSA, ECDH) lösen das Problem des sicheren Schlüsselaustauschs über unsichere Kanäle, sind jedoch rechenaufwendig. Die symmetrische Verschlüsselung (AES) ist um Faktoren schneller und übernimmt den Transport der Massendaten.",
+        "en": "Asymmetric encryption solves the secure key-exchange problem over untrusted channels but is computationally expensive. Symmetric encryption (AES) is drastically faster and handles payload encryption."
+      }
+    },
+    {
+      "id": "exam-cyb-q04",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 4 (20 Punkte): DSGVO-Meldepflicht bei Sicherheitsvorfällen", "en": "Question 4 (20 Points): GDPR Breach Notification Deadline" },
+      "prompt": {
+        "de": "In einer Kundendatenbank wurden sensible personenbezogene Daten entwendet. Innerhalb welcher Frist muss dieser Vorfall nach Art. 33 DSGVO an die zuständige Aufsichtsbehörde (z. B. LDI NRW) gemeldet werden?",
+        "en": "A security breach exposed sensitive personal customer data. Within what timeframe must this incident be reported to the supervisory authority under Art. 33 GDPR?"
+      },
+      "options": [
+        "Binnen 72 Stunden ab Bekanntwerden des Vorfalls.",
+        "Innerhalb von 30 Werktagen nach Abschluss der internen Ermittlungen.",
+        "Erst zum Ende des laufenden Geschäftsjahres.",
+        "Es besteht keine Meldepflicht, solange die Backups noch vorhanden sind."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Nach Art. 33 Abs. 1 DSGVO muss eine Verletzung des Schutzes personenbezogener Daten unverzüglich und möglichst binnen 72 Stunden nach Bekanntwerden der zuständigen Aufsichtsbehörde gemeldet werden.",
+        "en": "Under Art. 33(1) GDPR, personal data breaches must be reported to the competent supervisory authority without undue delay and, where feasible, not later than 72 hours after becoming aware."
+      }
+    },
+    {
+      "id": "exam-cyb-q05",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 5 (20 Punkte): Cross-Site Request Forgery (CSRF) & SameSite", "en": "Question 5 (20 Points): Cross-Site Request Forgery (CSRF) & SameSite" },
+      "prompt": {
+        "de": "Ein Nutzer besucht eine schadhafte Website, die unbemerkt im Hintergrund ein POST-Formular an seine Bank sendet. Welches Attribut im Session-Cookie verhindert, dass der Browser das Cookie bei Cross-Site-Requests mitsendet?",
+        "en": "A user visits a malicious website that covertly submits a POST form to their bank. Which cookie attribute prevents the browser from attaching session cookies on cross-site requests?"
+      },
+      "options": [
+        "SameSite=Strict oder SameSite=Lax",
+        "HttpOnly=false",
+        "Secure=disabled",
+        "Path=/public"
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Das Cookie-Attribut `SameSite=Strict` unterbindet die Übermittlung von Cookies bei allen Cross-Site-Anfragen. `SameSite=Lax` erlaubt Cookies nur bei sicheren Top-Level-GET-Navigationen.",
+        "en": "The `SameSite=Strict` cookie attribute blocks cookie transmission on all cross-site requests. `SameSite=Lax` permits it only on top-level safe GET navigations."
+      }
+    }
+  ]
+}

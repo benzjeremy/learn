@@ -1,0 +1,22 @@
+{
+  "courseId": "sql",
+  "title": { "de": "SQL & Relationale Datenbanken", "en": "SQL & Relational Databases" },
+  "chapters": [
+    {
+      "index": 1,
+      "id": "sql-01-relational-model",
+      "file": "01-relational-model.json",
+      "type": "lesson",
+      "title": { "de": "1. Relationales Modell, Normalisierung & ACID", "en": "1. Relational Model, Normalization & ACID" },
+      "durationMinutes": 25
+    },
+    {
+      "index": 2,
+      "id": "sql-exam-90min",
+      "file": "exam-90min.json",
+      "type": "exam_90min",
+      "title": { "de": "🏛️ IHK-Prüfungsmodul (90 Min): Datenbankdesign & SQL-Abfragen", "en": "🏛️ IHK Exam Module (90 Min): Database Design & SQL Queries" },
+      "durationMinutes": 90
+    }
+  ]
+}

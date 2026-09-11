@@ -1,0 +1,128 @@
+{
+  "id": "js-exam-90min",
+  "courseId": "javascript",
+  "chapterIndex": 2,
+  "type": "exam_90min",
+  "examDurationMinutes": 90,
+  "maxScore": 100,
+  "passingScore": 50,
+  "title": {
+    "de": "🏛️ IHK-Prüfungsmodul (90 Min): Fullstack JS & Statische Typisierung",
+    "en": "🏛️ IHK Exam Module (90 Min): Fullstack JS & Static Typing"
+  },
+  "description": {
+    "de": "IHK-Prüfungssimulation: Asynchrone Programmierung, Promise-Verkettung, TypeScript Generics, Scope & Closures und DOM-Security (XSS-Vermeidung).",
+    "en": "IHK exam simulation: Asynchronous architecture, promise chains, TypeScript generics, lexical closures, and DOM XSS defense."
+  },
+  "scenario": {
+    "de": "Handlungssituation: Sie sind Fullstack-Entwickler/in bei einem Fintech-Startup. Das webbasierte Dashboard friert bei hohen Datenmengen ein, und im Frontend-Code wurden unbereinigte HTML-Strings gefunden. Ihre Aufgabe ist es, den Event Loop zu entlasten, typsichere TypeScript-APIs zu bauen und XSS-Lücken zu schließen.",
+    "en": "Scenario: You are a fullstack developer at a fintech startup. The web dashboard freezes under heavy load, and unsanitized HTML injections threaten user balances. You must decouple the event loop, author type-safe TypeScript interfaces, and eliminate XSS vulnerabilities."
+  },
+  "sections": [
+    {
+      "id": "exam-js-q01",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 1 (20 Punkte): XSS-Prävention im DOM", "en": "Question 1 (20 Points): DOM XSS Prevention" },
+      "prompt": {
+        "de": "Ein Entwickler möchte einen vom Benutzer eingegebenen Namen in ein `<div>`-Element einfügen. Welche Eigenschaft muss verwendet werden, um Cross-Site Scripting (XSS) sicher zu verhindern?",
+        "en": "A developer needs to insert untrusted user input into a `<div>`. Which DOM property safely prevents Cross-Site Scripting (XSS)?"
+      },
+      "options": [
+        "`element.textContent = userInput;` (wird als reiner Text escaped)",
+        "`element.innerHTML = userInput;`",
+        "`element.outerHTML = userInput;`",
+        "`document.write(userInput);`"
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "`textContent` behandelt Eingaben ausschließlich als reinen Text und escaped HTML-Sonderzeichen (`<`, `>`, `&`). `innerHTML` würde `<script>`-Tags oder `onload`-Attribute direkt ausführen.",
+        "en": "`textContent` treats input strictly as literal text, safely escaping markup characters. `innerHTML` parses input as HTML, exposing DOM XSS."
+      }
+    },
+    {
+      "id": "exam-js-q02",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 2 (20 Punkte): Lexikalischer Scope & Closures", "en": "Question 2 (20 Points): Lexical Scopes & Closures" },
+      "prompt": {
+        "de": "Was ist eine 'Closure' in JavaScript?",
+        "en": "What is a 'closure' in JavaScript?"
+      },
+      "options": [
+        "Die Kombination aus einer Funktion und der lexikalischen Umgebung, in der sie deklariert wurde; die Funktion behält Zugriff auf die Variablen ihrer Elternfunktion, selbst nachdem diese beendet ist.",
+        "Ein Fehler, der das Browserfenster schließt.",
+        "Das Schlüsselwort `close()` in einer Schleife.",
+        "Ein privates Zertifikat für HTTPS-Verbindungen."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Eine Closure erlaubt es einer inneren Funktion, auf Variablen der äußeren Funktion zuzugreifen, selbst wenn die äußere Funktion ihren Aufruf-Stack bereits verlassen hat. Dies ist die Basis für Kapselung und Fabrikfunktionen.",
+        "en": "A closure bundles a function with references to its surrounding lexical environment, retaining access to outer variables even after the outer execution context exits."
+      }
+    },
+    {
+      "id": "exam-js-q03",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 3 (20 Punkte): Paralleles Ausführen von Promises mit Promise.all", "en": "Question 3 (20 Points): Parallel Promises with Promise.all" },
+      "prompt": {
+        "de": "Drei voneinander unabhängige API-Endpunkte sollen gleichzeitig abgefragt werden. Welches Muster garantiert, dass alle drei Anfragen parallel und nicht nacheinander ausgeführt werden?",
+        "en": "Three independent API endpoints must be queried simultaneously. Which pattern ensures requests run in parallel?"
+      },
+      "options": [
+        "`const [res1, res2, res3] = await Promise.all([fetch1(), fetch2(), fetch3()]);`",
+        "`await fetch1(); await fetch2(); await fetch3();`",
+        "`fetch1(); while(true) { fetch2(); }`",
+        "`fetch1().wait().then(fetch2)`"
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "`Promise.all` stößt alle Promises parallel an und wartet, bis alle erfolgreich aufgelöst wurden. Hintereinander geschaltete `await`-Aufrufe würden die Requests sequentiell ausführen und die Ladezeit verdreifachen.",
+        "en": "`Promise.all` fires promises concurrently, resolving when all succeed. Sequential `await` calls block sequentially, tripling total latency."
+      }
+    },
+    {
+      "id": "exam-js-q04",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 4 (20 Punkte): TypeScript Generics", "en": "Question 4 (20 Points): TypeScript Generics" },
+      "prompt": {
+        "de": "Welchen Vorteil bieten TypeScript Generics wie `function identity<T>(arg: T): T` gegenüber der Verwendung des Typs `any`?",
+        "en": "What advantage do TypeScript generics (`<T>`) offer over the `any` type?"
+      },
+      "options": [
+        "Sie bewahren die exakte Typinformation des übergebenen Arguments für den Rückgabewert, während `any` die Typprüfung komplett deaktiviert.",
+        "Generics beschleunigen die Ausführungsgeschwindigkeit im Browser um 50%.",
+        "Generics sind Pflicht in Node.js.",
+        "Es gibt keinen Unterschied."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Generics ermöglichen wiederverwendbare Funktionen und Klassen, die mit verschiedenen Typen arbeiten, während die konkrete Typsicherheit vollständig erhalten bleibt. `any` hingegen schaltet den TypeScript-Compiler faktisch aus.",
+        "en": "Generics create type-safe parameterized components, preserving exact type propagation unlike `any`, which disables compiler safety."
+      }
+    },
+    {
+      "id": "exam-js-q05",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 5 (20 Punkte): Gleichheit - == vs. ===", "en": "Question 5 (20 Points): Equality - == vs. ===" },
+      "prompt": {
+        "de": "Warum verlangt der Coding-Standard in Projekten immer die Verwendung des strikten Gleichheitsoperators `===` anstelle von `==`?",
+        "en": "Why do engineering standards enforce strict equality `===` over loose equality `==`?"
+      },
+      "options": [
+        "`===` vergleicht Wert UND Datentyp ohne implizite Typumwandlung, während `==` unerwartete Typkonvertierungen durchführt (`0 == ''` ist true).",
+        "Weil `==` in modernem JavaScript verboten ist.",
+        "Weil `===` den Code verschlüsselt.",
+        "`===` ist eine mathematische Formel."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Der lose Vergleichsoperator `==` führt implizite Typzwänge (Type Coercion) nach komplexen ECMAScript-Regeln durch, was häufig zu unentdeckten Logikfehlern führt. `===` prüft Typ und Wert strikt.",
+        "en": "Loose equality `==` triggers implicit type coercion rules. Strict equality `===` verifies both type and value identity without coercion."
+      }
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "id": "go-exam-90min",
+  "courseId": "go",
+  "chapterIndex": 2,
+  "type": "exam_90min",
+  "examDurationMinutes": 90,
+  "maxScore": 100,
+  "passingScore": 50,
+  "title": {
+    "de": "🏛️ IHK-Prüfungsmodul (90 Min): Go Cloud-Native & Concurrency",
+    "en": "🏛️ IHK Exam Module (90 Min): Go Cloud-Native & Concurrency"
+  },
+  "description": {
+    "de": "Schriftliche IHK-Prüfungssimulation: Systemarchitektur mit Go, Race-Bedingungen, Synchronisation von Goroutines, Memory Leak Vermeidung und Interfaces.",
+    "en": "Written IHK exam simulation: Go systems architecture, race conditions, goroutine synchronization, memory leak prevention, and implicit interfaces."
+  },
+  "scenario": {
+    "de": "Handlungssituation: Sie sind Software-Architekt/in bei einem Cloud-Native-Dienstleister. Für ein Telemetrie-Gateway, das 50.000 Sensor-Datenströme pro Sekunde aggregiert, entwickeln Sie einen Hochleistungs-Daemon in Go. Beantworten Sie die Prüfungsfragen zur Vermeidung von Race Conditions, Deadlocks und inkorrektem Error-Handling.",
+    "en": "Scenario: You are a software architect at a cloud-native consultancy. You are building a high-throughput telemetry gateway in Go aggregating 50,000 sensor streams/sec. Answer questions on preventing race conditions, deadlocks, and incorrect error handling."
+  },
+  "sections": [
+    {
+      "id": "exam-go-q01",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 1 (20 Punkte): Data Races & Race Detector", "en": "Question 1 (20 Points): Data Races & Race Detector" },
+      "prompt": {
+        "de": "Mehrere Goroutines greifen gleichzeitig lesend und schreibend auf eine gemeinsame Variable `counter++` zu, ohne Mutex oder Atomic-Operationen. Welches Tool der Go-Toolchain identifiziert dieses Problem im Testlauf?",
+        "en": "Multiple goroutines read and write a shared `counter++` concurrently without a mutex or atomic operations. Which Go toolchain flag detects this during testing?"
+      },
+      "options": [
+        "`go test -race ./...` (Der integrierte ThreadSanitizer Race Detector)",
+        "`go fmt ./...`",
+        "`go version`",
+        "`go env -debug`"
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Das Flag `-race` kompiliert Code mit Go's integriertem Race Detector (auf Basis von ThreadSanitizer). Es protokolliert nicht synchronisierte konkurrierende Speicherzugriffe zur Laufzeit mit exaktem Stacktrace.",
+        "en": "The `-race` flag instruments code with Go's built-in ThreadSanitizer race detector, identifying unsynchronized memory accesses with precise stacktraces."
+      }
+    },
+    {
+      "id": "exam-go-q02",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 2 (20 Punkte): Korrekte Nutzung von sync.WaitGroup", "en": "Question 2 (20 Points): Proper sync.WaitGroup Usage" },
+      "prompt": {
+        "de": "Wo muss der Methodenaufruf `wg.Add(1)` platziert werden, wenn eine Goroutine gestartet wird, um eine Race Condition mit `wg.Wait()` zuverlässig auszuschließen?",
+        "en": "Where must `wg.Add(1)` be called when launching a goroutine to avoid race conditions with `wg.Wait()`?"
+      },
+      "options": [
+        "Unmittelbar VOR dem Start der Goroutine im aufrufenden Kontext.",
+        "Innerhalb der Goroutine als allererste Anweisung.",
+        "Nach dem Aufruf von `wg.Wait()`.",
+        "In der `init()`-Funktion des Packages."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "`wg.Add(1)` muss zwingend VOR dem Aufruf `go func()` erfolgen. Würde es innerhalb der Goroutine aufgerufen, könnte `wg.Wait()` ausgeführt werden, bevor die Goroutine überhaupt anläuft und den Zähler erhöht.",
+        "en": "`wg.Add(1)` must be invoked BEFORE `go func()`. Calling it inside the goroutine creates a race where `wg.Wait()` might complete before the goroutine starts scheduling."
+      }
+    },
+    {
+      "id": "exam-go-q03",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 3 (20 Punkte): Ausführungsreihenfolge von defer-Anweisungen", "en": "Question 3 (20 Points): Defer Execution Order" },
+      "prompt": {
+        "de": "In einer Funktion stehen hintereinander die drei Anweisungen `defer fmt.Print(\"1\")`, `defer fmt.Print(\"2\")`, `defer fmt.Print(\"3\")`. Welche Ausgabe erscheint beim Verlassen der Funktion?",
+        "en": "A function contains `defer fmt.Print(\"1\")`, `defer fmt.Print(\"2\")`, `defer fmt.Print(\"3\")`. What is the printed output upon function exit?"
+      },
+      "options": [
+        "321 (LIFO - Last In, First Out)",
+        "123 (FIFO - First In, First Out)",
+        "Es wird nichts ausgegeben.",
+        "Eine zufällige Permutation wie 213."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "`defer`-Aufrufe werden in Go auf einem Stack abgelegt und beim Verlassen der umgebenden Funktion in umgekehrter Reihenfolge (LIFO) ausgeführt. 3 wird daher zuerst ausgeführt, gefolgt von 2 und 1.",
+        "en": "Deferred calls are pushed onto a stack and evaluated in Last-In-First-Out (LIFO) order when the surrounding function returns."
+      }
+    },
+    {
+      "id": "exam-go-q04",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 4 (20 Punkte): Implizite Interfaces in Go", "en": "Question 4 (20 Points): Implicit Interfaces in Go" },
+      "prompt": {
+        "de": "Wie deklariert eine Struct in Go, dass sie ein bestimmtes Interface erfüllt?",
+        "en": "How does a struct in Go declare that it satisfies an interface?"
+      },
+      "options": [
+        "Implizit: Die Struct implementiert einfach alle Methoden des Interfaces mit passender Signatur. Es gibt kein `implements`-Schlüsselwort.",
+        "Explizit über das Schlüsselwort `implements MyInterface` in der Typdeklaration.",
+        "Über eine Annotation `@Implements(MyInterface)` vor der Struct.",
+        "Durch Vererbung von einer abstrakten Basisklasse."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Go nutzt strukturelles Subtyping (Duck Typing zur Compile-Zeit). Sobald ein Typ alle im Interface deklarierten Methoden implementiert, erfüllt er das Interface automatisch ohne explizite Kopplung.",
+        "en": "Go uses structural typing. A type implements an interface simply by implementing its required methods. No `implements` keyword exists."
+      }
+    },
+    {
+      "id": "exam-go-q05",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 5 (20 Punkte): Idiomatisches Error-Handling", "en": "Question 5 (20 Points): Idiomatic Error Handling" },
+      "prompt": {
+        "de": "Was ist der kanonische Weg, um in Go mit erwartbaren Fehlern (z. B. Datei nicht gefunden, Netzwerk-Timeout) umzugehen?",
+        "en": "What is the canonical pattern in Go for handling anticipated errors (e.g., file not found, timeout)?"
+      },
+      "options": [
+        "Die Funktion gibt `error` als letzten Rückgabewert zurück; der Aufrufer prüft sofort `if err != nil`.",
+        "Es wird immer ein `panic()` ausgelöst, der im Root abgefangen wird.",
+        "Fehler werden in eine globale Variable `errno` geschrieben.",
+        "Fehler werden ignoriert, da Go fehlerfreien Code erzwingt."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "In Go sind Fehler reguläre Werte (`error`-Interface). Funktionen geben Fehler explizit zurück (`(result, error)`), und der aufrufende Code behandelt diese transparent ohne versteckten Exception-Kontrollfluss.",
+        "en": "In Go, errors are normal values returned explicitly as the last tuple value. Callers handle them immediately using `if err != nil`."
+      }
+    }
+  ]
+}

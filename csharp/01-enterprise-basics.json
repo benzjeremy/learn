@@ -1,0 +1,71 @@
+{
+  "id": "csharp-01-fundamentals",
+  "courseId": "csharp",
+  "chapterIndex": 1,
+  "title": {
+    "de": "1. CLR, Managed Memory & Objektorientierung",
+    "en": "1. CLR, Managed Memory & Object Orientation"
+  },
+  "description": {
+    "de": "Architektur des .NET-Ökosystems: Die Common Language Runtime (CLR), Stack vs. Heap, Garbage Collection und typsichere Objektorientierung.",
+    "en": "Architecture of the .NET ecosystem: Common Language Runtime (CLR), stack vs. heap, garbage collection, and type-safe OOP."
+  },
+  "sections": [
+    {
+      "id": "cs-01-sec-01",
+      "type": "concept",
+      "title": { "de": "Die Common Language Runtime (CLR) & CIL", "en": "The Common Language Runtime (CLR) & CIL" },
+      "contentMarkdown": {
+        "de": "Wenn C#-Code kompiliert wird, entsteht kein nativer Maschinencode, sondern Zwischencode: die **Common Intermediate Language (CIL)**.\n\nDie Ausführung übernimmt die **CLR (Common Language Runtime)**:\n1. Der **Just-In-Time (JIT) Compiler** übersetzt CIL zur Laufzeit hochoptimiert in native CPU-Befehle.\n2. **Managed Memory:** Entwickler müssen keinen Speicher manuell per `free()` oder `delete` freigeben – der Garbage Collector verwaltet den Heap automatisch.",
+        "en": "Compiling C# produces Common Intermediate Language (CIL) bytecode rather than machine code.\n\nThe **CLR (Common Language Runtime)** executes the application:\n1. The **JIT Compiler** turns CIL into native machine instructions on the fly.\n2. **Managed Memory:** Memory is safely collected by the runtime's Garbage Collector."
+      },
+      "codeSnippet": "using System;\n\nnamespace EnterpriseApp\n{\n    public class Program\n    {\n        public static void Main(string[] args)\n        {\n            Console.WriteLine(\"Hello .NET Enterprise!\");\n        }\n    }\n}"
+    },
+    {
+      "id": "cs-01-sec-02",
+      "type": "quiz_choice",
+      "title": { "de": "Speichermodell: Value Type vs. Reference Type", "en": "Memory Model: Value Type vs. Reference Type" },
+      "prompt": {
+        "de": "Wo werden in C# Instanzen von Klassen (`class`) und wo elementare Typen wie `int` (wenn sie als lokale Variablen in Methoden deklariert sind) typischerweise im Arbeitsspeicher abgelegt?",
+        "en": "Where are class instances (`class`) and local primitive types like `int` typically located in memory?"
+      },
+      "options": [
+        "Klassen-Instanzen liegen auf dem Heap (Referenztypen); lokale `int`-Variablen liegen direkt auf dem Stack (Werttypen).",
+        "Alle Datenstrukturen liegen ausnahmslos auf dem Stack.",
+        "Klassen liegen auf der Festplatte; primitive Typen im CPU-Cache.",
+        "Klassen liegen auf dem Stack; `int` liegt auf dem Heap."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "In C# sind Klassen Referenztypen (`Reference Types`) und werden auf dem Garbage-Collected Heap alloziiert. Lokale Variablen von primitiven Typen (`struct`, `int`, `bool`) sind Werttypen (`Value Types`) und liegen direkt auf dem schnellen Aufruf-Stack.",
+        "en": "Classes are reference types allocated on the managed heap. Local value types (`struct`, `int`, `bool`) live directly on the call stack."
+      }
+    },
+    {
+      "id": "cs-01-sec-03",
+      "type": "concept",
+      "title": { "de": "Deterministische Ressourcenfreigabe mit 'using'", "en": "Deterministic Resource Cleanup with 'using'" },
+      "contentMarkdown": {
+        "de": "Obwohl der Garbage Collector den Speicher bereinigt, weiß er nicht, wann Betriebssystem-Ressourcen wie Dateihandles, Netzwerk-Sockets oder Datenbankverbindungen geschlossen werden müssen.\n\nKlassen, die unmanaged Ressourcen halten, implementieren das Interface `IDisposable`. Das C#-Schlüsselwort `using` stellt sicher, dass die Methode `Dispose()` garantiert aufgerufen wird – selbst wenn innerhalb des Blocks eine Ausnahme (`Exception`) auftritt!",
+        "en": "While the GC cleans up memory, it does not manage unmanaged OS resources like file handles or database connections.\n\nClasses wrapping unmanaged resources implement `IDisposable`. The `using` statement guarantees that `Dispose()` is called reliably, even if exceptions are thrown."
+      },
+      "codeSnippet": "// Deterministische Freigabe mit using-Statement:\nusing (var stream = new FileStream(\"report.pdf\", FileMode.Open))\n{\n    // Lese Daten aus Datei\n} // stream.Dispose() wird hier automatisch aufgerufen!"
+    },
+    {
+      "id": "cs-01-sec-04",
+      "type": "quiz_code_puzzle",
+      "title": { "de": "Code-Puzzle: LINQ-Filterung", "en": "Code Puzzle: LINQ Filtering" },
+      "prompt": {
+        "de": "Vervollständige die LINQ-Abfrage, um alle Kunden herauszufiltern, deren Alter mindestens 18 beträgt:",
+        "en": "Complete the LINQ query to filter all customers who are at least 18 years old:"
+      },
+      "starterCode": "var adults = customers. ___ (c => c.Age >= 18).ToList();",
+      "options": ["Where", "Filter", "Select", "Find"],
+      "solution": "Where",
+      "explanation": {
+        "de": "In LINQ (Language Integrated Query) dient die Erweiterungsmethode `.Where()` dem Filtern von Auflistungen anhand eines Prädikats.",
+        "en": "In LINQ, the `.Where()` extension method filters collections based on a predicate function."
+      }
+    }
+  ]
+}

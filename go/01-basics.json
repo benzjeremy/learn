@@ -3,58 +3,68 @@
   "courseId": "go",
   "chapterIndex": 1,
   "title": {
-    "de": "1. Syntax, Variablen & Typen",
-    "en": "1. Syntax, Variables & Types"
+    "de": "1. Warum Go? Syntax, Speichermodell & Goroutines",
+    "en": "1. Why Go? Syntax, Memory Model & Goroutines"
   },
   "description": {
-    "de": "Lerne die Grundlagen der statisch getypten Sprache Go: Package Main, Kurzschreibweise `:=` und Kontrollstrukturen.",
-    "en": "Learn the fundamentals of statically typed Go: Package main, short variable declarations `:=`, and control structures."
+    "de": "Fundierte Einführung in Go: Entstehungsgeschichte bei Google, AOT-Kompilierung in Maschinencode, Pointer-Semantik und Communicating Sequential Processes (CSP).",
+    "en": "In-depth introduction to Go: Google origin, AOT native compilation, pointer semantics, and Communicating Sequential Processes (CSP)."
   },
   "sections": [
     {
       "id": "go-01-sec-01",
       "type": "concept",
-      "title": { "de": "Das Einstiegs-Package", "en": "The Entry Package" },
+      "title": { "de": "Warum Go? Das Problem moderner Server-Architekturen", "en": "Why Go? The Problem of Modern Server Architectures" },
       "contentMarkdown": {
-        "de": "Jedes ausführbare Go-Programm beginnt mit dem Package `main` und der Funktion `func main()`. Imports werden kompakt gebündelt.",
-        "en": "Every executable Go program begins with package `main` and a `func main()`. Imports are grouped cleanly."
+        "de": "Go wurde 2007 von Robert Griesemer, Rob Pike und Ken Thompson bei Google entwickelt.\n\n* **Das Problem:** C++ hatte unerträgliche Kompilierzeiten und gefährliches Speichermanagement. Java und Python verbrauchten zu viel RAM und litten unter VM-Overhead oder Threading-Einschränkungen (GIL).\n* **Der Go-Ansatz:** Eine Sprache, die so schnell kompiliert wie ein Skript ausgeführt wird, direkt in eine statische Maschinencode-Binary ohne Abhängigkeiten übersetzt wird und Concurrency (Nebenläufigkeit) als Kernprinzip in die Sprache einbettet.",
+        "en": "Go was designed in 2007 by Robert Griesemer, Rob Pike, and Ken Thompson at Google.\n\n* **The Problem:** C++ suffered from sluggish compile times and manual memory perils. Java/Python incurred runtime overhead and threading constraints.\n* **The Go Solution:** A language compiling in seconds directly into a standalone machine-code binary, featuring native concurrency via lightweight goroutines."
       },
-      "codeSnippet": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    fmt.Println(\"Hello, Go!\")\n}"
+      "codeSnippet": "package main\n\nimport (\n    \"fmt\"\n    \"runtime\"\n)\n\nfunc main() {\n    // Go nutzt alle verfügbaren CPU-Kerne nativ\n    fmt.Printf(\"Go läuft auf %d logischen CPU-Kernen\\n\", runtime.NumCPU())\n}"
     },
     {
       "id": "go-01-sec-02",
-      "type": "quiz_choice",
-      "title": { "de": "Variablen-Deklaration", "en": "Variable Declaration" },
-      "prompt": {
-        "de": "Welche Syntax deklariert und initialisiert in Go eine lokale Variable mit automatischer Typinferenz?",
-        "en": "Which syntax declares and initializes a local variable in Go with automatic type inference?"
+      "type": "concept",
+      "title": { "de": "Speichermodell: Pointer vs. Value & Escape Analysis", "en": "Memory Model: Pointer vs. Value & Escape Analysis" },
+      "contentMarkdown": {
+        "de": "In Go hat jede Variable einen festen Speicherort:\n\n* **Call by Value:** Go übergibt Parameter standardmäßig als Kopie. Modifikationen in einer Funktion wirken sich nicht auf das Original aus.\n* **Pointer (`*T`):** Übergeben Sie einen Pointer (`&variable`), greift die Funktion direkt auf dieselbe Speicheradresse zu.\n* **Escape Analysis des Compilers:** Der Go-Compiler analysiert beim Kompilieren, ob eine Variable die Funktion überlebt. Tut sie das, 'escaped' sie automatisch auf den Heap; andernfalls bleibt sie auf dem extrem schnellen Stack.",
+        "en": "In Go, memory allocation is deterministic:\n\n* **Call by Value:** Arguments are passed by copy by default.\n* **Pointers (`*T`):** Passing a pointer (`&variable`) references the shared memory address.\n* **Escape Analysis:** The compiler detects whether a variable outlives its stack frame; if so, it escapes to the heap automatically."
       },
-      "options": [
-        "var x = 10",
-        "x := 10",
-        "let x: int = 10",
-        "int x = 10;"
-      ],
-      "solution": 1,
-      "explanation": {
-        "de": "Der Kurzdeklarations-Operator `:=` ist in Go innerhalb von Funktionen der kanonische Weg, Variablen mit Typinferenz anzulegen.",
-        "en": "The short variable declaration operator `:=` is the canonical way to declare and initialize variables inside functions in Go."
-      }
+      "codeSnippet": "type ServerConfig struct {\n    Port int\n}\n\n// Erhält einen Pointer und modifiziert den Originalwert auf dem Heap/Stack\nfunc updatePort(cfg *ServerConfig, newPort int) {\n    cfg.Port = newPort\n}"
     },
     {
       "id": "go-01-sec-03",
-      "type": "quiz_code_puzzle",
-      "title": { "de": "Code-Puzzle: Schleife", "en": "Code Puzzle: Loop" },
+      "type": "quiz_choice",
+      "title": { "de": "IHK-Verständnisfrage: Goroutines vs. OS-Threads", "en": "IHK Concept Check: Goroutines vs. OS Threads" },
       "prompt": {
-        "de": "In Go gibt es nur ein einziges Schleifen-Schlüsselwort: `for`. Vervollständige die Schleife:",
-        "en": "Go has only a single looping construct: `for`. Complete the loop:"
+        "de": "Warum kann ein Go-Server problemlos hunderttausende Goroutines gleichzeitig verwalten, während herkömmliche Betriebssystem-Threads den Server bei wenigen tausend Threads überlasten würden?",
+        "en": "Why can a Go process run hundreds of thousands of goroutines, while conventional OS threads exhaust system resources at only a few thousand?"
       },
-      "starterCode": "___ i := 0; i < 5; i++ {\n    fmt.Println(i)\n}",
-      "options": ["while", "for", "loop", "iterate"],
-      "solution": "for",
+      "options": [
+        "Eine Goroutine startet mit nur ca. 2 KB dynamischem Stack, während ein OS-Thread 1–2 MB festen Stack reserviert.",
+        "Weil Go die Daten im Internet und nicht im Arbeitsspeicher ablegt.",
+        "Weil Goroutines nur bei Vollmond ausgeführt werden.",
+        "Weil Go-Code nicht kompiliert, sondern simuliert wird."
+      ],
+      "solution": 0,
       "explanation": {
-        "de": "Go verzichtet bewusst auf `while` oder `do-while`. Sämtliche Schleifenkonstrukte werden ausschließlich mit `for` ausgedrückt.",
-        "en": "Go intentionally omits `while` or `do-while`. All looping patterns are expressed exclusively using `for`."
+        "de": "Betriebssystem-Threads reservieren typischerweise 1–2 MB Stack-Speicher und erfordern teure Kernel-Kontextwechsel. Go verwaltet Goroutines im User-Space über seinen eigenen M:N-Scheduler mit einem winzigen initialen Stack von 2 KB.",
+        "en": "OS threads allocate 1–2 MB fixed stack space and require kernel context switching. The Go runtime multiplexes lightweight goroutines (initial 2 KB stack) entirely in user space."
+      }
+    },
+    {
+      "id": "go-01-sec-04",
+      "type": "quiz_code_puzzle",
+      "title": { "de": "Code-Puzzle: Sichere Channel-Kommunikation", "en": "Code Puzzle: Safe Channel Communication" },
+      "prompt": {
+        "de": "Mit welchem Operator sendet man in Go einen Wert in einen Channel?",
+        "en": "Which operator sends a value into a channel in Go?"
+      },
+      "starterCode": "msgChan ___ \"Task completed\"",
+      "options": ["<-", "->", "=>", ":="],
+      "solution": "<-",
+      "explanation": {
+        "de": "Der Pfeil-Operator `<-` dient in Go sowohl zum Senden (`ch <- val`) als auch zum Empfangen (`val := <-ch`) aus Channels.",
+        "en": "The arrow operator `<-` handles both sending (`ch <- val`) and receiving (`val := <-ch`) via channels."
       }
     }
   ]

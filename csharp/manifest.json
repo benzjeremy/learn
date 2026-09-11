@@ -1,0 +1,22 @@
+{
+  "courseId": "csharp",
+  "title": { "de": "C# & .NET Enterprise", "en": "C# & .NET Enterprise" },
+  "chapters": [
+    {
+      "index": 1,
+      "id": "csharp-01-fundamentals",
+      "file": "01-enterprise-basics.json",
+      "type": "lesson",
+      "title": { "de": "1. CLR, Managed Memory & Objektorientierung", "en": "1. CLR, Managed Memory & Object Orientation" },
+      "durationMinutes": 25
+    },
+    {
+      "index": 2,
+      "id": "csharp-exam-90min",
+      "file": "exam-90min.json",
+      "type": "exam_90min",
+      "title": { "de": "🏛️ IHK-Prüfungsmodul (90 Min): C# Enterprise & Design Patterns", "en": "🏛️ IHK Exam Module (90 Min): C# Enterprise & Design Patterns" },
+      "durationMinutes": 90
+    }
+  ]
+}

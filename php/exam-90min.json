@@ -1,0 +1,128 @@
+{
+  "id": "php-exam-90min",
+  "courseId": "php",
+  "chapterIndex": 2,
+  "type": "exam_90min",
+  "examDurationMinutes": 90,
+  "maxScore": 100,
+  "passingScore": 50,
+  "title": {
+    "de": "🏛️ IHK-Prüfungsmodul (90 Min): Backend Architecture & Session Security",
+    "en": "🏛️ IHK Exam Module (90 Min): Backend Architecture & Session Security"
+  },
+  "description": {
+    "de": "IHK-Prüfungssimulation für Web-Backends: Session-Fixation-Schutz, Cookie-Sicherheitsflags, MVC-Entwurfsmuster, PDO-Konfiguration und CSRF-Tokens.",
+    "en": "IHK exam simulation for backend engineering: Session fixation defense, cookie security flags, MVC pattern, PDO configuration, and CSRF tokens."
+  },
+  "scenario": {
+    "de": "Handlungssituation: Sie sind Anwendungsentwickler/in bei einem E-Commerce-Dienstleister. Eine Shop-Plattform auf PHP-Basis soll auditiert werden. Sie müssen Session-Entführungen (Session Hijacking / Fixation) unterbinden, ein robustes MVC-Routing einrichten und Datenbankzugriffe gegen SQL-Injektionen absichern.",
+    "en": "Scenario: You are a software developer at an e-commerce agency. A PHP web platform requires a security audit. You must neutralize session hijacking and fixation risks, implement MVC routing, and harden database connections against injection."
+  },
+  "sections": [
+    {
+      "id": "exam-php-q01",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 1 (20 Punkte): Session Fixation & session_regenerate_id", "en": "Question 1 (20 Points): Session Fixation Defense" },
+      "prompt": {
+        "de": "Ein Angreifer gibt einem Opfer eine präparierte Session-ID vor. Sobald sich das Opfer anmeldet, behält die Session dieselbe ID und der Angreifer übernimmt das Konto. Welche Funktion muss unmittelbar nach erfolgreichem Login aufgerufen werden, um diese Schwachstelle zu schließen?",
+        "en": "An attacker predetermines a victim's session ID. Once the victim logs in, the session ID remains unchanged, enabling hijacking. Which function prevents this when invoked immediately upon successful authentication?"
+      },
+      "options": [
+        "`session_regenerate_id(true);` (erzeugt eine neue Session-ID und löscht die alte Session-Datei)",
+        "`session_destroy();`",
+        "`session_start();`",
+        "`setcookie(\"logged_in\", \"yes\");`"
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "`session_regenerate_id(true)` invalidiert die alte Session-ID und weist dem authentifizierten Benutzer eine völlig neue, kryptografisch zufällige ID zu. Damit läuft die vom Angreifer vorgegebene ID sofort ins Leere.",
+        "en": "`session_regenerate_id(true)` rotates the session identifier and purges old session storage, rendering the attacker's hijacked token obsolete."
+      }
+    },
+    {
+      "id": "exam-php-q02",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 2 (20 Punkte): Cookie-Sicherheitsflags (HttpOnly, Secure, SameSite)", "en": "Question 2 (20 Points): Cookie Security Flags" },
+      "prompt": {
+        "de": "Welche Konfiguration in `php.ini` bzw. `session_set_cookie_params()` verhindert, dass JavaScript über XSS das Session-Cookie `PHPSESSID` auslesen kann (`document.cookie`)?",
+        "en": "Which configuration prevents client-side JavaScript from reading the session cookie `PHPSESSID` via XSS (`document.cookie`)?"
+      },
+      "options": [
+        "`session.cookie_httponly = 1;`",
+        "`session.cookie_secure = 0;`",
+        "`session.use_trans_sid = 1;`",
+        "`session.auto_start = 1;`"
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Das `HttpOnly`-Flag weist den Browser an, den Zugriff auf das Cookie über DOM-Schnittstellen wie `document.cookie` komplett zu blockieren. Selbst wenn ein Angreifer schadhaften JavaScript-Code einschleust, kann er das Session-Cookie nicht stehlen.",
+        "en": "The `HttpOnly` directive instructs browsers to deny client-side scripts access to the cookie, shielding session tokens against XSS exfiltration."
+      }
+    },
+    {
+      "id": "exam-php-q03",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 3 (20 Punkte): MVC-Architekturmuster", "en": "Question 3 (20 Points): MVC Architectural Pattern" },
+      "prompt": {
+        "de": "Welche Aufgabe übernimmt der 'Controller' im klassischen Model-View-Controller (MVC) Architekturmuster einer Webanwendung?",
+        "en": "What is the primary responsibility of the 'Controller' in classical MVC architecture?"
+      },
+      "options": [
+        "Er nimmt den HTTP-Request entgegen, interagiert mit dem Model (Geschäftslogik / Daten) und wählt die passende View zur Rückgabe an den Client aus.",
+        "Er formatiert das CSS-Layout der Website.",
+        "Er speichert die Datenbank-Tabellen auf der Festplatte.",
+        "Er verwaltet die Netzwerkkabel im Serverraum."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Der Controller agiert als Vermittler (Orchestrator): Er verarbeitet Benutzeraktionen, ruft Geschäftslogik im Model auf und reicht die Daten an die View weiter, die das HTML generiert.",
+        "en": "The Controller acts as coordinator: It ingests requests, delegates business operations to the Model, and selects the appropriate View template to render."
+      }
+    },
+    {
+      "id": "exam-php-q04",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 4 (20 Punkte): Schutz vor Cross-Site Request Forgery (CSRF)", "en": "Question 4 (20 Points): Anti-CSRF Token Validation" },
+      "prompt": {
+        "de": "Wie schützt das 'Synchronizer Token Pattern' in PHP ein Formular zuverlässig vor CSRF-Angriffen?",
+        "en": "How does the Synchronizer Token Pattern protect web forms against CSRF attacks in PHP?"
+      },
+      "options": [
+        "In der Session wird ein kryptografischer Zufallswert gespeichert und als verstecktes `<input type=\"hidden\" name=\"csrf_token\">` im Formular mitgesendet; beim POST-Empfang vergleicht der Server beide Werte.",
+        "Durch Deaktivierung von POST-Requests.",
+        "Indem man Passwörter im Formular im Klartext mitsendet.",
+        "Indem der Benutzer bei jedem Klick ein Captcha lösen muss."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Ein fremder Angreifer kann zwar vom Browser des Opfers einen POST-Request absenden, kann jedoch aufgrund der Same-Origin-Policy das geheime CSRF-Token aus dem Formular nicht auslesen. Stimmt das übermittelte Token nicht mit dem Session-Token überein, weist der Server den Request ab.",
+        "en": "The Synchronizer Token Pattern generates an unpredictable token bound to the session. Attackers cannot read this token cross-origin; mismatched POST submissions are rejected."
+      }
+    },
+    {
+      "id": "exam-php-q05",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 5 (20 Punkte): Composer & Dependency Management", "en": "Question 5 (20 Points): Composer & Dependency Management" },
+      "prompt": {
+        "de": "Welche Datei legt in einem PHP-Projekt die exakten, reproduzierbaren Versionen aller installierten Drittbibliotheken fest und muss zwingend in Git versioniert werden?",
+        "en": "Which file locks the exact, reproducible versions of all installed third-party libraries and must be committed to Git?"
+      },
+      "options": [
+        "`composer.lock`",
+        "`vendor/` (dieser Ordner gehört in `.gitignore`)",
+        "`composer.json` (definiert nur Versionsbereiche)",
+        "`php.ini`"
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "`composer.lock` speichert die exakten Git-Commits und Prüfsummen aller installierten Pakete. Dadurch installieren alle Entwickler und CI/CD-Pipelines mit `composer install` auf das Bit genau denselben Codebestand.",
+        "en": "`composer.lock` pins the exact commit hashes and dependency trees, guaranteeing identical reproducible installs across production and team environments."
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "courseId": "cybersecurity",
+  "title": { "de": "Cybersecurity & IT-Sicherheit", "en": "Cybersecurity & IT Security" },
+  "chapters": [
+    {
+      "index": 1,
+      "id": "cyber-01-fundamentals",
+      "file": "01-cia-and-owasp.json",
+      "type": "lesson",
+      "title": { "de": "1. Schutzziele (CIA), Bedrohungen & OWASP Top 10", "en": "1. Protection Goals (CIA), Threats & OWASP Top 10" },
+      "durationMinutes": 25
+    },
+    {
+      "index": 2,
+      "id": "cyber-exam-90min",
+      "file": "exam-90min.json",
+      "type": "exam_90min",
+      "title": { "de": "🏛️ IHK-Prüfungsmodul (90 Min): Security Audit & Härtung", "en": "🏛️ IHK Exam Module (90 Min): Security Audit & Hardening" },
+      "durationMinutes": 90
+    }
+  ]
+}

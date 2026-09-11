@@ -1,0 +1,71 @@
+{
+  "id": "html-01-boxmodel-semantics",
+  "courseId": "html-css",
+  "chapterIndex": 1,
+  "title": {
+    "de": "1. Semantisches HTML, Box-Modell & Modernes Grid",
+    "en": "1. Semantic HTML, Box Model & Modern Grid"
+  },
+  "description": {
+    "de": "Das Fundament des Web-Frontends: Semantischer Dokumentenaufbau nach W3C, das CSS-Box-Modell (`border-box`), Flexbox vs. 2D CSS Grid und responsive Design Tokens.",
+    "en": "Web frontend foundation: W3C semantic document structure, CSS box model (`border-box`), Flexbox vs. 2D CSS Grid, and responsive design tokens."
+  },
+  "sections": [
+    {
+      "id": "html-01-sec-01",
+      "type": "concept",
+      "title": { "de": "Semantische HTML5-Struktur statt Div-Suppe", "en": "Semantic HTML5 Structure vs. Div Soup" },
+      "contentMarkdown": {
+        "de": "Vor HTML5 bestand das Web aus unzähligen bedeutungslosen `<div>`-Containern. Moderne Webstandards fordern **semantische Tags**:\n\n* `<header>`: Kopfbereich mit Logo, Navigation oder Titel.\n* `<nav>`: Hauptnavigationsleiste für Screenreader und Tastatur-Tabs.\n* `<main>`: Der zentrale, einmalige Hauptinhalt der Seite.\n* `<article>`: In sich geschlossener, eigenständiger Inhalt (z. B. Blogbeitrag, Produktkarte).\n* `<aside>`: Begleitender Inhalt (Sidebar, weiterführende Links).\n* `<footer>`: Rechtliche Angaben, Impressum, Copyright.",
+        "en": "Prior to HTML5, websites were built with generic `<div>` tags. Modern standards mandate **semantic elements**:\n\n* `<header>`: Page or section branding and heading.\n* `<nav>`: Primary navigation region.\n* `<main>`: The unique central content of the document.\n* `<article>`: Self-contained content item.\n* `<aside>`: Tangentially related sidebars.\n* `<footer>`: Legal disclosures and metadata."
+      },
+      "codeSnippet": "<header>\n  <nav aria-label=\"Hauptnavigation\">\n    <a href=\"/\">Home</a>\n  </nav>\n</header>\n<main>\n  <article>\n    <h1>Moderne Webarchitektur</h1>\n    <p>Semantischer Code verbessert SEO und Accessibility.</p>\n  </article>\n</main>"
+    },
+    {
+      "id": "html-01-sec-02",
+      "type": "concept",
+      "title": { "de": "Das CSS-Box-Modell: content-box vs. border-box", "en": "CSS Box Model: content-box vs. border-box" },
+      "contentMarkdown": {
+        "de": "Jedes Element im Browser ist eine rechteckige Box aus vier Schichten: `Content` -> `Padding` -> `Border` -> `Margin`.\n\n* **Standard (`content-box`):** Wenn Sie `width: 200px` und `padding: 20px` setzen, wird die Box insgesamt **240px** breit! Dies bricht häufig responsive Layouts.\n* **Der moderne Standard (`border-box`):** `padding` und `border` werden in die angegebene Breite **eingerechnet**. Die Box bleibt exakt **200px** breit!",
+        "en": "Every rendered element is a 4-layer box: `Content` -> `Padding` -> `Border` -> `Margin`.\n\n* **Legacy Default (`content-box`):** A `width: 200px` with `padding: 20px` results in an actual width of **240px**, breaking grids.\n* **Modern Standard (`border-box`):** Padding and borders are absorbed inside the specified dimension, locking the box to exactly **200px**."
+      },
+      "codeSnippet": "/* Universal CSS Reset: Pflicht in jedem Projekt */\n*,\n*::before,\n*::after {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}"
+    },
+    {
+      "id": "html-01-sec-03",
+      "type": "quiz_choice",
+      "title": { "de": "Flexbox (1D) vs. CSS Grid (2D)", "en": "Flexbox (1D) vs. CSS Grid (2D)" },
+      "prompt": {
+        "de": "Wann ist CSS Grid gegenüber Flexbox das architektonisch überlegene Werkzeug?",
+        "en": "When is CSS Grid architecturally superior to Flexbox?"
+      },
+      "options": [
+        "Wenn Elemente gleichzeitig in Zeilen UND Spalten (2-dimensionale Raster) zueinander ausgerichtet werden müssen.",
+        "Wenn man nur einen einzigen Button in einem Header zentrieren möchte.",
+        "CSS Grid sollte vermieden werden, da es langsamer als Tabellen ist.",
+        "Wenn die Website nur auf Windows-Computern laufen soll."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Flexbox ist für eindimensionale Layouts (entweder Zeile ODER Spalte) optimiert. CSS Grid steuert beide Dimensionen (Zeilen und Spalten gleichzeitig) und ermöglicht responsive Auto-Fit-Spalten ohne Media Queries.",
+        "en": "Flexbox manages 1-dimensional layouts (row or column). CSS Grid controls 2-dimensional rows and columns simultaneously."
+      }
+    },
+    {
+      "id": "html-01-sec-04",
+      "type": "quiz_code_puzzle",
+      "title": { "de": "Code-Puzzle: Responsive Grid Spalten", "en": "Code Puzzle: Responsive Grid Columns" },
+      "prompt": {
+        "de": "Vervollständige die moderne CSS-Grid-Deklaration, die automatisch so viele Spalten mit mindestens 280px Breite erzeugt, wie in den Viewport passen:",
+        "en": "Complete the modern CSS Grid declaration that automatically fits as many columns (min 280px) as the viewport allows:"
+      },
+      "starterCode": "grid-template-columns: repeat(___ , minmax(280px, 1fr));",
+      "options": ["auto-fit", "flex-wrap", "100%", "auto-fill-columns"],
+      "solution": "auto-fit",
+      "explanation": {
+        "de": "`repeat(auto-fit, minmax(280px, 1fr))` erzeugt vollautomatisch responsive Spalten, ohne dass ein einziger Media-Query geschrieben werden muss.",
+        "en": "`repeat(auto-fit, minmax(280px, 1fr))` dynamically packs columns without requiring media queries."
+      }
+    }
+  ]
+}

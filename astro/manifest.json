@@ -4,11 +4,19 @@
   "chapters": [
     {
       "index": 1,
-      "id": "astro-01-intro",
-      "file": "01-intro.json",
-      "freeEntry": true,
-      "title": { "de": "1. Island Architecture & Komponenten", "en": "1. Island Architecture & Components" },
-      "durationMinutes": 10
+      "id": "astro-01-islands",
+      "file": "01-islands.json",
+      "type": "lesson",
+      "title": { "de": "1. Warum Astro? Island Architecture & Zero-JS", "en": "1. Why Astro? Island Architecture & Zero-JS" },
+      "durationMinutes": 25
+    },
+    {
+      "index": 2,
+      "id": "astro-exam-90min",
+      "file": "exam-90min.json",
+      "type": "exam_90min",
+      "title": { "de": "🏛️ IHK-Prüfungsmodul (90 Min): Web-Architektur & Performance", "en": "🏛️ IHK Exam Module (90 Min): Web Architecture & Performance" },
+      "durationMinutes": 90
     }
   ]
 }

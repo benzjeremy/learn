@@ -1,0 +1,71 @@
+{
+  "id": "sql-01-relational-model",
+  "courseId": "sql",
+  "chapterIndex": 1,
+  "title": {
+    "de": "1. Relationales Modell, Normalisierung & ACID",
+    "en": "1. Relational Model, Normalization & ACID"
+  },
+  "description": {
+    "de": "Das Fundament relationaler Datenbankmanagementsysteme (RDBMS): Codd'sches Modell, Primär- und Fremdschlüssel, 1NF bis 3NF und relationale Integrität.",
+    "en": "The foundation of relational database systems (RDBMS): Codd's relational model, primary & foreign keys, 1NF to 3NF, and relational integrity."
+  },
+  "sections": [
+    {
+      "id": "sql-01-sec-01",
+      "type": "concept",
+      "title": { "de": "Das relationale Modell: Tabellen, Zeilen & Relationen", "en": "The Relational Model: Tables, Rows & Relations" },
+      "contentMarkdown": {
+        "de": "1970 bewies Edgar F. Codd, dass Datenunabhängigkeit erreicht werden kann, indem Daten als mathematische Relationen (Tabellen) modelliert werden.\n\n* **Tupel (Zeilen):** Repräsentieren einzelne Datensätze (Entitäten).\n* **Attribute (Spalten):** Beschreiben Eigenschaften mit festem Datentyp.\n* **Primärschlüssel (Primary Key):** Identifiziert jedes Tupel eineindeutig und darf niemals `NULL` sein.\n* **Fremdschlüssel (Foreign Key):** Verweist auf den Primärschlüssel einer anderen Tabelle und garantiert **referentielle Integrität** (`ON DELETE CASCADE` / `RESTRICT`).",
+        "en": "In 1970, Edgar F. Codd demonstrated that data independence is achieved by structuring data into mathematical relations (tables).\n\n* **Tuples (Rows):** Represent individual entity records.\n* **Attributes (Columns):** Describe properties with defined data types.\n* **Primary Key:** Uniquely identifies each tuple and must never be `NULL`.\n* **Foreign Key:** References the primary key of another table, ensuring **referential integrity**."
+      },
+      "codeSnippet": "CREATE TABLE kunden (\n    kunden_nr INT PRIMARY KEY AUTO_INCREMENT,\n    nachname VARCHAR(100) NOT NULL,\n    email VARCHAR(255) UNIQUE NOT NULL\n);\n\nCREATE TABLE bestellungen (\n    bestell_nr INT PRIMARY KEY,\n    kunden_nr INT NOT NULL,\n    betrag DECIMAL(10, 2) NOT NULL,\n    FOREIGN KEY (kunden_nr) REFERENCES kunden(kunden_nr) ON DELETE RESTRICT\n);"
+    },
+    {
+      "id": "sql-01-sec-02",
+      "type": "quiz_choice",
+      "title": { "de": "IHK-Prüfungsfrage: Die 3. Normalform (3NF)", "en": "IHK Exam Question: Third Normal Form (3NF)" },
+      "prompt": {
+        "de": "Gegeben ist eine Tabelle mit Kundendaten, die bereits die 2. Normalform erfüllt. Das Attribut 'Wohnort' ist jedoch funktional abhängig von der 'Postleitzahl' (PLZ), welche selbst kein Primärschlüssel ist. Welcher Regelverstoß liegt vor?",
+        "en": "A table fulfills 2NF. However, the attribute 'City' is functionally dependent on 'Postal Code' (ZIP), which is not a candidate key. Which normalization rule is violated?"
+      },
+      "options": [
+        "Verletzung der 1. Normalform wegen fehlender atomarer Werte",
+        "Verletzung der 2. Normalform wegen partieller Schlüsselabhängigkeit",
+        "Verletzung der 3. Normalform wegen einer transitiven Abhängigkeit",
+        "Verletzung der Boyce-Codd-Normalform (BCNF)"
+      ],
+      "solution": 2,
+      "explanation": {
+        "de": "Die 3. Normalform verlangt, dass kein Nicht-Schlüsselattribut transitiv von einem anderen Nicht-Schlüsselattribut abhängt (Primärschlüssel -> PLZ -> Ort). Die Lösung besteht darin, PLZ und Ort in eine eigene Referenztabelle auszulagern.",
+        "en" : "The 3rd Normal Form mandates that no non-key attribute is transitively dependent on another non-key attribute (PK -> ZIP -> City). This requires extracting ZIP/City into a dedicated table."
+      }
+    },
+    {
+      "id": "sql-01-sec-03",
+      "type": "concept",
+      "title": { "de": "ACID-Prinzipien für verlässliche Transaktionen", "en": "ACID Principles for Reliable Transactions" },
+      "contentMarkdown": {
+        "de": "Eine Transaktion ist eine Folge von Operationen, die als logische Einheit ausgeführt wird:\n\n* **Atomicity (Atomarität):** Alles oder nichts. Scheitert ein Teilschritt, erfolgt ein `ROLLBACK`.\n* **Consistency (Konsistenz):** Die Datenbank befindet sich vor und nach der Transaktion in einem gültigen Zustand nach allen Constraints.\n* **Isolation (Isolation):** Gleichzeitige Transaktionen sehen keine unfertigen Zwischenzustände anderer Transaktionen.\n* **Durability (Dauerhaftigkeit):** Nach einem erfolgreichen `COMMIT` gehen Daten selbst bei einem totalen Stromausfall nicht verloren (Write-Ahead-Log).",
+        "en": "A transaction is a sequence of database operations executed as a single logical unit:\n\n* **Atomicity:** All-or-nothing execution. Partial failure triggers a `ROLLBACK`.\n* **Consistency:** Constraints remain valid before and after transaction execution.\n* **Isolation:** Concurrent transactions execute without mutual interference.\n* **Durability:** Committed changes persist reliably across system crashes."
+      },
+      "codeSnippet": "START TRANSACTION;\nUPDATE konto SET saldo = saldo - 500 WHERE konto_nr = 101;\nUPDATE konto SET saldo = saldo + 500 WHERE konto_nr = 202;\nCOMMIT;"
+    },
+    {
+      "id": "sql-01-sec-04",
+      "type": "quiz_code_puzzle",
+      "title": { "de": "Code-Puzzle: Inner Join Verknüpfung", "en": "Code Puzzle: Inner Join Linking" },
+      "prompt": {
+        "de": "Verknüpfe die Tabelle `kunden` mit der Tabelle `bestellungen` über das gemeinsame Schlüsselattribut `kunden_nr`:",
+        "en": "Join the `kunden` table with `bestellungen` using the shared key `kunden_nr`:"
+      },
+      "starterCode": "SELECT k.nachname, b.betrag FROM kunden k ___ JOIN bestellungen b ON k.kunden_nr = b.kunden_nr",
+      "options": ["INNER", "OUTER", "CROSS", "UNION"],
+      "solution": "INNER",
+      "explanation": {
+        "de": "`INNER JOIN` selektiert nur diejenigen Zeilen, für die in beiden verknüpften Tabellen eine Übereinstimmung der Join-Bedingung vorliegt.",
+        "en": "`INNER JOIN` returns only rows that have matching records in both joined tables."
+      }
+    }
+  ]
+}

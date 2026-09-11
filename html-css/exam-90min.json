@@ -1,0 +1,128 @@
+{
+  "id": "html-exam-90min",
+  "courseId": "html-css",
+  "chapterIndex": 2,
+  "type": "exam_90min",
+  "examDurationMinutes": 90,
+  "maxScore": 100,
+  "passingScore": 50,
+  "title": {
+    "de": "🏛️ IHK-Prüfungsmodul (90 Min): Responsive Layouts & Barrierefreiheit",
+    "en": "🏛️ IHK Exam Module (90 Min): Responsive Layouts & Accessibility"
+  },
+  "description": {
+    "de": "IHK-Abschlussprüfungssimulation: Responsive Web-Ergonomie, WCAG/BITV Barrierefreiheit, CSS-Kaskadierungsregeln (Spezifität) und Touch-Target-Optimierung.",
+    "en": "IHK exam simulation: Responsive web ergonomics, WCAG/BITV accessibility, CSS cascade rules (specificity), and touch target optimization."
+  },
+  "scenario": {
+    "de": "Handlungssituation: Als Web-Entwickler/in bei einem kommunalen IT-Dienstleister sollen Sie das Bürgerportal der Stadt barrierefrei nach den gesetzlichen Vorgaben der BITV 2.0 / WCAG 2.1 umgestalten. Gleichzeitig müssen mobile Darstellungsfehler behoben und die CSS-Spezifität bereinigt werden.",
+    "en": "Scenario: As a web developer at a municipal agency, you are overhauling the public citizen portal to comply with statutory accessibility directives (BITV 2.0 / WCAG 2.1) while resolving responsive mobile defects and CSS specificity conflicts."
+  },
+  "sections": [
+    {
+      "id": "exam-html-q01",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 1 (20 Punkte): CSS-Spezifitätsberechnung", "en": "Question 1 (20 Points): CSS Specificity Calculation" },
+      "prompt": {
+        "de": "Welcher der folgenden CSS-Selektoren besitzt die höchste Spezifität und überschreibt alle anderen regulären Stile?",
+        "en": "Which of the following CSS selectors has the highest specificity and overrides regular styles?"
+      },
+      "options": [
+        "`#header .nav-item` (1 ID, 1 Klasse)",
+        "`.nav .nav-item.active` (3 Klassen)",
+        "`nav ul li a` (4 Element-Selektoren)",
+        "`*` (Universalselektor)"
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Die Spezifität wird in (Inline, IDs, Klassen/Attribute, Elemente) berechnet. Ein einzelner ID-Selektor (`0,1,0,0`) sticht beliebig viele Klassen (`0,0,x,0`) aus. `#header .nav-item` hat Spezifität `(0,1,1,0)`.",
+        "en": "Specificity is calculated as (Inline, IDs, Classes, Elements). A single ID (0,1,0,0) outweighs any number of classes. Selector `#header .nav-item` scores (0,1,1,0)."
+      }
+    },
+    {
+      "id": "exam-html-q02",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 2 (20 Punkte): Barrierefreie Touch-Targets (WCAG 2.5.5 / 2.5.8)", "en": "Question 2 (20 Points): Accessible Touch Target Size" },
+      "prompt": {
+        "de": "Welche Mindestabmessung muss eine interaktive Klickfläche (Button, Icon) auf Mobilgeräten nach modernen Usability- und WCAG-Standards aufweisen, um motorisch eingeschränkten Personen eine zielsichere Bedienung zu ermöglichen?",
+        "en": "What minimum dimensions must interactive touch controls meet under modern usability and accessibility standards?"
+      },
+      "options": [
+        "Mindestens 44 × 44 px bzw. 48 × 48 px (inklusive Padding)",
+        "Mindestens 10 × 10 px",
+        "Maximal 20 × 20 px",
+        "Eine Mindestgröße ist auf Touchscreens nicht erforderlich"
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "WCAG 2.1/2.2 und Google Material Design fordern für berührungsempfindliche Displays mindestens 44 × 44 bzw. 48 × 48 CSS-Pixel Klickfläche, um Fehltippen zu vermeiden.",
+        "en": "WCAG guidelines and ergonomics standards prescribe at least 44×44px to 48×48px clickable target area on touchscreens."
+      }
+    },
+    {
+      "id": "exam-html-q03",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 3 (20 Punkte): Tastaturbedienbarkeit & Focus Ring (:focus-visible)", "en": "Question 3 (20 Points): Keyboard Accessibility & Focus Ring" },
+      "prompt": {
+        "de": "Warum gilt das pauschale CSS-Styling `* { outline: none; }` als gravierender Fehler gegen die Barrierefreiheit?",
+        "en": "Why is `* { outline: none; }` considered a severe accessibility violation?"
+      },
+      "options": [
+        "Weil Tastaturnutzer (z. B. blinde oder motorisch eingeschränkte Menschen) den sichtbaren Tastaturfokus verlieren und nicht mehr erkennen können, welcher Button gerade aktiv ist.",
+        "Weil dadurch der Text kleiner dargestellt wird.",
+        "Weil die Website auf Android-Geräten abstürzt.",
+        "Weil `outline` zwingend für die Farbwiedergabe benötigt wird."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Der sichtbare Fokusring ist für Personen, die Websites per Tab-Taste bedienen, die einzige Orientierung. Entfernt man die Outline ohne Ersatz, wird die Website für Tastaturnutzer unbedienbar.",
+        "en": "The focus ring is essential for keyboard navigators to locate their active cursor position. Removing outlines without accessible alternatives makes websites unusable for assistive technologies."
+      }
+    },
+    {
+      "id": "exam-html-q04",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 4 (20 Punkte): Relative Einheiten - rem vs. em", "en": "Question 4 (20 Points): Relative Units - rem vs. em" },
+      "prompt": {
+        "de": "Warum sollten Schriftgrößen im Webdesign mit `rem` statt `px` deklariert werden?",
+        "en": "Why should typography be declared using `rem` rather than `px`?"
+      },
+      "options": [
+        "Weil `rem` sich an der im Browser eingestellten Basisschriftgröße des Nutzers orientiert und die Schrift skaliert, wenn sehbehinderte Menschen die Browser-Standardschrift vergrößern.",
+        "Weil `px` auf Apple-Computern nicht unterstützt wird.",
+        "Weil `rem` weniger CSS-Code benötigt.",
+        "Weil `rem` automatisch Bilder komprimiert."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "`rem` (Root EM) bezieht sich auf die `font-size` des `<html>`-Wurzelelements. Ändert der Nutzer seine bevorzugte Schriftgröße in den Browser-Einstellungen (z. B. auf 20px), passen sich alle `rem`-Werte proportional an.",
+        "en": "`rem` references the root element font size. If users configure larger base typography in their browser settings, `rem`-based designs scale proportionally."
+      }
+    },
+    {
+      "id": "exam-html-q05",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 5 (20 Punkte): Formular-Validierung & Label-Verknüpfung", "en": "Question 5 (20 Points): Form Labels & Validation" },
+      "prompt": {
+        "de": "Wie verknüpft man ein `<label>`-Element technisch korrekt mit einem Eingabefeld `<input>`, damit ein Klick auf die Beschriftung das Eingabefeld fokussiert?",
+        "en": "How do you correctly bind a `<label>` to an `<input>` element so that clicking the label focuses the input field?"
+      },
+      "options": [
+        "Das `for`-Attribut des Labels muss dem `id`-Attribut des Input-Feldes exakt entsprechen (oder das Input liegt direkt innerhalb des Labels).",
+        "Man weist beiden Elementen denselben Klassennamen zu.",
+        "Man schreibt den Text direkt in das `placeholder`-Attribut.",
+        "Man benötigt dafür ein JavaScript-Klick-Event."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Das Attribut `for=\"inputID\"` im `<label>` verknüpft dieses semantisch mit `id=\"inputID\"`. Screenreader lesen den Labeltext beim Fokussieren des Feldes vor und Klicks auf das Label aktivieren das Feld.",
+        "en": "The `<label for=\"fieldId\">` semantically associates with `<input id=\"fieldId\">`, enabling screenreader announcements and larger click hitboxes."
+      }
+    }
+  ]
+}

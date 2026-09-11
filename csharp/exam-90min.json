@@ -1,0 +1,128 @@
+{
+  "id": "csharp-exam-90min",
+  "courseId": "csharp",
+  "chapterIndex": 2,
+  "type": "exam_90min",
+  "examDurationMinutes": 90,
+  "maxScore": 100,
+  "passingScore": 50,
+  "title": {
+    "de": "🏛️ IHK-Prüfungsmodul (90 Min): C# Enterprise & Design Patterns",
+    "en": "🏛️ IHK Exam Module (90 Min): C# Enterprise & Design Patterns"
+  },
+  "description": {
+    "de": "Schriftliche IHK-Prüfungssimulation: Objektorientierte Architektur, Entwurfsmuster (SOLID), asynchrone Programmierung und saubere Schnittstellen.",
+    "en": "Written IHK exam simulation: Object-oriented architecture, SOLID design principles, async programming, and clean interfaces."
+  },
+  "scenario": {
+    "de": "Handlungssituation: Sie arbeiten als Fachinformatiker/in für Anwendungsentwicklung bei einem Maschinenbau-Konzern. Eine veraltete monolithische Steuerungssoftware soll auf modernstes .NET refaktoriert werden. Es gilt, lose Kopplung durch Dependency Injection zu etablieren, Deadlocks im Multithreading zu vermeiden und Enterprise-Design-Patterns anzuwenden.",
+    "en": "Scenario: You are a software developer at an engineering corporation. A legacy control system is being refactored to modern .NET. You must ensure loose coupling via Dependency Injection, prevent multithreading deadlocks, and apply enterprise design patterns."
+  },
+  "sections": [
+    {
+      "id": "exam-cs-q01",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 1 (20 Punkte): SOLID-Prinzip - Dependency Inversion", "en": "Question 1 (20 Points): SOLID Principle - Dependency Inversion" },
+      "prompt": {
+        "de": "Eine Geschäftslogik-Klasse instanziiert ihre Datenbankverbindung direkt mit `new SqlServerRepository()`. Welches SOLID-Prinzip wird hier verletzt und wie lautet die fachgerechte Behebung?",
+        "en": "A business logic class instantiates its database access directly with `new SqlServerRepository()`. Which SOLID principle is violated and what is the proper fix?"
+      },
+      "options": [
+        "Verletzung des Dependency Inversion Principle (DIP). Lösung: Die Klasse soll stattdessen von einer Schnittstelle `IRepository` abhängen, die per Konstruktor-Injektion übergeben wird.",
+        "Verletzung des Single Responsibility Principle. Lösung: Alle Methoden in eine einzige statische Klasse verschieben.",
+        "Verletzung des Open-Closed Principle. Lösung: Den Konstruktor als `private` deklarieren.",
+        "Es liegt kein Verstoß vor; direkte Instanziierung ist der empfohlene Weg in .NET."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Das Dependency Inversion Principle besagt: High-Level-Module dürfen nicht von Low-Level-Modulen abhängen. Beide müssen von Abstraktionen (Interfaces) abhängen. Konstruktor-Injektion entkoppelt die Implementierung.",
+        "en": "The Dependency Inversion Principle states high-level modules should depend on abstractions (interfaces), not concrete low-level implementations. Constructor injection provides the necessary inversion."
+      }
+    },
+    {
+      "id": "exam-cs-q02",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 2 (20 Punkte): Asynchrone Programmierung mit async/await", "en": "Question 2 (20 Points): Asynchronous Programming with async/await" },
+      "prompt": {
+        "de": "Warum sollte man in modernem C#-Code den Aufruf `.Result` oder `.Wait()` auf einem laufenden `Task` vermeiden?",
+        "en": "Why should you avoid calling `.Result` or `.Wait()` on a running `Task` in modern C#?"
+      },
+      "options": [
+        "Es blockiert den aktuellen Thread synchron und kann in UI- oder ASP.NET-Umgebungen zu Deadlocks führen.",
+        "Weil `.Result` den Task sofort abbricht.",
+        "Weil `.Result` nur für Zahlen und nicht für Strings verwendet werden darf.",
+        "Weil dadurch der Garbage Collector komplett deaktiviert wird."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Synchrones Warten (`.Result` / `.Wait()`) blockiert den aufrufenden Thread. Wenn der fortsetzende Code auf denselben SynchronizationContext zugreifen will, blockieren sich Thread und Task gegenseitig (Deadlock). Korrekt ist die Nutzung von `await`.",
+        "en": "Synchronous blocking (`.Result` / `.Wait()`) blocks the thread. In environments with a SynchronizationContext, this risks deadlocks when continuations queue up. Always use `await`."
+      }
+    },
+    {
+      "id": "exam-cs-q03",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 3 (20 Punkte): LINQ Deferred Execution", "en": "Question 3 (20 Points): LINQ Deferred Execution" },
+      "prompt": {
+        "de": "Was bedeutet 'Deferred Execution' (verzögerte Ausführung) bei LINQ-Abfragen wie `var query = users.Where(u => u.IsActive);`?",
+        "en": "What does 'Deferred Execution' mean regarding LINQ queries like `var query = users.Where(u => u.IsActive);`?"
+      },
+      "options": [
+        "Die Abfrage wird erst in dem Moment tatsächlich evaluiert, in dem über das Ergebnis iteriert wird (z. B. durch `foreach` oder `.ToList()`).",
+        "Die Abfrage wird um genau 5 Sekunden verzögert ausgeführt.",
+        "Die Abfrage wird nur ausgeführt, wenn der Server im Leerlauf ist.",
+        "Die Abfrage wird auf einen externen Cloud-Server ausgelagert."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "LINQ-Abfragen auf `IEnumerable` werden nicht sofort bei der Deklaration ausgeführt, sondern erst dann, wenn die Daten tatsächlich angefordert werden (z. B. `foreach`, `.ToList()`, `.Count()`).",
+        "en": "LINQ queries against `IEnumerable` defer materialization until the sequence is enumerated (e.g., via `foreach`, `.ToList()`, or `.Count()`)."
+      }
+    },
+    {
+      "id": "exam-cs-q04",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 4 (20 Punkte): Reihenfolge bei Exception-Handling (try-catch)", "en": "Question 4 (20 Points): Exception Handling Order (try-catch)" },
+      "prompt": {
+        "de": "In welcher Reihenfolge müssen `catch`-Blöcke in C# strukturiert sein, wenn sowohl spezifische (`FileNotFoundException`) als auch allgemeine (`Exception`) Fehler abgefangen werden sollen?",
+        "en": "In what order must `catch` blocks be arranged when handling both specific (`FileNotFoundException`) and general (`Exception`) errors?"
+      },
+      "options": [
+        "Spezifische Exceptions immer zuerst, gefolgt von der allgemeinsten Basis-Exception `Exception` am Schluss.",
+        "Die allgemeinste `Exception` immer zuerst.",
+        "Die Reihenfolge ist beliebig, da der Compiler alphabetisch sortiert.",
+        "Es darf immer nur ein einziger `catch`-Block pro Methode existieren."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Der Compiler wertet `catch`-Blöcke von oben nach unten aus. Würde `catch (Exception)` an oberster Stelle stehen, würde dieser Block jede Exception abfangen und spezifischere Blöcke wären unerreichbarer toter Code.",
+        "en": "Catch blocks are evaluated sequentially from top to bottom. Specific exceptions must precede general ones to prevent unreachable handler code."
+      }
+    },
+    {
+      "id": "exam-cs-q05",
+      "type": "quiz_choice",
+      "scoreWeight": 20,
+      "title": { "de": "Frage 5 (20 Punkte): Interface vs. Abstrakte Klasse", "en": "Question 5 (20 Points): Interface vs. Abstract Class" },
+      "prompt": {
+        "de": "Wann sollte in C# ein `interface` anstelle einer `abstract class` als Architekturvertrag gewählt werden?",
+        "en": "When should you choose an `interface` over an `abstract class` in C#?"
+      },
+      "options": [
+        "Wenn völlig unabhängige, nicht verwandte Klassen denselben Verhaltensvertrag implementieren sollen und Mehrfachvererbung von Verträgen nötig ist.",
+        "Wenn man gemeinsamen Programmcode vererben möchte.",
+        "Wenn private Hilfsvariablen vorgegeben werden müssen.",
+        "Interfaces dürfen in C# seit .NET 6 nicht mehr verwendet werden."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "C# unterstützt keine Mehrfachvererbung von Klassen, aber eine Klasse kann beliebig viele Interfaces implementieren. Ein Interface definiert einen reinen Vertrag ohne Zustand.",
+        "en": "C# does not allow multiple class inheritance, but classes can implement multiple interfaces. Interfaces represent pure behavioural contracts."
+      }
+    }
+  ]
+}

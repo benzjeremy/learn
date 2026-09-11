@@ -1,0 +1,61 @@
+{
+  "id": "astro-01-islands",
+  "courseId": "astro",
+  "chapterIndex": 1,
+  "title": {
+    "de": "1. Warum Astro? Island Architecture & Zero-JS",
+    "en": "1. Why Astro? Island Architecture & Zero-JS"
+  },
+  "description": {
+    "de": "Die Revolution des Frontend-Engineerings: Warum Astro SPA-Frameworks bei Content-Websites ablöst, wie die Island-Architektur funktioniert und wie 0 KB Client-JavaScript erreicht werden.",
+    "en": "Frontend engineering revolution: Why Astro replaces SPAs for content sites, how Island Architecture works, and achieving 0 KB client-side JS."
+  },
+  "sections": [
+    {
+      "id": "astro-01-sec-01",
+      "type": "concept",
+      "title": { "de": "Das SPA-Ermüdungsproblem & Astros Lösung", "en": "The SPA Fatigue Problem & Astro's Solution" },
+      "contentMarkdown": {
+        "de": "Single Page Applications (React, Vue, Angular) bürden dem Client alles auf: Der Browser muss Megabytes an JavaScript laden, parsen und ausführen, nur um Text und Bilder zu rendern.\n\n**Astro geht den entgegengesetzten Weg:**\n1. **Server-First & SSG:** Astro kompiliert Komponenten serverseitig zu purem, schnellem HTML.\n2. **Zero-JS by Default:** Es wird standardmäßig kein einziges Byte JavaScript an den Client ausgeliefert.\n3. **Islands of Interactivity:** Nur isolierte Widgets (z. B. ein interaktiver Warenkorb), die zwingend DOM-Events benötigen, werden als interaktive Inseln mit JS hydriert.",
+        "en": "SPAs force browsers to download megabytes of JavaScript before rendering basic content.\n\n**Astro reverses this model:**\n1. **Server-First & SSG:** Components render to pure static HTML.\n2. **Zero-JS by Default:** Zero client-side JS is shipped unless explicitly requested.\n3. **Islands of Interactivity:** Only components requiring client-side interactivity receive JavaScript hydration."
+      },
+      "codeSnippet": "---\n// Astro Frontmatter: Läuft NUR zur Build-/Server-Zeit!\nconst response = await fetch('https://api.example.com/data');\nconst items = await response.json();\n---\n<!-- Reines statisches HTML ohne Client-JS-Overhead -->\n<ul>\n  {items.map(item => <li>{item.title}</li>)}\n</ul>"
+    },
+    {
+      "id": "astro-01-sec-02",
+      "type": "quiz_choice",
+      "title": { "de": "Client-Direktiven zur Hydrierungs-Steuerung", "en": "Client Directives for Hydration Control" },
+      "prompt": {
+        "de": "Welche Astro-Direktive verzögert die Ausführung des clientseitigen JavaScripts einer React/Vue-Komponente so lange, bis das Element tatsächlich in den sichtbaren Bereich des Bildschirms gescrollt wird?",
+        "en": "Which Astro client directive defers component hydration until the element enters the visible viewport?"
+      },
+      "options": [
+        "client:visible",
+        "client:load",
+        "client:idle",
+        "client:media"
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "`client:visible` nutzt den modernen `IntersectionObserver`, um das JavaScript einer Komponente erst dann zu laden und auszuführen, wenn der Anwender zu dieser Stelle scrollt. Dies maximiert die anfängliche Ladezeit (LCP).",
+        "en": "`client:visible` uses an IntersectionObserver to defer JS hydration until scrolled into view, optimizing Largest Contentful Paint (LCP)."
+      }
+    },
+    {
+      "id": "astro-01-sec-03",
+      "type": "quiz_code_puzzle",
+      "title": { "de": "Code-Puzzle: Frontmatter-Trennzeichen", "en": "Code Puzzle: Frontmatter Delimiters" },
+      "prompt": {
+        "de": "Mit welchen drei Zeichen wird der serverseitige Komponenten-Code (Frontmatter) in einer `.astro`-Datei umschlossen?",
+        "en": "Which 3-character delimiter encloses component script frontmatter in an `.astro` file?"
+      },
+      "starterCode": "___\nconst { pageTitle } = Astro.props;\n---\n<h1>{pageTitle}</h1>",
+      "options": ["---", "===", "***", "###"],
+      "solution": "---",
+      "explanation": {
+        "de": "Der Frontmatter-Block wird durch drei Bindestriche `---` eingeleitet und beendet (analog zu Markdown).",
+        "en": "Astro frontmatter is delimited by triple dashes `---`."
+      }
+    }
+  ]
+}

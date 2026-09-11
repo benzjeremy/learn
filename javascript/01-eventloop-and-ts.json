@@ -1,0 +1,71 @@
+{
+  "id": "js-01-eventloop-ts",
+  "courseId": "javascript",
+  "chapterIndex": 1,
+  "title": {
+    "de": "1. Warum TypeScript? Event Loop, Promises & Types",
+    "en": "1. Why TypeScript? Event Loop, Promises & Types"
+  },
+  "description": {
+    "de": "Das Ausführungsmodell von JavaScript (Call Stack, Event Loop, Microtask Queue) und warum TypeScript in modernen Enterprise-Teams unverzichtbar für die Codequalität ist.",
+    "en": "JavaScript execution runtime (call stack, event loop, microtask queue) and why TypeScript is indispensable for enterprise engineering."
+  },
+  "sections": [
+    {
+      "id": "js-01-sec-01",
+      "type": "concept",
+      "title": { "de": "Der JavaScript Event Loop: Single-Threaded Concurrency", "en": "The JavaScript Event Loop: Single-Threaded Concurrency" },
+      "contentMarkdown": {
+        "de": "JavaScript besitzt nur einen einzigen Haupt-Ausführungsthread (**Call Stack**). Wie kann ein Webserver oder Browser dennoch zehntausende Netzwerkanfragen gleichzeitig abarbeiten?\n\n1. **Call Stack:** Führt den synchronen Code Zeile für Zeile aus.\n2. **Web / Node APIs:** Asynchrone Operationen (Netzwerk-Fetch, Dateisystem, Timer) werden an Hintergrund-Threads des Betriebssystems übergeben.\n3. **Microtask Queue (Promises):** Hat höchste Priorität. Sobald der Stack leer ist, werden alle aufgelösten Promises (`Promise.then()`, `await`) abgearbeitet, bevor Macrotasks (`setTimeout`) an die Reihe kommen.",
+        "en": "JavaScript operates on a single execution thread (**Call Stack**). How does it handle massive I/O concurrency?\n\n1. **Call Stack:** Processes synchronous frames sequentially.\n2. **Web / Node APIs:** Offloads I/O (fetch, timers, disk) to OS thread pools.\n3. **Microtask Queue:** Highest priority. When the stack drains, all pending promise microtasks are cleared before processing macrotasks."
+      },
+      "codeSnippet": "console.log(\"1. Synchron\");\nsetTimeout(() => console.log(\"4. Macrotask (Timer)\"), 0);\nPromise.resolve().then(() => console.log(\"3. Microtask (Promise)\"));\nconsole.log(\"2. Synchron\");\n// Ausgabe-Reihenfolge: 1 -> 2 -> 3 -> 4"
+    },
+    {
+      "id": "js-01-sec-02",
+      "type": "concept",
+      "title": { "de": "Warum TypeScript? Statische Typensicherheit zur Entwicklungszeit", "en": "Why TypeScript? Static Type Safety at Design Time" },
+      "contentMarkdown": {
+        "de": "Reines JavaScript prüft Typen erst zur Laufzeit beim Benutzer. Tippfehler wie `user.emial` oder unerwartete `null`-Werte führen zu den gefürchteten Fehlern `TypeError: Cannot read properties of undefined`.\n\n**TypeScript** ergänzt JavaScript um ein mächtiges, statisches Typsystem, das vom Compiler komplett zu reinem JavaScript transpiliert wird:\n* Typsichere Schnittstellen (`interface User { id: string; email: string; }`)\n* Erkennung von Nullability (`strictNullChecks`)\n* Intelligente Autovervollständigung und Refaktorisierung in der IDE.",
+        "en": "Vanilla JavaScript evaluates types at runtime, causing production crashes on undefined property accesses.\n\n**TypeScript** overlays static compile-time type verification:\n* Strict interfaces\n* Null-safety enforcement (`strictNullChecks`)\n* IDE autocompletion and safe refactoring."
+      },
+      "codeSnippet": "interface UserProfile {\n    readonly id: string;\n    name: string;\n    email?: string; // Optionales Feld\n}\n\nfunction sendEmail(user: UserProfile) {\n    if (user.email) {\n        console.log(`Sending mail to ${user.email}`);\n    }\n}"
+    },
+    {
+      "id": "js-01-sec-03",
+      "type": "quiz_choice",
+      "title": { "de": "Microtask Queue vs. Macrotask Queue", "en": "Microtask Queue vs. Macrotask Queue" },
+      "prompt": {
+        "de": "Welcher Code wird nach Leeren des synchronen Call Stacks zuerst ausgeführt: Ein Callback in `setTimeout(fn, 0)` oder ein `Promise.resolve().then(fn)`?",
+        "en": "Which callback executes first once the synchronous call stack empties: `setTimeout(fn, 0)` or `Promise.resolve().then(fn)`?"
+      },
+      "options": [
+        "Das Promise, da Promises in der Microtask Queue priorisiert vor der Macrotask Queue abgearbeitet werden.",
+        "`setTimeout`, weil Timer Vorrang vor Netzwerkanfragen haben.",
+        "Beide laufen gleichzeitig auf zwei CPU-Kernen.",
+        "Die Reihenfolge ist vollkommen zufällig."
+      ],
+      "solution": 0,
+      "explanation": {
+        "de": "Der Event Loop leert immer zuerst die gesamte Microtask Queue (Promises, `queueMicrotask`), bevor der nächste Macrotask (Timer, I/O-Events) aus der Task Queue entnommen wird.",
+        "en": "The event loop completely drains the microtask queue (promises) before dispatching the next macrotask from the task queue."
+      }
+    },
+    {
+      "id": "js-01-sec-04",
+      "type": "quiz_code_puzzle",
+      "title": { "de": "Code-Puzzle: Nullish Coalescing Operator", "en": "Code Puzzle: Nullish Coalescing Operator" },
+      "prompt": {
+        "de": "Welcher Operator liefert den rechten Wert NUR DANN, wenn der linke Wert `null` oder `undefined` ist (und nicht bei `0` oder `false` wie `||`)?",
+        "en": "Which operator returns the right-hand operand ONLY when the left operand is `null` or `undefined`?"
+      },
+      "starterCode": "const port = process.env.PORT ___ 8080;",
+      "options": ["??", "||", "&&", "?:"],
+      "solution": "??",
+      "explanation": {
+        "de": "Der Nullish Coalescing Operator `??` prüft strikt auf `null` und `undefined`. Der logische OR-Operator `||` würde fälschlicherweise auch bei `0` oder `\"\"` den Fallback wählen.",
+        "en": "The nullish coalescing operator `??` checks specifically for nullish values (`null` or `undefined`), preserving valid falsy values like `0` or `\"\"`."
+      }
+    }
+  ]
+}

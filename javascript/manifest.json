@@ -4,11 +4,19 @@
   "chapters": [
     {
       "index": 1,
-      "id": "js-01-basics",
-      "file": "01-basics.json",
-      "freeEntry": true,
-      "title": { "de": "1. Modernes ES6+ & Asynchronität", "en": "1. Modern ES6+ & Asynchrony" },
-      "durationMinutes": 10
+      "id": "js-01-eventloop-ts",
+      "file": "01-eventloop-and-ts.json",
+      "type": "lesson",
+      "title": { "de": "1. Warum TypeScript? Event Loop, Promises & Types", "en": "1. Why TypeScript? Event Loop, Promises & Types" },
+      "durationMinutes": 25
+    },
+    {
+      "index": 2,
+      "id": "js-exam-90min",
+      "file": "exam-90min.json",
+      "type": "exam_90min",
+      "title": { "de": "🏛️ IHK-Prüfungsmodul (90 Min): Fullstack JS & Statische Typisierung", "en": "🏛️ IHK Exam Module (90 Min): Fullstack JS & Static Typing" },
+      "durationMinutes": 90
     }
   ]
 }

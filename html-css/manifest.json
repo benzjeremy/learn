@@ -4,11 +4,19 @@
   "chapters": [
     {
       "index": 1,
-      "id": "html-01-basics",
-      "file": "01-basics.json",
-      "freeEntry": true,
-      "title": { "de": "1. Semantische Struktur & Modernes Flexbox/Grid", "en": "1. Semantic Structure & Modern Flexbox/Grid" },
-      "durationMinutes": 10
+      "id": "html-01-boxmodel-semantics",
+      "file": "01-boxmodel-and-semantics.json",
+      "type": "lesson",
+      "title": { "de": "1. Semantisches HTML, Box-Modell & Modernes Grid", "en": "1. Semantic HTML, Box Model & Modern Grid" },
+      "durationMinutes": 25
+    },
+    {
+      "index": 2,
+      "id": "html-exam-90min",
+      "file": "exam-90min.json",
+      "type": "exam_90min",
+      "title": { "de": "🏛️ IHK-Prüfungsmodul (90 Min): Responsive Layouts & Barrierefreiheit", "en": "🏛️ IHK Exam Module (90 Min): Responsive Layouts & Accessibility" },
+      "durationMinutes": 90
     }
   ]
 }

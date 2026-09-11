@@ -4,11 +4,19 @@
   "chapters": [
     {
       "index": 1,
-      "id": "php-01-basics",
-      "file": "01-basics.json",
-      "freeEntry": true,
-      "title": { "de": "1. PHP 8 Typisierung & Constructor Promotion", "en": "1. PHP 8 Typing & Constructor Promotion" },
-      "durationMinutes": 10
+      "id": "php-01-oop-security",
+      "file": "01-modern-oop-and-security.json",
+      "type": "lesson",
+      "title": { "de": "1. Warum PHP 8? Lifecycle, OOP & PDO-Sicherheit", "en": "1. Why PHP 8? Lifecycle, OOP & PDO Security" },
+      "durationMinutes": 25
+    },
+    {
+      "index": 2,
+      "id": "php-exam-90min",
+      "file": "exam-90min.json",
+      "type": "exam_90min",
+      "title": { "de": "🏛️ IHK-Prüfungsmodul (90 Min): Backend Architecture & Session Security", "en": "🏛️ IHK Exam Module (90 Min): Backend Architecture & Session Security" },
+      "durationMinutes": 90
     }
   ]
 }
