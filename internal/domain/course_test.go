@@ -37,3 +37,21 @@ func TestUserSettings(t *testing.T) {
 		t.Fatalf("unexpected settings values")
 	}
 }
+
+func TestExamResult(t *testing.T) {
+	up := UserProgress{
+		CompletedSections: make(map[string]bool),
+		ExamResults:       make(map[string]ExamResult),
+	}
+
+	up.ExamResults["go-exam-90min"] = ExamResult{
+		Score:     95,
+		Grade:     1,
+		Timestamp: time.Now(),
+	}
+
+	res, ok := up.ExamResults["go-exam-90min"]
+	if !ok || res.Score != 95 || res.Grade != 1 {
+		t.Fatalf("expected score 95 and grade 1, got %+v", res)
+	}
+}
