@@ -1,0 +1,14 @@
+{
+  "courseId": "php",
+  "title": { "de": "Modernes PHP 8+", "en": "Modern PHP 8+" },
+  "chapters": [
+    {
+      "index": 1,
+      "id": "php-01-basics",
+      "file": "01-basics.json",
+      "freeEntry": true,
+      "title": { "de": "1. PHP 8 Typisierung & Constructor Promotion", "en": "1. PHP 8 Typing & Constructor Promotion" },
+      "durationMinutes": 10
+    }
+  ]
+}

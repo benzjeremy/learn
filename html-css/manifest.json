@@ -1,0 +1,14 @@
+{
+  "courseId": "html-css",
+  "title": { "de": "HTML5 & CSS3", "en": "HTML5 & CSS3" },
+  "chapters": [
+    {
+      "index": 1,
+      "id": "html-01-basics",
+      "file": "01-basics.json",
+      "freeEntry": true,
+      "title": { "de": "1. Semantische Struktur & Modernes Flexbox/Grid", "en": "1. Semantic Structure & Modern Flexbox/Grid" },
+      "durationMinutes": 10
+    }
+  ]
+}

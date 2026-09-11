@@ -1,0 +1,14 @@
+{
+  "courseId": "python",
+  "title": { "de": "Python 3", "en": "Python 3" },
+  "chapters": [
+    {
+      "index": 1,
+      "id": "python-01-basics",
+      "file": "01-basics.json",
+      "freeEntry": true,
+      "title": { "de": "1. Grundlagen & List Comprehensions", "en": "1. Basics & List Comprehensions" },
+      "durationMinutes": 10
+    }
+  ]
+}

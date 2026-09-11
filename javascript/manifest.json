@@ -1,0 +1,14 @@
+{
+  "courseId": "javascript",
+  "title": { "de": "JavaScript & TypeScript", "en": "JavaScript & TypeScript" },
+  "chapters": [
+    {
+      "index": 1,
+      "id": "js-01-basics",
+      "file": "01-basics.json",
+      "freeEntry": true,
+      "title": { "de": "1. Modernes ES6+ & Asynchronität", "en": "1. Modern ES6+ & Asynchrony" },
+      "durationMinutes": 10
+    }
+  ]
+}

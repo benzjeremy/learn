@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "lastUpdated": "2026-09-11T22:30:00Z",
+  "courses": [
+    {
+      "id": "go",
+      "title": { "de": "Go (Golang)", "en": "Go (Golang)" },
+      "icon": "golang",
+      "badge": "Modern Systems",
+      "description": {
+        "de": "Moderne Systemprogrammierung, Goroutines, Channels & Microservices.",
+        "en": "Modern systems programming, goroutines, channels & microservices."
+      },
+      "level": "beginner-to-advanced",
+      "totalChapters": 4,
+      "manifestUrl": "go/manifest.json"
+    },
+    {
+      "id": "astro",
+      "title": { "de": "Astro Framework", "en": "Astro Framework" },
+      "icon": "rocket",
+      "badge": "Web Architecture",
+      "description": {
+        "de": "Island Architecture, SSR und Content-First Webentwicklung mit Zero-JS-Default.",
+        "en": "Island architecture, SSR and content-first web development with zero-JS default."
+      },
+      "level": "all-levels",
+      "totalChapters": 1,
+      "manifestUrl": "astro/manifest.json"
+    },
+    {
+      "id": "python",
+      "title": { "de": "Python 3", "en": "Python 3" },
+      "icon": "python",
+      "badge": "Scripting & AI",
+      "description": {
+        "de": "Vielseitige Syntax, Data Science, KI-Pipelines und moderne Typisierung.",
+        "en": "Versatile syntax, data science, AI pipelines and modern typing."
+      },
+      "level": "beginner-to-advanced",
+      "totalChapters": 1,
+      "manifestUrl": "python/manifest.json"
+    },
+    {
+      "id": "html-css",
+      "title": { "de": "HTML5 & CSS3", "en": "HTML5 & CSS3" },
+      "icon": "html",
+      "badge": "Web Foundation",
+      "description": {
+        "de": "Semantisches Webdesign, Grid, Flexbox, Design Tokens & Barrierefreiheit.",
+        "en": "Semantic web design, Grid, Flexbox, design tokens & accessibility."
+      },
+      "level": "beginner-to-advanced",
+      "totalChapters": 1,
+      "manifestUrl": "html-css/manifest.json"
+    },
+    {
+      "id": "javascript",
+      "title": { "de": "JavaScript & TypeScript", "en": "JavaScript & TypeScript" },
+      "icon": "javascript",
+      "badge": "Client & Server",
+      "description": {
+        "de": "Moderne ECMAScript-Features, Asynchronität, Promises und statische Typisierung.",
+        "en": "Modern ECMAScript features, async/await, promises and static typing."
+      },
+      "level": "beginner-to-advanced",
+      "totalChapters": 1,
+      "manifestUrl": "javascript/manifest.json"
+    },
+    {
+      "id": "php",
+      "title": { "de": "Modernes PHP 8+", "en": "Modern PHP 8+" },
+      "icon": "php",
+      "badge": "Backend Engine",
+      "description": {
+        "de": "Objektorientierte Architektur, Attributes, JIT-Compiler & robuste Backend-APIs.",
+        "en": "Object-oriented architecture, attributes, JIT compiler & robust backend APIs."
+      },
+      "level": "beginner-to-advanced",
+      "totalChapters": 1,
+      "manifestUrl": "php/manifest.json"
+    }
+  ]
+}

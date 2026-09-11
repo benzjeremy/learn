@@ -1,0 +1,14 @@
+{
+  "courseId": "astro",
+  "title": { "de": "Astro Framework", "en": "Astro Framework" },
+  "chapters": [
+    {
+      "index": 1,
+      "id": "astro-01-intro",
+      "file": "01-intro.json",
+      "freeEntry": true,
+      "title": { "de": "1. Island Architecture & Komponenten", "en": "1. Island Architecture & Components" },
+      "durationMinutes": 10
+    }
+  ]
+}

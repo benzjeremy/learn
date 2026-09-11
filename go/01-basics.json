@@ -1,0 +1,61 @@
+{
+  "id": "go-01-basics",
+  "courseId": "go",
+  "chapterIndex": 1,
+  "title": {
+    "de": "1. Syntax, Variablen & Typen",
+    "en": "1. Syntax, Variables & Types"
+  },
+  "description": {
+    "de": "Lerne die Grundlagen der statisch getypten Sprache Go: Package Main, Kurzschreibweise `:=` und Kontrollstrukturen.",
+    "en": "Learn the fundamentals of statically typed Go: Package main, short variable declarations `:=`, and control structures."
+  },
+  "sections": [
+    {
+      "id": "go-01-sec-01",
+      "type": "concept",
+      "title": { "de": "Das Einstiegs-Package", "en": "The Entry Package" },
+      "contentMarkdown": {
+        "de": "Jedes ausführbare Go-Programm beginnt mit dem Package `main` und der Funktion `func main()`. Imports werden kompakt gebündelt.",
+        "en": "Every executable Go program begins with package `main` and a `func main()`. Imports are grouped cleanly."
+      },
+      "codeSnippet": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    fmt.Println(\"Hello, Go!\")\n}"
+    },
+    {
+      "id": "go-01-sec-02",
+      "type": "quiz_choice",
+      "title": { "de": "Variablen-Deklaration", "en": "Variable Declaration" },
+      "prompt": {
+        "de": "Welche Syntax deklariert und initialisiert in Go eine lokale Variable mit automatischer Typinferenz?",
+        "en": "Which syntax declares and initializes a local variable in Go with automatic type inference?"
+      },
+      "options": [
+        "var x = 10",
+        "x := 10",
+        "let x: int = 10",
+        "int x = 10;"
+      ],
+      "solution": 1,
+      "explanation": {
+        "de": "Der Kurzdeklarations-Operator `:=` ist in Go innerhalb von Funktionen der kanonische Weg, Variablen mit Typinferenz anzulegen.",
+        "en": "The short variable declaration operator `:=` is the canonical way to declare and initialize variables inside functions in Go."
+      }
+    },
+    {
+      "id": "go-01-sec-03",
+      "type": "quiz_code_puzzle",
+      "title": { "de": "Code-Puzzle: Schleife", "en": "Code Puzzle: Loop" },
+      "prompt": {
+        "de": "In Go gibt es nur ein einziges Schleifen-Schlüsselwort: `for`. Vervollständige die Schleife:",
+        "en": "Go has only a single looping construct: `for`. Complete the loop:"
+      },
+      "starterCode": "___ i := 0; i < 5; i++ {\n    fmt.Println(i)\n}",
+      "options": ["while", "for", "loop", "iterate"],
+      "solution": "for",
+      "explanation": {
+        "de": "Go verzichtet bewusst auf `while` oder `do-while`. Sämtliche Schleifenkonstrukte werden ausschließlich mit `for` ausgedrückt.",
+        "en": "Go intentionally omits `while` or `do-while`. All looping patterns are expressed exclusively using `for`."
+      }
+    }
+  ]
+}

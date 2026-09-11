@@ -1,0 +1,38 @@
+{
+  "courseId": "go",
+  "title": { "de": "Go (Golang)", "en": "Go (Golang)" },
+  "chapters": [
+    {
+      "index": 1,
+      "id": "go-01-basics",
+      "file": "01-basics.json",
+      "freeEntry": true,
+      "title": { "de": "1. Syntax, Variablen & Kontrollfluss", "en": "1. Syntax, Variables & Control Flow" },
+      "durationMinutes": 10
+    },
+    {
+      "index": 2,
+      "id": "go-02-funcs",
+      "file": "02-funcs.json",
+      "freeEntry": true,
+      "title": { "de": "2. Funktionen, Multiple Returns & Errors", "en": "2. Functions, Multiple Returns & Errors" },
+      "durationMinutes": 12
+    },
+    {
+      "index": 3,
+      "id": "go-03-structs",
+      "file": "03-structs.json",
+      "freeEntry": true,
+      "title": { "de": "3. Structs, Methoden & Interfaces", "en": "3. Structs, Methods & Interfaces" },
+      "durationMinutes": 15
+    },
+    {
+      "index": 4,
+      "id": "go-04-concurrency",
+      "file": "04-concurrency.json",
+      "freeEntry": true,
+      "title": { "de": "4. Goroutines & Channels (Concurrency)", "en": "4. Goroutines & Channels (Concurrency)" },
+      "durationMinutes": 20
+    }
+  ]
+}

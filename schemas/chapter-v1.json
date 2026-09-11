@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Chapter",
+  "type": "object",
+  "required": ["id", "courseId", "chapterIndex", "title", "description", "sections"],
+  "properties": {
+    "id": { "type": "string" },
+    "courseId": { "type": "string" },
+    "chapterIndex": { "type": "integer", "minimum": 1 },
+    "title": {
+      "type": "object",
+      "required": ["de", "en"],
+      "properties": {
+        "de": { "type": "string" },
+        "en": { "type": "string" }
+      }
+    },
+    "description": {
+      "type": "object",
+      "required": ["de", "en"],
+      "properties": {
+        "de": { "type": "string" },
+        "en": { "type": "string" }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type"],
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string", "enum": ["concept", "quiz_choice", "quiz_code_puzzle", "interactive_challenge"] },
+          "title": {
+            "type": "object",
+            "properties": {
+              "de": { "type": "string" },
+              "en": { "type": "string" }
+            }
+          },
+          "contentMarkdown": {
+            "type": "object",
+            "properties": {
+              "de": { "type": "string" },
+              "en": { "type": "string" }
+            }
+          },
+          "codeSnippet": { "type": "string" },
+          "prompt": {
+            "type": "object",
+            "properties": {
+              "de": { "type": "string" },
+              "en": { "type": "string" }
+            }
+          },
+          "starterCode": { "type": "string" },
+          "options": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "solution": {
+            "oneOf": [
+              { "type": "string" },
+              { "type": "integer" },
+              { "type": "array", "items": { "type": "string" } }
+            ]
+          },
+          "explanation": {
+            "type": "object",
+            "properties": {
+              "de": { "type": "string" },
+              "en": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

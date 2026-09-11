@@ -1,0 +1,45 @@
+{
+  "id": "php-01-basics",
+  "courseId": "php",
+  "chapterIndex": 1,
+  "title": {
+    "de": "1. PHP 8 Typisierung & Constructor Promotion",
+    "en": "1. PHP 8 Typing & Constructor Promotion"
+  },
+  "description": {
+    "de": "Entdecke modernes PHP 8: Strikte Typdeklarationen, Constructor Property Promotion und Match Expressions.",
+    "en": "Discover modern PHP 8: Strict type declarations, constructor property promotion, and match expressions."
+  },
+  "sections": [
+    {
+      "id": "php-01-sec-01",
+      "type": "concept",
+      "title": { "de": "Constructor Property Promotion", "en": "Constructor Property Promotion" },
+      "contentMarkdown": {
+        "de": "In PHP 8 können Klassen-Eigenschaften direkt im Konstruktor deklariert und zugewiesen werden. Das spart redundanten Boilerplate-Code.",
+        "en": "In PHP 8, class properties can be declared and assigned directly inside the constructor signature, eliminating boilerplate."
+      },
+      "codeSnippet": "<?php\ndeclare(strict_types=1);\n\nclass User {\n    public function __construct(\n        public readonly string $uuid,\n        public string $name,\n        public int $level = 1\n    ) {}\n}"
+    },
+    {
+      "id": "php-01-sec-02",
+      "type": "quiz_choice",
+      "title": { "de": "Strikte Typisierung", "en": "Strict Typing" },
+      "prompt": {
+        "de": "Mit welcher Direktive am Dateianfang erzwingt man in PHP strikte Typüberprüfung?",
+        "en": "Which directive at the top of a PHP file enforces strict type checking?"
+      },
+      "options": [
+        "use strict;",
+        "declare(strict_types=1);",
+        "#pragma strict",
+        "ini_set('types', 'strict');"
+      ],
+      "solution": 1,
+      "explanation": {
+        "de": "`declare(strict_types=1);` muss ganz oben in der PHP-Datei stehen und verhindert implizite Typumwandlungen bei Funktionsaufrufen.",
+        "en": "`declare(strict_types=1);` must be at the very top of the PHP file to prevent implicit type coercions for function calls."
+      }
+    }
+  ]
+}

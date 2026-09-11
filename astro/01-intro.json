@@ -1,0 +1,45 @@
+{
+  "id": "astro-01-intro",
+  "courseId": "astro",
+  "chapterIndex": 1,
+  "title": {
+    "de": "1. Island Architecture & Komponenten",
+    "en": "1. Island Architecture & Components"
+  },
+  "description": {
+    "de": "Verstehe Astros revolutionäre Insel-Architektur: Standardmäßig 0 KB JavaScript, selektive Hydration und saubere `.astro`-Dateien.",
+    "en": "Understand Astro's revolutionary island architecture: Zero KB JavaScript by default, selective hydration, and clean `.astro` files."
+  },
+  "sections": [
+    {
+      "id": "astro-01-sec-01",
+      "type": "concept",
+      "title": { "de": "Das Astro Component-Format", "en": "The Astro Component Format" },
+      "contentMarkdown": {
+        "de": "Astro-Komponenten bestehen aus zwei Teilen: Dem *Component Script* (oben zwischen `---`) und dem *Component Template* (reines HTML darunter).",
+        "en": "Astro components consist of two parts: The *Component Script* (top fenced by `---`) and the *Component Template* (pure HTML below)."
+      },
+      "codeSnippet": "---\nconst greeting = \"Hello Astro!\";\nconst items = [\"Fast\", \"Zero JS\", \"SEO\"];\n---\n<h1>{greeting}</h1>\n<ul>\n  {items.map(item => <li>{item}</li>)}\n</ul>"
+    },
+    {
+      "id": "astro-01-sec-02",
+      "type": "quiz_choice",
+      "title": { "de": "Zero JS Standard", "en": "Zero JS Standard" },
+      "prompt": {
+        "de": "Wie viel clientseitiges JavaScript liefert Astro für reine `.astro`-Komponenten standardmäßig an den Browser aus?",
+        "en": "How much client-side JavaScript does Astro send to the browser by default for pure `.astro` components?"
+      },
+      "options": [
+        "Ca. 35 KB (Mini-Runtime)",
+        "Exakt 0 KB (reines HTML & CSS)",
+        "Mindestens 100 KB (Hydration Overhead)",
+        "Hängt vom React-Plugin ab"
+      ],
+      "solution": 1,
+      "explanation": {
+        "de": "Astro rendert Komponenten standardmäßig zur Build-Zeit in statisches HTML. Clientseitiges JS wird nur geladen, wenn interaktive Inseln mit Direktiven wie `client:load` versehen werden.",
+        "en": "Astro renders components to static HTML at build time. Client-side JS is only loaded if interactive islands are explicitly decorated with directives like `client:load`."
+      }
+    }
+  ]
+}

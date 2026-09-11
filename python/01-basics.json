@@ -1,0 +1,40 @@
+{
+  "id": "python-01-basics",
+  "courseId": "python",
+  "chapterIndex": 1,
+  "title": {
+    "de": "1. Grundlagen & List Comprehensions",
+    "en": "1. Basics & List Comprehensions"
+  },
+  "description": {
+    "de": "Schreibe eleganten Python-Code mit List Comprehensions, F-Strings und dynamischer Typisierung.",
+    "en": "Write elegant Pythonic code with list comprehensions, f-strings, and dynamic typing."
+  },
+  "sections": [
+    {
+      "id": "py-01-sec-01",
+      "type": "concept",
+      "title": { "de": "List Comprehensions", "en": "List Comprehensions" },
+      "contentMarkdown": {
+        "de": "Eine List Comprehension bietet eine prägnante Syntax, um Listen basierend auf bestehenden iterierbaren Objekten zu transformieren.",
+        "en": "A list comprehension offers a concise syntax to transform lists based on existing iterable objects."
+      },
+      "codeSnippet": "numbers = [1, 2, 3, 4, 5]\nsquares = [x**2 for x in numbers if x % 2 != 0]\nprint(squares) # [1, 9, 25]"
+    },
+    {
+      "id": "py-01-sec-02",
+      "type": "quiz_choice",
+      "title": { "de": "F-Strings", "en": "F-Strings" },
+      "prompt": {
+        "de": "Welcher Buchstabe muss vor dem Anführungszeichen stehen, um in Python Variablen direkt in Strings einzubetten (`f\"{name}\"`)?",
+        "en": "Which character must precede a string literal in Python to directly interpolate variables (`f\"{name}\"`)?"
+      },
+      "options": ["s", "f", "r", "b"],
+      "solution": 1,
+      "explanation": {
+        "de": "Das Präfix `f` kennzeichnet formatierte String-Literale (F-Strings), eingeführt in Python 3.6.",
+        "en": "The prefix `f` denotes formatted string literals (f-strings), introduced in Python 3.6."
+      }
+    }
+  ]
+}

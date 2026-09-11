@@ -1,0 +1,40 @@
+{
+  "id": "js-01-basics",
+  "courseId": "javascript",
+  "chapterIndex": 1,
+  "title": {
+    "de": "1. Modernes ES6+ & Asynchronität",
+    "en": "1. Modern ES6+ & Asynchrony"
+  },
+  "description": {
+    "de": "Beherrsche Promises, `async`/`await`, Destrukturierung und typsichere Muster in JavaScript und TypeScript.",
+    "en": "Master promises, `async`/`await`, destructuring, and type-safe patterns in JavaScript and TypeScript."
+  },
+  "sections": [
+    {
+      "id": "js-01-sec-01",
+      "type": "concept",
+      "title": { "de": "Async / Await Syntax", "en": "Async / Await Syntax" },
+      "contentMarkdown": {
+        "de": "`async`/`await` ermöglicht es, asynchrone Operationen wie lesbaren synchronen Code zu strukturieren.",
+        "en": "`async`/`await` allows structuring asynchronous operations like readable synchronous code."
+      },
+      "codeSnippet": "async function fetchData(url) {\n    try {\n        const res = await fetch(url);\n        return await res.json();\n    } catch (err) {\n        console.error(\"Fetch error:\", err);\n    }\n}"
+    },
+    {
+      "id": "js-01-sec-02",
+      "type": "quiz_choice",
+      "title": { "de": "Variablen-Scope", "en": "Variable Scope" },
+      "prompt": {
+        "de": "Welches Schlüsselwort deklariert in JavaScript eine block-gescopte Konstante, die nicht neu zugewiesen werden kann?",
+        "en": "Which keyword in JavaScript declares a block-scoped constant that cannot be reassigned?"
+      },
+      "options": ["var", "let", "const", "val"],
+      "solution": 2,
+      "explanation": {
+        "de": "`const` erzeugt eine unveränderliche Bindung innerhalb des aktuellen Blocks. (Für veränderbare Blockvariablen wird `let` verwendet; `var` ist veraltet).",
+        "en": "`const` creates an immutable binding within the block scope. (`let` is used for reassignable variables; `var` is legacy)."
+      }
+    }
+  ]
+}

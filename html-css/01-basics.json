@@ -1,0 +1,45 @@
+{
+  "id": "html-01-basics",
+  "courseId": "html-css",
+  "chapterIndex": 1,
+  "title": {
+    "de": "1. Semantische Struktur & Modernes Flexbox/Grid",
+    "en": "1. Semantic Structure & Modern Flexbox/Grid"
+  },
+  "description": {
+    "de": "Verwende semantische HTML5-Tags und baue moderne, responsive Layouts mit CSS Grid und Subgrid.",
+    "en": "Use semantic HTML5 elements and build modern, responsive layouts with CSS Grid and Subgrid."
+  },
+  "sections": [
+    {
+      "id": "html-01-sec-01",
+      "type": "concept",
+      "title": { "de": "Semantische Tags statt `<div>`-Wüste", "en": "Semantic Tags vs `<div>` Soup" },
+      "contentMarkdown": {
+        "de": "Semantische Tags wie `<main>`, `<nav>`, `<article>` und `<aside>` verbessern Barrierefreiheit und SEO radikal.",
+        "en": "Semantic tags like `<main>`, `<nav>`, `<article>`, and `<aside>` radically improve accessibility and SEO."
+      },
+      "codeSnippet": "<header>\n  <nav aria-label=\"Hauptnavigation\">...</nav>\n</header>\n<main>\n  <article>...</article>\n</main>"
+    },
+    {
+      "id": "html-01-sec-02",
+      "type": "quiz_choice",
+      "title": { "de": "CSS Grid Auto-Fit", "en": "CSS Grid Auto-Fit" },
+      "prompt": {
+        "de": "Welche CSS-Eigenschaft erzeugt ein responsives Karten-Grid ohne eine einzige Media Query?",
+        "en": "Which CSS property produces a responsive card grid without a single media query?"
+      },
+      "options": [
+        "display: block",
+        "grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))",
+        "float: left; width: 33%",
+        "flex-direction: column"
+      ],
+      "solution": 1,
+      "explanation": {
+        "de": "`repeat(auto-fit, minmax(280px, 1fr))` berechnet die Spaltenanzahl dynamisch anhand der Container-Breite, ohne Media Queries zu benötigen.",
+        "en": "`repeat(auto-fit, minmax(280px, 1fr))` dynamically fits columns based on container width without requiring media queries."
+      }
+    }
+  ]
+}
