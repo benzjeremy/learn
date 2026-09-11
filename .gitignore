@@ -1,3 +1,6 @@
 # Git ignore for web branch
 .DS_Store
 Thumbs.db
+android/
+*.apk
+
