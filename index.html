@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self';" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>learn – Freie, nicht-lineare Open-Source Lern-App für Go, Astro &amp; mehr</title>
+  <meta name="description" content="Offizielle Website für learn: Die datenschutzfreundliche Open-Source Alternative zu Mimo und SoloLearn. 100% ohne Paywalls, werbefrei, nicht-linear und offline-first.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="learn – Freie Open-Source Lern-App">
+  <meta property="og:description" content="Programmieren lernen ohne Paywalls: Go, Astro, Python, HTML/CSS, JS & PHP. Nativ für Android & Web.">
+  <meta property="og:url" content="https://benzjeremy.github.io/learn/">
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/icon.png">
+  <link rel="apple-touch-icon" href="assets/icon.png">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    // Synchroner Theme Init gegen Flash of Unstyled Content (FOUT)
+    (function() {
+      const savedTheme = localStorage.getItem('site_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-container">
+      <div class="brand-area">
+        <a href="https://benzjeremy.github.io/" class="ecosystem-back" title="Zurück zum Hauptportfolio">
+          <span>← benzjeremy.github.io</span>
+        </a>
+        <a href="index.html" class="brand-link">
+          <img src="assets/icon.png" alt="learn Logo" class="brand-logo" width="34" height="34">
+          <div class="brand-info">
+            <span class="brand-name">learn</span>
+            <span class="brand-ver">v1.0 [Pre-Release]</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="main-nav">
+        <a href="#features">
+          <span class="lang-de">Features</span>
+          <span class="lang-en" style="display:none;">Features</span>
+        </a>
+        <a href="#download">
+          <span class="lang-de">Downloads</span>
+          <span class="lang-en" style="display:none;">Downloads</span>
+        </a>
+        <a href="#about">
+          <span class="lang-de">Über das Projekt</span>
+          <span class="lang-en" style="display:none;">About</span>
+        </a>
+        <a href="app/" class="btn-card highlight">
+          <span class="lang-de">🚀 Web App</span>
+          <span class="lang-en" style="display:none;">🚀 Web App</span>
+        </a>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="lang-switch" role="group" aria-label="Sprachauswahl">
+          <button type="button" class="lang-btn active" id="btn-lang-de" onclick="setLang('de')">DE</button>
+          <button type="button" class="lang-btn" id="btn-lang-en" onclick="setLang('en')">EN</button>
+        </div>
+        <button class="theme-btn" id="themeToggle" onclick="toggleTheme()" title="Theme wechseln">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+      <div class="hero-glow"></div>
+      <div class="container hero-container">
+        
+        <div class="hero-badges">
+          <span class="hero-badge badge-cyan">📱 Open-Source Lern-App</span>
+          <span class="hero-badge badge-violet">🔒 100% Privacy &amp; Zero-Telemetry</span>
+          <span class="hero-badge">⚡ Go 1.22 &amp; Fyne v2 Native</span>
+          <a href="https://github.com/benzjeremy/learn/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="hero-badge">GNU GPL-3.0</a>
+        </div>
+
+        <div class="lang-de">
+          <h1 class="hero-title">
+            Programmieren lernen ohne Paywalls.<br>
+            <span class="gradient-text">Nicht-linear. Datenschutzfreundlich. Für immer frei.</span>
+          </h1>
+          <p class="hero-subtitle">
+            <strong>learn</strong> ist die werbefreie Open-Source Alternative zu Mimo und SoloLearn. Meistere <strong>Go</strong>, <strong>Astro</strong>, <strong>Python</strong>, <strong>HTML/CSS</strong>, <strong>JavaScript</strong> und <strong>PHP</strong> — völlig frei in jedes Kapitel einsteigen, ohne blockierende "Herzen", ohne Account-Zwang und 100% offline-fähig.
+          </p>
+        </div>
+
+        <div class="lang-en" style="display:none;">
+          <h1 class="hero-title">
+            Learn Coding Without Paywalls.<br>
+            <span class="gradient-text">Non-linear. Privacy-first. Forever free.</span>
+          </h1>
+          <p class="hero-subtitle">
+            <strong>learn</strong> is the ad-free open-source alternative to Mimo and SoloLearn. Master <strong>Go</strong>, <strong>Astro</strong>, <strong>Python</strong>, <strong>HTML/CSS</strong>, <strong>JavaScript</strong>, and <strong>PHP</strong> — jump freely into any chapter, no heart barriers, no accounts required, and 100% offline-ready.
+          </p>
+        </div>
+
+        <!-- Call to Action Group -->
+        <div class="hero-cta-group">
+          <a href="app/" class="btn-primary">
+            <span>🚀 Web App starten (/learn/app)</span>
+          </a>
+          <a href="#download" class="btn-secondary">
+            <span class="lang-de">📱 Android APK &amp; Downloads</span>
+            <span class="lang-en" style="display:none;">📱 Android APK &amp; Downloads</span>
+          </a>
+          <a href="https://github.com/benzjeremy/learn" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+            <span>GitHub Quellcode</span>
+          </a>
+        </div>
+
+        <!-- Quick Install -->
+        <div class="hero-quick-cmd">
+          <span>CLI:</span>
+          <code>go install github.com/benzjeremy/learn/cmd/learn@latest</code>
+          <button class="copy-btn" onclick="copyCommand()" title="Befehl kopieren">📋</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="features-section" id="features">
+      <div class="container">
+        
+        <div class="section-header">
+          <p class="section-tag">
+            <span class="lang-de">Architektur &amp; Didaktik</span>
+            <span class="lang-en" style="display:none;">Architecture &amp; Didactics</span>
+          </p>
+          <h2 class="section-title">
+            <span class="lang-de">Kompromisslose Software-Qualität nach ISO/IEC 25010</span>
+            <span class="lang-en" style="display:none;">Uncompromising Software Quality (ISO/IEC 25010)</span>
+          </h2>
+          <p class="section-subtitle">
+            <span class="lang-de">Keine billigen Gamification-Fallen, kein Daten-Tracking. Entwickelt nach modernsten Ingenieursstandards.</span>
+            <span class="lang-en" style="display:none;">No cheap gamification traps, no tracking. Engineered to the highest software standards.</span>
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          
+          <!-- Card 1 -->
+          <div class="feature-card">
+            <div class="f-card-icon cyan">🔓</div>
+            <h3>
+              <span class="lang-de">Vollständig nicht-linear</span>
+              <span class="lang-en" style="display:none;">100% Non-Linear</span>
+            </h3>
+            <p>
+              <span class="lang-de">Du willst direkt mit Go Goroutines oder Astro SSR starten? Kein Problem! Jedes Kapitel ist von Beginn an frei anwählbar — ohne erzwungenes Freischalten.</span>
+              <span class="lang-en" style="display:none;">Want to jump straight to Go concurrency or Astro SSR? Go ahead! Every single chapter is unlocked from minute one — zero artificial gating.</span>
+            </p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="feature-card">
+            <div class="f-card-icon emerald">🛡️</div>
+            <h3>
+              <span class="lang-de">Zero-Telemetry &amp; Offline-First</span>
+              <span class="lang-en" style="display:none;">Zero-Telemetry &amp; Offline-First</span>
+            </h3>
+            <p>
+              <span class="lang-de">Null Werbetracker, keine Analytics-SDKs, kein Google Firebase. Alle absolvierten Lektionen und Fortschritte werden lokal in SQLite / IndexedDB gespeichert.</span>
+              <span class="lang-en" style="display:none;">No ad trackers, no analytics SDKs, no Google Firebase. All completed lessons and progress are stored locally in SQLite / IndexedDB.</span>
+            </p>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="feature-card">
+            <div class="f-card-icon violet">📱</div>
+            <h3>
+              <span class="lang-de">Natives Go &amp; Fyne v2</span>
+              <span class="lang-en" style="display:none;">Native Go &amp; Fyne v2</span>
+            </h3>
+            <p>
+              <span class="lang-de">Schlanke Android APK (< 20 MB) und Desktop-Binary für Linux/Windows. Hardwarebeschleunigtes Rendering mit nur ~25 MB RAM statt Electron/Flutter-Ballast.</span>
+              <span class="lang-en" style="display:none;">Compact Android APK (< 20 MB) and native desktop binaries. Hardware-accelerated rendering using ~25 MB RAM without framework bloat.</span>
+            </p>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="feature-card">
+            <div class="f-card-icon amber">🔀</div>
+            <h3>
+              <span class="lang-de">Git-Powered Content</span>
+              <span class="lang-en" style="display:none;">Git-Powered Content</span>
+            </h3>
+            <p>
+              <span class="lang-de">Lektionen liegen als offene, schemavalidierte JSON/Markdown-Dateien auf dem separaten Branch <code>content</code>. Neue Kurse können einfach via Pull Request beigesteuert werden.</span>
+              <span class="lang-en" style="display:none;">Lessons live as open, schema-validated JSON/Markdown files on the dedicated <code>content</code> branch. The community can contribute lessons via PR.</span>
+            </p>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="feature-card">
+            <div class="f-card-icon cyan">🔔</div>
+            <h3>
+              <span class="lang-de">Lokales Erinnerungssystem</span>
+              <span class="lang-en" style="display:none;">Local Reminder System</span>
+            </h3>
+            <p>
+              <span class="lang-de">Tägliche Lernzeit (z. B. 18:00 Uhr) und höfliche Inaktivitäts-Erinnerung ("Hast du uns vergessen?"). 100% lokal über den Betriebssystem-Timer — kein Cloud-Push.</span>
+              <span class="lang-en" style="display:none;">Daily habit reminders (e.g. 6 PM) and gentle inactivity nudges. 100% local through native OS timers — zero cloud push servers.</span>
+            </p>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="feature-card">
+            <div class="f-card-icon rose">🤖</div>
+            <h3>
+              <span class="lang-de">Floating AI-Roboter-Tutor</span>
+              <span class="lang-en" style="display:none;">Floating AI Robot Tutor</span>
+            </h3>
+            <p>
+              <span class="lang-de">Ein dezent angedockter Roboter am Bildschirmrand öffnet ein Chat-Overlay für künftige KI-Code-Erklärungen (aktuell in aktiver Entwicklung für Phase 5).</span>
+              <span class="lang-en" style="display:none;">A subtle floating robot docked at the screen edge opens a chat overlay for future AI code explanations (currently in active development for Phase 5).</span>
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- DOWNLOADS SECTION -->
+    <section class="download-section" id="download">
+      <div class="container">
+        
+        <div class="section-header">
+          <p class="section-tag">
+            <span class="lang-de">Plattformen &amp; Distribution</span>
+            <span class="lang-en" style="display:none;">Platforms &amp; Distribution</span>
+          </p>
+          <h2 class="section-title">
+            <span class="lang-de">Installieren oder direkt im Browser starten</span>
+            <span class="lang-en" style="display:none;">Install or Run Directly in Browser</span>
+          </h2>
+          <p class="section-subtitle">
+            <span class="lang-de">Frei wählbar für jedes Gerät — 100% Open Source unter GPL-3.0.</span>
+            <span class="lang-en" style="display:none;">Available for all your devices — 100% open source under GPL-3.0.</span>
+          </p>
+        </div>
+
+        <div class="download-grid">
+          
+          <!-- Web App Card -->
+          <div class="download-card">
+            <h3>🌐 Web-Applikation</h3>
+            <p>
+              <span class="lang-de">Direkt im Browser lernen ohne Installation. PWA-fähig mit lokalem IndexedDB-Speicher und Web Worker Sandbox.</span>
+              <span class="lang-en" style="display:none;">Learn directly in your browser without installation. PWA-ready with local IndexedDB storage and Web Worker sandbox.</span>
+            </p>
+            <a href="app/" class="btn-card highlight">
+              <span>🚀 Web App starten (/learn/app)</span>
+            </a>
+          </div>
+
+          <!-- Android Card -->
+          <div class="download-card">
+            <h3>📱 Android (APK &amp; F-Droid)</h3>
+            <p>
+              <span class="lang-de">Natives Go/Fyne v2 APK für Smartphones &amp; Tablets. Verfügbar via F-Droid, IzzyOnDroid und direkte GitHub Releases.</span>
+              <span class="lang-en" style="display:none;">Native Go/Fyne v2 APK for phones &amp; tablets. Available via F-Droid, IzzyOnDroid, and direct GitHub releases.</span>
+            </p>
+            <a href="https://github.com/benzjeremy/learn/releases" target="_blank" rel="noopener noreferrer" class="btn-card">
+              <span>📦 GitHub Releases (APK)</span>
+            </a>
+          </div>
+
+          <!-- Desktop Card -->
+          <div class="download-card">
+            <h3>💻 Desktop (Linux &amp; Windows)</h3>
+            <p>
+              <span class="lang-de">Single Binary für Linux (native Wayland/X11) und Windows x86_64. Kein CGO-Zwang auf Windows.</span>
+              <span class="lang-en" style="display:none;">Single binary for Linux (Wayland/X11) and Windows x86_64. No runtime dependencies.</span>
+            </p>
+            <a href="https://github.com/benzjeremy/learn/releases" target="_blank" rel="noopener noreferrer" class="btn-card">
+              <span>📥 Desktop Binaries</span>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about-section" id="about">
+      <div class="container">
+        <div class="about-layout-grid">
+          
+          <div class="about-box">
+            <h3>
+              <span class="lang-de">Mitwirkende &amp; Open-Source Ethos</span>
+              <span class="lang-en" style="display:none;">Contributors &amp; Open-Source Ethos</span>
+            </h3>
+            <p style="color: var(--text-secondary); margin-bottom: var(--space-4); font-size: 0.9375rem;">
+              <span class="lang-de">Initiiert und maintained von Jeremy Benz im Rahmen des Jeremy Benz Open-Source Ökosystems.</span>
+              <span class="lang-en" style="display:none;">Initiated and maintained by Jeremy Benz as part of the Jeremy Benz Open-Source Ecosystem.</span>
+            </p>
+            <div>
+              <div class="author-chip">
+                <span class="author-avatar">JB</span>
+                <span>Jeremy Benz (@benzjeremy)</span>
+              </div>
+              <div class="author-chip">
+                <span class="author-avatar" style="background: var(--accent-violet);">AI</span>
+                <span>Claude Code (Architect)</span>
+              </div>
+              <div class="author-chip">
+                <span class="author-avatar" style="background: var(--accent-emerald);">AI</span>
+                <span>Google Antigravity (Engine)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-box">
+            <h3>
+              <span class="lang-de">Freie Software &amp; Lizenz</span>
+              <span class="lang-en" style="display:none;">Free Software &amp; License</span>
+            </h3>
+            <p style="color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.6;">
+              <span class="lang-de"><strong>learn</strong> steht unter der <strong>GNU General Public License v3.0</strong>. Alle Kurse, Übungen und Quellcodes sind bedingungslos frei und bleiben es für immer.</span>
+              <span class="lang-en" style="display:none;"><strong>learn</strong> is licensed under the <strong>GNU General Public License v3.0</strong>. All courses, quizzes, and codebases are unconditionally free and will remain so forever.</span>
+            </p>
+            <div style="margin-top: var(--space-4);">
+              <a href="https://github.com/benzjeremy/learn/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="btn-card">
+                <span>📄 GNU GPL-3.0 Lizenztext</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div>
+        <span>© 2026 Jeremy Benz · Open-Source Educational Software</span>
+      </div>
+      <div class="footer-links">
+        <a href="app/">Web App</a>
+        <a href="https://github.com/benzjeremy/learn" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://github.com/benzjeremy/learn/releases" target="_blank" rel="noopener noreferrer">Releases</a>
+        <a href="https://benzjeremy.github.io/impressum.html" target="_blank" rel="noopener noreferrer">Impressum</a>
+        <a href="https://benzjeremy.github.io/datenschutz.html" target="_blank" rel="noopener noreferrer">Datenschutz</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    function setLang(lang) {
+      const isDe = lang === 'de';
+      document.querySelectorAll('.lang-de').forEach(el => el.style.display = isDe ? '' : 'none');
+      document.querySelectorAll('.lang-en').forEach(el => el.style.display = isDe ? 'none' : '');
+      document.getElementById('btn-lang-de').classList.toggle('active', isDe);
+      document.getElementById('btn-lang-en').classList.toggle('active', !isDe);
+      localStorage.setItem('learn_lang', lang);
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('site_theme', next);
+      document.getElementById('themeToggle').textContent = next === 'dark' ? '🌙' : '☀️';
+    }
+
+    function copyCommand() {
+      const cmd = "go install github.com/benzjeremy/learn/cmd/learn@latest";
+      navigator.clipboard.writeText(cmd).then(() => {
+        alert("Befehl in die Zwischenablage kopiert!");
+      }).catch(() => {});
+    }
+
+    // Init Language from Storage
+    (function() {
+      const savedLang = localStorage.getItem('learn_lang') || 'de';
+      setLang(savedLang);
+    })();
+  </script>
+</body>
+</html>
