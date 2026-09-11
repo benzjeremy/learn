@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">learn</string>
+    <string name="app_subtitle">Open-Source Lern-App nach Fachinformatiker-Standard</string>
+    <string name="nav_courses">Lernen</string>
+    <string name="nav_exam">Prüfung</string>
+    <string name="nav_codelab">Code-Labor</string>
+    <string name="nav_settings">Einstellungen</string>
+</resources>
