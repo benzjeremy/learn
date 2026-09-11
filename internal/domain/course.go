@@ -8,19 +8,23 @@ type LocalizedText struct {
 	EN string `json:"en"`
 }
 
-// Section represents an individual lesson or exam unit (concept, quiz_choice, quiz_code_puzzle).
+// Section represents an individual lesson or exam unit (concept, quiz_choice, quiz_code_puzzle, quiz_compiler_fix, quiz_inline_code).
 type Section struct {
-	ID              string        `json:"id"`
-	Type            string        `json:"type"` // "concept", "quiz_choice", "quiz_code_puzzle"
-	ScoreWeight     int           `json:"scoreWeight,omitempty"`
-	Title           LocalizedText `json:"title"`
-	ContentMarkdown LocalizedText `json:"contentMarkdown"`
-	CodeSnippet     string        `json:"codeSnippet,omitempty"`
-	Prompt          LocalizedText `json:"prompt,omitempty"`
-	StarterCode     string        `json:"starterCode,omitempty"`
-	Options         []string      `json:"options,omitempty"`
-	Solution        any           `json:"solution,omitempty"`
-	Explanation     LocalizedText `json:"explanation,omitempty"`
+	ID                     string                   `json:"id"`
+	Type                   string                   `json:"type"` // "concept", "quiz_choice", "quiz_code_puzzle", "quiz_compiler_fix", "quiz_inline_code"
+	ScoreWeight            int                      `json:"scoreWeight,omitempty"`
+	Title                  LocalizedText            `json:"title"`
+	ContentMarkdown        LocalizedText            `json:"contentMarkdown"`
+	CodeSnippet            string                   `json:"codeSnippet,omitempty"`
+	BuggyCode              string                   `json:"buggyCode,omitempty"`
+	SolutionCode           string                   `json:"solutionCode,omitempty"`
+	CompilerOutput         map[string]string        `json:"compilerOutput,omitempty"`
+	Prompt                 LocalizedText            `json:"prompt,omitempty"`
+	StarterCode            string                   `json:"starterCode,omitempty"`
+	Options                []string                 `json:"options,omitempty"`
+	DistractorExplanations map[string]LocalizedText `json:"distractorExplanations,omitempty"`
+	Solution               any                      `json:"solution,omitempty"`
+	Explanation            LocalizedText            `json:"explanation,omitempty"`
 }
 
 // Chapter represents a collection of sections or an exam within a course.
@@ -49,7 +53,7 @@ type Course struct {
 	Chapters      []Chapter     `json:"chapters,omitempty"`
 }
 
-// ExamResult records the outcome of an IHK exam.
+// ExamResult records the outcome of a 90-minute professional exam.
 type ExamResult struct {
 	Score     int       `json:"score"`
 	Grade     int       `json:"grade"`

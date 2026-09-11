@@ -55,3 +55,31 @@ func TestExamResult(t *testing.T) {
 		t.Fatalf("expected score 95 and grade 1, got %+v", res)
 	}
 }
+
+func TestCompilerFixSection(t *testing.T) {
+	sec := Section{
+		ID:   "go-01-sec-05",
+		Type: "quiz_compiler_fix",
+		Title: LocalizedText{
+			DE: "Compiler-Labor: Syntaxfehler im Go-Code beheben",
+			EN: "Compiler Lab: Fix Syntax Error in Go Code",
+		},
+		BuggyCode:    "package main\nfunc main() { fmt.Printlln(\"Hello\") }",
+		SolutionCode: "package main\nfunc main() { fmt.Println(\"Hello\") }",
+		CompilerOutput: map[string]string{
+			"error":   "undefined: fmt.Printlln",
+			"success": "Build Succeeded (Exit 0)",
+		},
+		DistractorExplanations: map[string]LocalizedText{
+			"fmt.Printlln": {
+				DE: "Tippfehler in Funktionsbezeichner",
+				EN: "Typo in function identifier",
+			},
+		},
+	}
+
+	if sec.Type != "quiz_compiler_fix" || sec.BuggyCode == "" || sec.SolutionCode == "" {
+		t.Fatalf("invalid compiler fix section configuration: %+v", sec)
+	}
+}
+
