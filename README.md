@@ -5,7 +5,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/benzjeremy/learn)](https://goreportcard.com/report/github.com/benzjeremy/learn)
 [![Website](https://img.shields.io/badge/Web-Live%20Cockpit-brightgreen)](https://benzjeremy.github.io/learn/)
 
-> **Non-linear, privacy-first open-source code learning application** for Go, Astro, Python, HTML/CSS, JavaScript, and PHP.
+> **Privacy-first open-source code learning application** with interactive compiler lab, option-specific didactic feedback, and 90-minute final exams for Go, Astro, Python, HTML/CSS, JavaScript, SQL, C#, and PHP.
 
 An uncompromising, ad-free alternative to commercial platforms like Mimo or SoloLearn. Free from artificial paywalls, gating mechanics, and intrusive telemetry.
 
@@ -13,7 +13,9 @@ An uncompromising, ad-free alternative to commercial platforms like Mimo or Solo
 
 ## 🌟 Key Highlights
 
-* **🔓 100% Non-Linear:** Jump directly into any chapter (e.g. Go Concurrency or Astro SSR) without having to click through trivial basics.
+* **🛠️ Interactive Compiler Lab:** Real in-browser bugfixing challenges with realistic compiler diagnostic output, line numbers, and terminal exit codes.
+* **💡 Option-Specific Didactic Feedback:** No solution-spoiling on incorrect inputs — the engine explains why your chosen token or operator is incorrect and encourages self-guided learning.
+* **🎓 90-Minute Final Exam Simulations:** Realistic exam sessions with countdown timer, strict grading scale (grades 1–6), and complete reference solutions.
 * **🛡️ Zero-Telemetry & Offline-First:** No analytics SDKs, no Google Firebase, 100% GDPR-compliant. Works offline on planes and subways via local SQLite WAL storage and IndexedDB.
 * **📱 Native Go & Fyne v2:** Compact Android APK (< 20 MB) and native desktop binaries for Linux (Wayland/X11) and Windows. Only ~25 MB RAM.
 * **🌐 2-Tier Static Web Routing:**

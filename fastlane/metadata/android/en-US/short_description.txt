@@ -1,1 +1,1 @@
-Free, non-linear open-source code learning app for Go, Astro, Python, HTML/CSS & more. No paywalls.
+Free open-source code learning app with compiler lab, 90-min exams & deep lessons. No paywalls.

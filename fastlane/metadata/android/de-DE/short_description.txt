@@ -1,1 +1,1 @@
-Freie, nicht-lineare Open-Source Lern-App für Go, Astro, Python, HTML/CSS & mehr. Ohne Paywalls.
+Freie Open-Source Lern-App mit Compiler-Labor, 90-Min-Prüfungen & Deep-Dive-Lektionen. Ohne Paywalls.

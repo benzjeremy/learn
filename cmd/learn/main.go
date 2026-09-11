@@ -83,7 +83,7 @@ func main() {
 }
 
 func printHelp() {
-	fmt.Printf("learn %s – Non-linear, privacy-first open-source code learning app\n\n", Version)
+	fmt.Printf("learn %s – Privacy-first open-source code learning app with compiler lab & exams\n\n", Version)
 	fmt.Println("Usage: learn [flags]")
 	fmt.Println("\nFlags:")
 	fmt.Println("  --version          Print version information")

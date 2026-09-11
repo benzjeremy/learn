@@ -1,5 +1,6 @@
 # Binaries and builds
 bin/
+learn
 *.exe
 *.exe~
 *.dll

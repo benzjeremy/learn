@@ -1,8 +1,11 @@
 learn ist die freie, werbefreie und datenschutzfreundliche Open-Source Alternative zu Mimo und SoloLearn.
 
-Meistere moderne Programmiersprachen wie Go (Golang), Astro, Python, HTML5/CSS3, JavaScript und PHP mit folgenden Kernvorteilen:
+Meistere moderne Programmiersprachen wie Go (Golang), Astro, Python, HTML5/CSS3, JavaScript, SQL, C# und PHP mit folgenden Kernvorteilen:
 
-• 100% Nicht-Linear: Steige völlig frei in jedes beliebige Kapitel ein — kein Zwangsdurchklicken von einfachen Grundlagen.
+• Echte Code-Befähigung: Didaktische Schritt-für-Schritt-Lektionen vom Einsteiger zum echten Software-Entwickler.
+• Interaktives Compiler-Labor: Bugfixing-Übungen direkt im Browser mit realistischen Fehlerausgaben, Zeilennummern und Terminal-Status.
+• Option-spezifisches Didaktik-Feedback: Kein Lösungs-Spoilen bei Fehleingaben – das System erklärt exakt, was an deiner Wahl falsch war.
+• 90-Minuten-Abschlussprüfungen: Realitätsnahe Prüfungssimulationen mit Countdown-Timer, Notenschlüssel (1–6) und Musterlösung.
 • Keine Paywalls & keine "Herzen": Lerne unbegrenzt in deinem eigenen Tempo ohne künstliche Frustrationssperren.
 • 100% Offline-First: Alle Kurse funktionieren autark ohne Internetverbindung im Flugmodus oder Zug.
 • Zero-Telemetry & DSGVO-konform: Keine Werbetracker, keine Analytics-SDKs, keine Google Firebase Abhängigkeit.

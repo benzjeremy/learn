@@ -25,7 +25,14 @@ jobs:
         run: go test -v -race ./...
 
       - name: Compile Binary (Linux x86_64)
-        run: go build -v -o bin/learn ./cmd/learn
+        run: go build -v -ldflags="-s -w" -o bin/learn ./cmd/learn
 
       - name: Verify Version Flag
         run: ./bin/learn --version
+
+      - name: Compile Binary (Windows x86_64)
+        env:
+          GOOS: windows
+          GOARCH: amd64
+          CGO_ENABLED: 0
+        run: go build -v -ldflags="-s -w" -o bin/learn.exe ./cmd/learn

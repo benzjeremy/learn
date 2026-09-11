@@ -1,0 +1,49 @@
+name: Release Pipeline
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build & Publish Multi-Platform Release Assets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Go 1.22
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+          cache: true
+
+      - name: Run Tests
+        run: go test -v -race ./...
+
+      - name: Build Linux Binary
+        run: |
+          mkdir -p dist/linux
+          CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o dist/linux/learn ./cmd/learn
+          tar -czvf "learn-${GITHUB_REF_NAME}-linux.tar.gz" -C dist/linux learn
+
+      - name: Build Windows Binary
+        run: |
+          sudo apt-get update && sudo apt-get install -y zip
+          mkdir -p dist/windows
+          CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o dist/windows/learn.exe ./cmd/learn
+          zip -j "learn-${GITHUB_REF_NAME}-windows.zip" dist/windows/learn.exe
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            learn-${{ github.ref_name }}-linux.tar.gz
+            learn-${{ github.ref_name }}-windows.zip
+          draft: false
+          prerelease: false
+          generate_release_notes: true
