@@ -1,0 +1,118 @@
+{
+  "id": "go-04-structs-methods",
+  "courseId": "go",
+  "chapterIndex": 4,
+  "title": {
+    "de": "4. Structs, Pointer & Methoden-Receiver",
+    "en": "4. Structs, Pointers & Method Receivers"
+  },
+  "description": {
+    "de": "Beherrsche Gos objektbasiertes Typmodell: Eigene Datentypen mit Structs, Zeiger-Semantik (* und &) und der kritische Unterschied zwischen Value- und Pointer-Receivern.",
+    "en": "Master Go's struct type system: Custom data structures, pointer semantics (* and &), and the crucial difference between value and pointer method receivers."
+  },
+  "sections": [
+    {
+      "id": "go-04-sec-01",
+      "type": "concept",
+      "title": { "de": "Structs & Pointer: Adress- vs. Dereferenzierungs-Operator", "en": "Structs & Pointers: Address vs. Dereference Operator" },
+      "contentMarkdown": {
+        "de": "Go ist keine klassische OOP-Sprache mit Vererbung (`class`), sondern setzt auf Komposition mit **Structs**:\n\n* **Struct-Definition:** Bündelt verwandte Felder zu einem neuen Typ:\n  `type ServerConfig struct { Host string; Port int }`\n* **Pointer (`*T`):** Ein Zeiger speichert die Speicheradresse eines Werts.\n* **Der Adress-Operator (`&`):** Erzeugt einen Pointer auf eine Variable: `ptr := &myConfig`.\n* **Der Dereferenzierungs-Operator (`*`):** Liest oder verändert den Wert an der Speicheradresse: `*ptr = newConfig`.\n* **Effizienz:** Die Übergabe großer Structs per Pointer verhindert teure Speicherkopien und erlaubt direkte Mutationen.",
+        "en": "Go avoids class-based inheritance, favoring composition with **structs**:\n\n* **Struct Definition:** Bundles fields into a typed unit:\n  `type ServerConfig struct { Host string; Port int }`\n* **Pointers (`*T`):** Hold the memory address of an instance.\n* **Address Operator (`&`):** Yields a pointer to a value: `ptr := &myConfig`.\n* **Dereference Operator (`*`):** Accesses or writes value at address: `*ptr = newConfig`.\n* **Efficiency:** Passing large structs by pointer avoids memory copies."
+      },
+      "codeSnippet": "type Client struct {\n    ID   string `json:\"id\"`\n    Host string `json:\"host\"`\n}\n\n// Erstellt eine Instanz und übergibt deren Adresse\nfunc NewClient(id, host string) *Client {\n    return &Client{ID: id, Host: host}\n}"
+    },
+    {
+      "id": "go-04-sec-02",
+      "type": "concept",
+      "title": { "de": "Methoden: Value-Receiver vs. Pointer-Receiver", "en": "Methods: Value vs. Pointer Receivers" },
+      "contentMarkdown": {
+        "de": "In Go können Methoden an Structs gebunden werden. Der Parameter vor dem Funktionsnamen heißt **Receiver**:\n\n* **Value-Receiver `func (s Server) Status() string`:**\n  Die Methode erhält eine **Kopie** der Struct. Änderungen an den Feldern wirken sich **nicht** auf das aufrufende Original aus. Ideal für schreibgeschützte Abfragen.\n* **Pointer-Receiver `func (s *Server) SetPort(p int)`:**\n  Die Methode operiert direkt auf dem **Original** im Speicher. Änderungen an Feldern bleiben persistent erhalten!\n* **Faustregel:** Wenn eine Methode den Zustand verändern soll oder die Struct groß ist: **immer Pointer-Receiver `*T` nutzen**.",
+        "en": "In Go, methods attach to types via a **receiver** parameter:\n\n* **Value Receiver `func (s Server) Status() string`:** Operates on an isolated **copy**. Mutating fields does **not** affect the caller.\n* **Pointer Receiver `func (s *Server) SetPort(p int)`:** Operates directly on the shared **memory address**. Mutated fields persist.\n* **Rule of thumb:** If the method mutates fields or the struct is large, always use a pointer receiver `*T`."
+      },
+      "codeSnippet": "type Counter struct {\n    count int\n}\n\n// Pointer-Receiver modifiziert das Original\nfunc (c *Counter) Increment() {\n    c.count++\n}"
+    },
+    {
+      "id": "go-04-sec-03",
+      "type": "quiz_choice",
+      "title": { "de": "Verständnisfrage: Warum mutiert mein Value-Receiver nicht?", "en": "Concept Check: Why Did My Value Receiver Fail to Mutate?" },
+      "prompt": {
+        "de": "Ein Entwickler deklariert `func (cfg ServerConfig) UpdateHost(newHost string) { cfg.Host = newHost }`. Nach dem Aufruf im Hauptprogramm ist `cfg.Host` jedoch unverändert. Warum?",
+        "en": "A developer declares `func (cfg ServerConfig) UpdateHost(newHost string) { cfg.Host = newHost }`. After calling it, `cfg.Host` remains unchanged. Why?"
+      },
+      "options": [
+        "Weil `ServerConfig` als Value-Receiver deklariert wurde und die Methode nur auf einer lokalen Kopie gearbeitet hat.",
+        "Weil Strings in Go unveränderlich sind und nicht neu zugewiesen werden können.",
+        "Weil Methoden in Go nur mit Großbuchstaben aufgerufen werden dürfen.",
+        "Weil der Hostname vorher mit chmod gesperrt wurde."
+      ],
+      "distractorExplanations": {
+        "1": {
+          "de": "Strings sind zwar immutable Bytesequenzen, aber Variablen können jederzeit einen neuen String-Header zugewiesen bekommen. Das Problem liegt hier am Struct-Receiver, nicht am String-Typ.",
+          "en": "String variables can be reassigned; the failure stems entirely from receiver value copying."
+        },
+        "2": {
+          "de": "Groß- und Kleinschreibung steuert in Go die Paketsichtbarkeit (Export), verhindert aber keine Methodenaufrufe innerhalb desselben Packages.",
+          "en": "Capitalization controls package export visibility, not internal method execution."
+        },
+        "3": {
+          "de": "chmod ist ein UNIX-Dateisystem-Kommando und hat keine Auswirkung auf Go-Speicherstrukturen.",
+          "en": "chmod is a filesystem permissions utility, completely unrelated to memory mutation."
+        }
+      },
+      "solution": 0,
+      "explanation": {
+        "de": "Value-Receiver übergeben die Struct als Wertkopie (Call by Value). Um das Original zu modifizieren, muss der Receiver als Zeiger deklariert werden: `func (cfg *ServerConfig) UpdateHost(...)`.",
+        "en": "Value receivers operate on a copy. To mutate the caller's struct, declare a pointer receiver: `func (cfg *ServerConfig) UpdateHost(...)`."
+      }
+    },
+    {
+      "id": "go-04-sec-04",
+      "type": "quiz_compiler_fix",
+      "title": { "de": "Compiler-Labor: Struct-Mutation mit Pointer-Receiver beheben", "en": "Compiler Lab: Fix Struct Mutation with Pointer Receiver" },
+      "prompt": {
+        "de": "Die Methode `EnableTLS` modifiziert die Konfiguration, bewirkt aber nichts, da sie als Value-Receiver deklariert ist. Korrigiere die Receiver-Deklaration zu einem Pointer-Receiver `*TLSConfig`, damit die Änderung auf dem Originalobjekt wirksam wird!",
+        "en": "The `EnableTLS` method fails to mutate state because it uses a value receiver. Change the receiver to a pointer receiver `*TLSConfig` so the mutation takes effect!"
+      },
+      "buggyCode": "package main\n\nimport \"fmt\"\n\ntype TLSConfig struct {\n    Enabled bool\n    Port    int\n}\n\n// Fehler: Value-Receiver verwirft Änderungen am Ende der Funktion!\nfunc (cfg TLSConfig) EnableTLS() {\n    cfg.Enabled = true\n    cfg.Port = 443\n}\n\nfunc main() {\n    cfg := TLSConfig{Enabled: false, Port: 80}\n    cfg.EnableTLS()\n    fmt.Printf(\"TLS=%v, Port=%d\\n\", cfg.Enabled, cfg.Port)\n}",
+      "solutionCode": "package main\n\nimport \"fmt\"\n\ntype TLSConfig struct {\n    Enabled bool\n    Port    int\n}\n\n// Korrekt: Pointer-Receiver modifiziert die Original-Speicheradresse\nfunc (cfg *TLSConfig) EnableTLS() {\n    cfg.Enabled = true\n    cfg.Port = 443\n}\n\nfunc main() {\n    cfg := TLSConfig{Enabled: false, Port: 80}\n    cfg.EnableTLS()\n    fmt.Printf(\"TLS=%v, Port=%d\\n\", cfg.Enabled, cfg.Port)\n}",
+      "compilerOutput": {
+        "error": "[Laufzeit-Warnung: Mutation ohne Effekt]\nAusgabe: TLS=false, Port=80\nStatus: Keine dauerhafte Änderung im Originalobjekt!",
+        "success": "[go run ./main.go]\nKompilierung erfolgreich (0.02s) · Exit Code: 0\nAusgabe: TLS=true, Port=443\nStatus: Pointer-Receiver aktualisiert Speicheradresse erfolgreich!"
+      },
+      "explanation": {
+        "de": "Durch `func (cfg *TLSConfig)` erhält die Methode die echte Speicheradresse der Konfiguration. Die Zuweisung `cfg.Enabled = true` modifiziert nun das Original.",
+        "en": "By declaring `func (cfg *TLSConfig)`, the method receives the instance's pointer, allowing in-place field mutations."
+      }
+    },
+    {
+      "id": "go-04-sec-05",
+      "type": "quiz_inline_code",
+      "title": { "de": "Inline-Code: Struct-Pointer Referenzierung", "en": "Inline Code: Struct Pointer Reference" },
+      "prompt": {
+        "de": "Welcher Operator wird vor einer Struct-Instanz verwendet, um ihre Speicheradresse als Pointer zu erhalten?",
+        "en": "Which operator precedes a struct instance to obtain its memory address as a pointer?"
+      },
+      "starterCode": "ptr := ___ServerConfig{Port: 8080}",
+      "options": ["&", "*", "->", "@"],
+      "distractorExplanations": {
+        "*": {
+          "de": "'*' dient bei Typen zur Deklaration von Pointer-Typen (*ServerConfig) und bei Variablen zur Dereferenzierung (*ptr). Um eine neue Adresse zu ermitteln, wird '&' benötigt.",
+          "en": "'*' declares pointer types (*ServerConfig) or dereferences existing pointers, whereas '&' yields an address."
+        },
+        "->": {
+          "de": "'->' existiert in Go überhaupt nicht als Operator.",
+          "en": "'->' does not exist in Go."
+        },
+        "@": {
+          "de": "'@' wird in Sprachen wie Python oder Java für Annotationen/Dekoratoren genutzt, existiert in Go jedoch nicht.",
+          "en": "'@' is used for annotations in Java/Python, not in Go."
+        }
+      },
+      "solution": "&",
+      "explanation": {
+        "de": "Der Adress-Operator `&` nimmt die Speicheradresse eines Werts und erzeugt damit einen Pointer (`*ServerConfig`).",
+        "en": "The address operator `&` yields the memory address of the struct instance, producing a `*ServerConfig` pointer."
+      }
+    }
+  ]
+}

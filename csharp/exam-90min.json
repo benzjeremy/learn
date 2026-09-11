@@ -7,12 +7,12 @@
   "maxScore": 100,
   "passingScore": 50,
   "title": {
-    "de": "🏛️ IHK-Prüfungsmodul (90 Min): C# Enterprise & Design Patterns",
-    "en": "🏛️ IHK Exam Module (90 Min): C# Enterprise & Design Patterns"
+    "de": "🎓 Abschlussprüfung (90 Min): C# Enterprise & Design Patterns",
+    "en": "🎓 Final Exam (90 Min): C# Enterprise & Design Patterns"
   },
   "description": {
-    "de": "Schriftliche IHK-Prüfungssimulation: Objektorientierte Architektur, Entwurfsmuster (SOLID), asynchrone Programmierung und saubere Schnittstellen.",
-    "en": "Written IHK exam simulation: Object-oriented architecture, SOLID design principles, async programming, and clean interfaces."
+    "de": "Schriftliche Abschlussprüfungssimulation: Objektorientierte Architektur, Entwurfsmuster (SOLID), asynchrone Programmierung und saubere Schnittstellen.",
+    "en": "Written final exam simulation: Object-oriented architecture, SOLID design principles, async programming, and clean interfaces."
   },
   "scenario": {
     "de": "Handlungssituation: Sie arbeiten als Fachinformatiker/in für Anwendungsentwicklung bei einem Maschinenbau-Konzern. Eine veraltete monolithische Steuerungssoftware soll auf modernstes .NET refaktoriert werden. Es gilt, lose Kopplung durch Dependency Injection zu etablieren, Deadlocks im Multithreading zu vermeiden und Enterprise-Design-Patterns anzuwenden.",

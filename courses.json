@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "lastUpdated": "2026-09-11T23:15:00Z",
-  "curriculum": "IHK Fachinformatiker Anwendungsentwicklung & Systemintegration",
+  "lastUpdated": "2026-09-11T23:30:00Z",
+  "curriculum": "Professioneller Ausbildungsstandard (Anwendungsentwicklung & Systemintegration)",
   "courses": [
     {
       "id": "go",
@@ -12,20 +12,20 @@
         "de": "Systemprogrammierung, CSP-Concurrency (Goroutines, Channels), Kompilation & Microservices.",
         "en": "Systems programming, CSP concurrency (goroutines, channels), compilation & microservices."
       },
-      "level": "IHK-Curriculum",
-      "totalChapters": 3,
+      "level": "Professioneller Standard",
+      "totalChapters": 8,
       "manifestUrl": "go/manifest.json"
     },
     {
       "id": "cybersecurity",
       "title": { "de": "Cybersecurity & IT-Sicherheit", "en": "Cybersecurity & IT Security" },
       "icon": "shield",
-      "badge": "IHK Kernfach",
+      "badge": "Kernfach",
       "description": {
         "de": "CIA-Schutzziele, OWASP Top 10, Kryptografie (AES-256-GCM, PBKDF2), Härtung & DSGVO/LDI.",
         "en": "CIA triad, OWASP Top 10, cryptography (AES-256-GCM, PBKDF2), hardening & GDPR compliance."
       },
-      "level": "IHK-Curriculum",
+      "level": "Professioneller Standard",
       "totalChapters": 2,
       "manifestUrl": "cybersecurity/manifest.json"
     },
@@ -38,7 +38,7 @@
         "de": "Relationales Modell, ACID, Normalisierung (1NF–3NF), Joins, Indizes & Transaktionen.",
         "en": "Relational model, ACID, normalization (1NF–3NF), joins, indexes & transactions."
       },
-      "level": "IHK-Curriculum",
+      "level": "Professioneller Standard",
       "totalChapters": 2,
       "manifestUrl": "sql/manifest.json"
     },
@@ -51,7 +51,7 @@
         "de": "Kompilierte CLR, Managed Memory, Garbage Collection, LINQ, OOP & Entwurfsmuster.",
         "en": "Compiled CLR, managed memory, garbage collection, LINQ, OOP & design patterns."
       },
-      "level": "IHK-Curriculum",
+      "level": "Professioneller Standard",
       "totalChapters": 2,
       "manifestUrl": "csharp/manifest.json"
     },
@@ -64,7 +64,7 @@
         "de": "Island Architecture, SSR und Content-First Webentwicklung mit Zero-JS-Default.",
         "en": "Island architecture, SSR and content-first web development with zero-JS default."
       },
-      "level": "IHK-Curriculum",
+      "level": "Professioneller Standard",
       "totalChapters": 2,
       "manifestUrl": "astro/manifest.json"
     },
@@ -77,7 +77,7 @@
         "de": "Vielseitige Syntax, Systemautomation, Data Science, GIL & moderne Typisierung.",
         "en": "Versatile syntax, system automation, data science, GIL & modern typing."
       },
-      "level": "IHK-Curriculum",
+      "level": "Professioneller Standard",
       "totalChapters": 2,
       "manifestUrl": "python/manifest.json"
     },
@@ -90,7 +90,7 @@
         "de": "Semantisches HTML, Box-Modell, CSS Grid, Flexbox, Design Tokens & Barrierefreiheit.",
         "en": "Semantic HTML, box model, CSS grid, flexbox, design tokens & accessibility."
       },
-      "level": "IHK-Curriculum",
+      "level": "Professioneller Standard",
       "totalChapters": 2,
       "manifestUrl": "html-css/manifest.json"
     },
@@ -103,7 +103,7 @@
         "de": "Event Loop, Call Stack, Microtasks, Async/Await & statische Typisierung mit TypeScript.",
         "en": "Event loop, call stack, microtasks, async/await & static typing with TypeScript."
       },
-      "level": "IHK-Curriculum",
+      "level": "Professioneller Standard",
       "totalChapters": 2,
       "manifestUrl": "javascript/manifest.json"
     },
@@ -116,7 +116,7 @@
         "de": "Shared-Nothing Lifecycle, Constructor Promotion, PDO Prepared Statements & OOP.",
         "en": "Shared-nothing lifecycle, constructor promotion, PDO prepared statements & OOP."
       },
-      "level": "IHK-Curriculum",
+      "level": "Professioneller Standard",
       "totalChapters": 2,
       "manifestUrl": "php/manifest.json"
     }

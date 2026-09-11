@@ -7,12 +7,12 @@
   "maxScore": 100,
   "passingScore": 50,
   "title": {
-    "de": "🏛️ IHK-Prüfungsmodul (90 Min): Fullstack JS & Statische Typisierung",
-    "en": "🏛️ IHK Exam Module (90 Min): Fullstack JS & Static Typing"
+    "de": "🎓 Abschlussprüfung (90 Min): Fullstack JS & Statische Typisierung",
+    "en": "🎓 Final Exam (90 Min): Fullstack JS & Static Typing"
   },
   "description": {
-    "de": "IHK-Prüfungssimulation: Asynchrone Programmierung, Promise-Verkettung, TypeScript Generics, Scope & Closures und DOM-Security (XSS-Vermeidung).",
-    "en": "IHK exam simulation: Asynchronous architecture, promise chains, TypeScript generics, lexical closures, and DOM XSS defense."
+    "de": "Abschlussprüfungssimulation: Asynchrone Programmierung, Promise-Verkettung, TypeScript Generics, Scope & Closures und DOM-Security (XSS-Vermeidung).",
+    "en": "Final exam simulation: Asynchronous architecture, promise chains, TypeScript generics, lexical closures, and DOM XSS defense."
   },
   "scenario": {
     "de": "Handlungssituation: Sie sind Fullstack-Entwickler/in bei einem Fintech-Startup. Das webbasierte Dashboard friert bei hohen Datenmengen ein, und im Frontend-Code wurden unbereinigte HTML-Strings gefunden. Ihre Aufgabe ist es, den Event Loop zu entlasten, typsichere TypeScript-APIs zu bauen und XSS-Lücken zu schließen.",

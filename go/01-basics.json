@@ -34,7 +34,7 @@
     {
       "id": "go-01-sec-03",
       "type": "quiz_choice",
-      "title": { "de": "IHK-Verständnisfrage: Goroutines vs. OS-Threads", "en": "IHK Concept Check: Goroutines vs. OS Threads" },
+      "title": { "de": "Fachliche Verständnisfrage: Goroutines vs. OS-Threads", "en": "Technical Concept Check: Goroutines vs. OS Threads" },
       "prompt": {
         "de": "Warum kann ein Go-Server problemlos hunderttausende Goroutines gleichzeitig verwalten, während herkömmliche Betriebssystem-Threads den Server bei wenigen tausend Threads überlasten würden?",
         "en": "Why can a Go process run hundreds of thousands of goroutines, while conventional OS threads exhaust system resources at only a few thousand?"
@@ -45,6 +45,20 @@
         "Weil Goroutines nur bei Vollmond ausgeführt werden.",
         "Weil Go-Code nicht kompiliert, sondern simuliert wird."
       ],
+      "distractorExplanations": {
+        "1": {
+          "de": "Go ist eine kompilierte Systemsprache. Daten werden lokal im physischen RAM abgelegt, um Zugriffszeiten im Nanosekunden-Bereich zu garantieren. Eine Auslagerung ins Internet wäre extrem langsam und unsicher.",
+          "en": "Go is a compiled systems language storing memory in local RAM for nanosecond access times. Offloading RAM to the internet would be slow and insecure."
+        },
+        "2": {
+          "de": "Goroutines arbeiten streng deterministisch und werden vom internen Go-Runtime-Scheduler gesteuert, völlig unabhängig von astronomischen Phänomenen.",
+          "en": "Goroutines are scheduled deterministically by the runtime scheduler."
+        },
+        "3": {
+          "de": "Go ist eine Ahead-of-Time (AOT) kompilierte Sprache. Der Go-Compiler erzeugt direkt eigenständigen Maschinencode für die Zielarchitektur (z. B. AMD64, ARM64) ohne Interpretation oder Simulation.",
+          "en": "Go is an AOT-compiled language generating standalone native machine code directly without simulation."
+        }
+      },
       "solution": 0,
       "explanation": {
         "de": "Betriebssystem-Threads reservieren typischerweise 1–2 MB Stack-Speicher und erfordern teure Kernel-Kontextwechsel. Go verwaltet Goroutines im User-Space über seinen eigenen M:N-Scheduler mit einem winzigen initialen Stack von 2 KB.",
@@ -61,10 +75,73 @@
       },
       "starterCode": "msgChan ___ \"Task completed\"",
       "options": ["<-", "->", "=>", ":="],
+      "distractorExplanations": {
+        ":=": {
+          "de": "':=' ist Gos Kurzdeklarations-Operator für neue Variablen (z. B. 'count := 10'). Er reserviert eine neue Variable mit Typableitung, kann jedoch nicht zum Senden oder Empfangen aus Channels genutzt werden.",
+          "en": "':=' is Go's short variable declaration syntax (e.g. 'count := 10'). It cannot be used to send into channels."
+        },
+        "->": {
+          "de": "'->' existiert in Go als Operator überhaupt nicht. In Sprachen wie C oder C++ dient er zum Zugriff auf Struct-Elemente über Pointer; in Go nutzt man dafür einfach den Punkt ('.').",
+          "en": "'->' does not exist in Go. In C/C++ it is used for pointer member access; Go uses '.' instead."
+        },
+        "=>": {
+          "de": "'=>' existiert in Go nicht. Dieser 'Fat-Arrow' ist bekannt aus JavaScript (Arrow Functions) oder PHP (Match/Arrays), hat in Go aber keine Gültigkeit.",
+          "en": "'=>' does not exist in Go (known from JavaScript arrow functions or PHP arrays)."
+        }
+      },
       "solution": "<-",
       "explanation": {
         "de": "Der Pfeil-Operator `<-` dient in Go sowohl zum Senden (`ch <- val`) als auch zum Empfangen (`val := <-ch`) aus Channels.",
         "en": "The arrow operator `<-` handles both sending (`ch <- val`) and receiving (`val := <-ch`) via channels."
+      }
+    },
+    {
+      "id": "go-01-sec-05",
+      "type": "quiz_compiler_fix",
+      "title": { "de": "Compiler-Labor: Syntaxfehler im Go-Code beheben", "en": "Compiler Lab: Fix Syntax Error in Go Code" },
+      "prompt": {
+        "de": "Der Go-Compiler meldet beim Kompilieren den untenstehenden Fehler. Das Programm soll 'Hallo Go-Entwickler!' ausgeben. Korrigiere den Tippfehler im Funktionsaufruf von `fmt.Println` direkt im Editor und klicke auf 'Code Kompilieren & Ausführen'!",
+        "en": "The Go compiler reports the error below. The program should print 'Hello Go Developer!'. Correct the typo in `fmt.Println` in the editor and click 'Compile & Run'!"
+      },
+      "buggyCode": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    fmt.Printlln(\"Hallo Go-Entwickler!\")\n}",
+      "solutionCode": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    fmt.Println(\"Hallo Go-Entwickler!\")\n}",
+      "compilerOutput": {
+        "error": "./main.go:6:5: undefined: fmt.Printlln (did you mean fmt.Println?)",
+        "success": "[go run ./main.go]\nKompilierung fehlerfrei (0.02s) · Exit Code: 0\nAusgabe: Hallo Go-Entwickler!"
+      },
+      "explanation": {
+        "de": "In Go sind alle Bezeichner case-sensitive. Funktionen, die mit einem Großbuchstaben beginnen (wie `Println`), sind aus ihrem Package exportiert (public). Ein Tippfehler wie `Printlln` führt sofort zu einem Kompilierungsabbruch (`undefined symbol`).",
+        "en": "Go identifiers are case-sensitive. Functions starting with an uppercase letter are exported. A typo like `Printlln` causes an immediate compilation failure (`undefined symbol`)."
+      }
+    },
+    {
+      "id": "go-01-sec-06",
+      "type": "quiz_inline_code",
+      "title": { "de": "Inline-Code: Variablen-Kurzdeklaration", "en": "Inline Code: Short Variable Declaration" },
+      "prompt": {
+        "de": "Vervollständige die Zeile so, dass die Variable `port` mit dem Wert 8080 unter Verwendung von Gos Kurzdeklarations-Operator deklariert und initialisiert wird.",
+        "en": "Complete the line declaring and initializing `port` with 8080 using Go's short declaration operator."
+      },
+      "starterCode": "port ___ 8080",
+      "options": [":=", "=", "==", "var"],
+      "distractorExplanations": {
+        "=": {
+          "de": "'=' ist der Zuweisungs-Operator für bereits zuvor deklarierte Variablen. Wenn 'port' noch nicht deklariert wurde, meldet der Compiler 'undefined: port'.",
+          "en": "'=' is the assignment operator for pre-existing variables. It fails if 'port' has not been declared."
+        },
+        "==": {
+          "de": "'==' ist der Vergleichs-Operator (Gleichheitstest), keine Zuweisung oder Variablendeklaration.",
+          "en": "'==' is the comparison equality operator, not a declaration."
+        },
+        "var": {
+          "de": "'var' steht vor dem Variablennamen (z. B. 'var port = 8080' oder 'var port int = 8080'), nicht zwischen Name und Wert.",
+          "en": "'var' precedes the variable name (e.g. 'var port = 8080'), not placed in between."
+        }
+      },
+      "solution": ":=",
+      "explanation": {
+        "de": "Der Kurzdeklarations-Operator `:=` deklariert und initialisiert eine neue Variable innerhalb einer Funktion in einem Schritt mit automatischer Typinferenz.",
+        "en": "The short declaration operator `:=` declares and initializes a new variable inside a function in a single step with type inference."
       }
     }
   ]

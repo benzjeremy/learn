@@ -7,11 +7,11 @@
   "maxScore": 100,
   "passingScore": 50,
   "title": {
-    "de": "🏛️ IHK-Prüfungsmodul (90 Min): Datenbankdesign & SQL-Abfragen",
-    "en": "🏛️ IHK Exam Module (90 Min): Database Design & SQL Queries"
+    "de": "🎓 Abschlussprüfung (90 Min): Datenbankdesign & SQL-Abfragen",
+    "en": "🎓 Final Exam (90 Min): Database Design & SQL Queries"
   },
   "description": {
-    "de": "Realistische IHK-Klausur nach bundeseinheitlichem Standard: Relationale Datenmodellierung, Kardinalitäten, Normalisierung und komplexe SQL-Abfragen.",
+    "de": "Realistische Abschlussprüfung nach bundeseinheitlichem Standard: Relationale Datenmodellierung, Kardinalitäten, Normalisierung und komplexe SQL-Abfragen.",
     "en": "Realistic IHK exam according to official standards: Relational modeling, cardinalities, normalization, and complex SQL queries."
   },
   "scenario": {

@@ -1,0 +1,118 @@
+{
+  "id": "go-02-control-flow",
+  "courseId": "go",
+  "chapterIndex": 2,
+  "title": {
+    "de": "2. Kontrollstrukturen, Fehlerbehandlung & defer",
+    "en": "2. Control Flow, Error Handling & defer"
+  },
+  "description": {
+    "de": "Meistere Gos Kontrollstrukturen: if-Short-Statements, Schleifen ohne while, idiomatische Fehlerbehandlung mit (val, error) und garantierte Aufräumarbeiten per defer.",
+    "en": "Master Go control flow: if short-statements, unified for-loops, idiomatic error handling with (val, error), and guaranteed resource cleanup with defer."
+  },
+  "sections": [
+    {
+      "id": "go-02-sec-01",
+      "type": "concept",
+      "title": { "de": "Kontrollstrukturen: if-Initializer & die universelle for-Schleife", "en": "Control Flow: if-Initializers & the Unified for-Loop" },
+      "contentMarkdown": {
+        "de": "Go verzichtet bewusst auf redundante Syntax (es gibt kein `while`, kein `do-while` und keine runden Klammern um Bedingungen):\n\n* **if mit Short-Statement:** Variablen können direkt im if-Kopf deklariert und geprüft werden: `if val, err := fetch(); err != nil { ... }`. Die Variable `val` ist danach strikt auf den Scope des if/else-Blocks begrenzt.\n* **Die universelle for-Schleife:** Go kennt nur `for`. Sie erfüllt drei Rollen:\n  1. Klassisch: `for i := 0; i < 10; i++ { ... }`\n  2. While-Ersatz: `for condition { ... }`\n  3. Endlosschleife: `for { ... }` (Abbruch mit `break`)\n* **for range:** Iteriert elegant über Slices, Strings oder Maps: `for index, item := range items { ... }`.",
+        "en": "Go eliminates syntactic bloat (no `while`, no `do-while`, and no parentheses around conditions):\n\n* **if with Short-Statement:** Variables can be declared in the if-header: `if val, err := fetch(); err != nil { ... }`. `val` is scoped strictly to the if/else block.\n* **Unified for-Loop:** Only `for` exists:\n  1. C-style: `for i := 0; i < 10; i++ { ... }`\n  2. While-style: `for condition { ... }`\n  3. Infinite: `for { ... }` (exit via `break`)\n* **for range:** Iterates over slices, maps, or channels: `for index, item := range items { ... }`."
+      },
+      "codeSnippet": "if err := processData(input); err != nil {\n    log.Printf(\"Verarbeitungsfehler: %v\", err)\n    return err\n}\n\nfor i, val := range []string{\"Alpha\", \"Beta\"} {\n    fmt.Printf(\"[%d] = %s\\n\", i, val)\n}"
+    },
+    {
+      "id": "go-02-sec-02",
+      "type": "concept",
+      "title": { "de": "Fehler als Werte & Ressourcen-Cleanup mit defer", "en": "Errors as Values & Resource Cleanup with defer" },
+      "contentMarkdown": {
+        "de": "Go verzichtet auf Exceptions (`try/catch`), weil Exceptions Kontrollflüsse verschleiern und zu unkontrollierten Abstürzen führen:\n\n* **Fehler als Werte:** Funktionen geben `(T, error)` zurück. Wenn `err != nil`, wird der Fehler sofort behandelt.\n* **Ressourcensicherheit mit `defer`:** Anweisungen mit `defer` werden garantiert ausgeführt, sobald die umgebende Funktion zurückkehrt – selbst bei vorzeitigen `return`-Aufrufen. Mehrere `defer`-Statements werden nach dem **LIFO-Prinzip** (Last-In, First-Out / Stack) abgearbeitet.\n* **Typischer Anwendungsfall:** Datei öffnen und sofort `defer file.Close()` notieren. So wird das Schließen niemals vergessen.",
+        "en": "Go avoids exceptions (`try/catch`) because exceptions obscure execution flow:\n\n* **Errors as Values:** Functions return `(T, error)`. Callers immediately inspect `if err != nil`.\n* **Guaranteed Cleanup with `defer`:** Statements prefixed with `defer` are guaranteed to execute upon function return, even during early returns. Multiple `defer` calls execute in **LIFO** (Last-In, First-Out) order.\n* **Canonical Pattern:** Open a resource and immediately defer its cleanup: `f, err := os.Open(name); defer f.Close()`."
+      },
+      "codeSnippet": "f, err := os.Open(\"config.json\")\nif err != nil {\n    return fmt.Errorf(\"konnte Datei nicht öffnen: %w\", err)\n}\ndefer f.Close() // Wird garantiert am Funktionsende ausgeführt!"
+    },
+    {
+      "id": "go-02-sec-03",
+      "type": "quiz_choice",
+      "title": { "de": "Verständnisfrage: Ausführungsreihenfolge von defer", "en": "Concept Check: defer Execution Order" },
+      "prompt": {
+        "de": "Welche Ausgabe erzeugt eine Go-Funktion, die nacheinander `defer fmt.Print(\"A\")`, `defer fmt.Print(\"B\")` und `defer fmt.Print(\"C\")` ausführt?",
+        "en": "What output is produced by a function executing `defer fmt.Print(\"A\")`, `defer fmt.Print(\"B\")`, and `defer fmt.Print(\"C\")`?"
+      },
+      "options": [
+        "CBA (LIFO - Last In, First Out)",
+        "ABC (FIFO - First In, First Out)",
+        "BAC (Zufällige Reihenfolge)",
+        "Gar keine Ausgabe, da defer Ausgaben unterdrückt"
+      ],
+      "distractorExplanations": {
+        "1": {
+          "de": "FIFO ('First In, First Out') gilt für Queues. Der Go-defer-Mechanismus arbeitet hingegen als Stack (LIFO), sodass der zuletzt registrierte Aufruf zuerst abarbeitet.",
+          "en": "FIFO applies to queues. Go's defer works as a call stack (LIFO), executing the most recently deferred call first."
+        },
+        "2": {
+          "de": "defer-Aufrufe sind streng deterministisch und niemals zufällig. Sie folgen der exakten LIFO-Stackreihenfolge.",
+          "en": "defer statements are completely deterministic and never random."
+        },
+        "3": {
+          "de": "defer verzögert die Ausführung lediglich bis zum Verlassen der Funktion, unterdrückt aber keine Ausgaben.",
+          "en": "defer merely postpones execution until function exit, it does not suppress output."
+        }
+      },
+      "solution": 0,
+      "explanation": {
+        "de": "`defer` legt Aufrufe auf einen internen Funktions-Stack ab. Beim Verlassen der Funktion werden sie in umgekehrter Reihenfolge (LIFO: C, danach B, danach A) ausgeführt.",
+        "en": "`defer` pushes calls onto a function-scoped stack, executing them in reverse order (LIFO: C, then B, then A)."
+      }
+    },
+    {
+      "id": "go-02-sec-04",
+      "type": "quiz_compiler_fix",
+      "title": { "de": "Compiler-Labor: Fehlende Fehlerprüfung beheben", "en": "Compiler Lab: Handle Returned Error" },
+      "prompt": {
+        "de": "Im folgenden Code ignoriert der Entwickler den Rückgabewert der Funktion `strconv.Atoi`. Passe die Funktion so an, dass sie `num, err := strconv.Atoi(s)` aufruft und bei `err != nil` sofort den Fehler protokolliert, statt den Fehlerwert unbesehen weiterzureichen!",
+        "en": "In the code below, the developer ignores error checking for `strconv.Atoi`. Adjust the function to capture `num, err := strconv.Atoi(s)` and check `if err != nil`!"
+      },
+      "buggyCode": "package main\n\nimport (\n    \"fmt\"\n    \"strconv\"\n)\n\nfunc parsePort(s string) (int, error) {\n    num := strconv.Atoi(s) // Fehler: strconv.Atoi gibt (int, error) zurück!\n    return num, nil\n}",
+      "solutionCode": "package main\n\nimport (\n    \"fmt\"\n    \"strconv\"\n)\n\nfunc parsePort(s string) (int, error) {\n    num, err := strconv.Atoi(s)\n    if err != nil {\n        return 0, err\n    }\n    return num, nil\n}",
+      "compilerOutput": {
+        "error": "./main.go:9:9: assignment mismatch: 1 variable but strconv.Atoi returns 2 values (int, error)",
+        "success": "[go build ./main.go]\nKompilierung erfolgreich (0.02s) · Exit Code: 0\nStatus: Robuste Fehlerbehandlung nach Go-Standard implementiert!"
+      },
+      "explanation": {
+        "de": "In Go erzwingt der Compiler, dass alle Rückgabewerte entgegengenommen werden. Gibt eine Funktion `(int, error)` zurück, muss `num, err := ...` verwendet werden. Das Ignorieren führt zu einem Kompilierungsfehler.",
+        "en": "The Go compiler enforces capturing all return values. A function returning `(int, error)` must be unpacked into two variables."
+      }
+    },
+    {
+      "id": "go-02-sec-05",
+      "type": "quiz_inline_code",
+      "title": { "de": "Inline-Code: Idiomatischer Error-Check", "en": "Inline Code: Idiomatic Error Check" },
+      "prompt": {
+        "de": "Ergänze das fundamentale Go-Idiom zur Prüfung, ob ein Fehler vorliegt:",
+        "en": "Complete the fundamental Go idiom checking whether an error occurred:"
+      },
+      "starterCode": "if err ___ nil {\n    return err\n}",
+      "options": ["!=", "==", "is", "not"],
+      "distractorExplanations": {
+        "==": {
+          "de": "'err == nil' bedeutet, dass KEIN Fehler aufgetreten ist (die Operation war erfolgreich). Um einen Fehler abzufangen, muss auf Ungleichheit '!=' geprüft werden.",
+          "en": "'err == nil' checks for absence of error. To handle an error, you must test for inequality '!='."
+        },
+        "is": {
+          "de": "'is' ist ein Python-Schlüsselwort für Identitätsprüfungen und existiert in Go nicht.",
+          "en": "'is' is a Python keyword that does not exist in Go."
+        },
+        "not": {
+          "de": "'not' existiert in Go nicht. Go verwendet den C-Standard '!' für logische Verneinung und '!=' für Ungleichheit.",
+          "en": "'not' does not exist in Go. Go uses '!' and '!='."
+        }
+      },
+      "solution": "!=",
+      "explanation": {
+        "de": "`if err != nil` ist das Herzstück des Go-Error-Handlings. Nur wenn der Fehlerwert ungleich `nil` ist, liegt ein tatsächlicher Fehler vor.",
+        "en": "`if err != nil` is the core of idiomatic Go error handling, signaling that an error actually occurred."
+      }
+    }
+  ]
+}

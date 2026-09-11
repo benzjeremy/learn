@@ -12,10 +12,58 @@
     },
     {
       "index": 2,
+      "id": "go-02-control-flow",
+      "file": "02-control-flow.json",
+      "type": "lesson",
+      "title": { "de": "2. Kontrollstrukturen, Fehlerbehandlung & defer", "en": "2. Control Flow, Error Handling & defer" },
+      "durationMinutes": 25
+    },
+    {
+      "index": 3,
+      "id": "go-03-data-structures",
+      "file": "03-data-structures.json",
+      "type": "lesson",
+      "title": { "de": "3. Datenstrukturen: Slices, Arrays & Maps", "en": "3. Data Structures: Slices, Arrays & Maps" },
+      "durationMinutes": 30
+    },
+    {
+      "index": 4,
+      "id": "go-04-structs-methods",
+      "file": "04-structs-methods.json",
+      "type": "lesson",
+      "title": { "de": "4. Structs, Pointer & Methoden-Receiver", "en": "4. Structs, Pointers & Method Receivers" },
+      "durationMinutes": 30
+    },
+    {
+      "index": 5,
+      "id": "go-05-interfaces",
+      "file": "05-interfaces.json",
+      "type": "lesson",
+      "title": { "de": "5. Interfaces & Duck-Typing", "en": "5. Interfaces & Duck-Typing" },
+      "durationMinutes": 25
+    },
+    {
+      "index": 6,
+      "id": "go-06-concurrency",
+      "file": "06-concurrency.json",
+      "type": "lesson",
+      "title": { "de": "6. Concurrency: Goroutines, Channels & WaitGroups", "en": "6. Concurrency: Goroutines, Channels & WaitGroups" },
+      "durationMinutes": 35
+    },
+    {
+      "index": 7,
+      "id": "go-07-tooling",
+      "file": "07-tooling.json",
+      "type": "lesson",
+      "title": { "de": "7. Tooling, Module & HTTP-Webserver", "en": "7. Tooling, Modules & HTTP Web Servers" },
+      "durationMinutes": 30
+    },
+    {
+      "index": 8,
       "id": "go-exam-90min",
       "file": "exam-90min.json",
       "type": "exam_90min",
-      "title": { "de": "🏛️ IHK-Prüfungsmodul (90 Min): Go Cloud-Native & Concurrency", "en": "🏛️ IHK Exam Module (90 Min): Go Cloud-Native & Concurrency" },
+      "title": { "de": "🎓 Abschlussprüfung (90 Min): Go Cloud-Native & Concurrency", "en": "🎓 Final Exam (90 Min): Go Cloud-Native & Concurrency" },
       "durationMinutes": 90
     }
   ]

@@ -7,12 +7,12 @@
   "maxScore": 100,
   "passingScore": 50,
   "title": {
-    "de": "🏛️ IHK-Prüfungsmodul (90 Min): Backend Architecture & Session Security",
-    "en": "🏛️ IHK Exam Module (90 Min): Backend Architecture & Session Security"
+    "de": "🎓 Abschlussprüfung (90 Min): Backend Architecture & Session Security",
+    "en": "🎓 Final Exam (90 Min): Backend Architecture & Session Security"
   },
   "description": {
-    "de": "IHK-Prüfungssimulation für Web-Backends: Session-Fixation-Schutz, Cookie-Sicherheitsflags, MVC-Entwurfsmuster, PDO-Konfiguration und CSRF-Tokens.",
-    "en": "IHK exam simulation for backend engineering: Session fixation defense, cookie security flags, MVC pattern, PDO configuration, and CSRF tokens."
+    "de": "Abschlussprüfungssimulation für Web-Backends: Session-Fixation-Schutz, Cookie-Sicherheitsflags, MVC-Entwurfsmuster, PDO-Konfiguration und CSRF-Tokens.",
+    "en": "Final exam simulation for backend engineering: Session fixation defense, cookie security flags, MVC pattern, PDO configuration, and CSRF tokens."
   },
   "scenario": {
     "de": "Handlungssituation: Sie sind Anwendungsentwickler/in bei einem E-Commerce-Dienstleister. Eine Shop-Plattform auf PHP-Basis soll auditiert werden. Sie müssen Session-Entführungen (Session Hijacking / Fixation) unterbinden, ein robustes MVC-Routing einrichten und Datenbankzugriffe gegen SQL-Injektionen absichern.",

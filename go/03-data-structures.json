@@ -1,0 +1,118 @@
+{
+  "id": "go-03-data-structures",
+  "courseId": "go",
+  "chapterIndex": 3,
+  "title": {
+    "de": "3. Datenstrukturen: Slices, Arrays & Maps",
+    "en": "3. Data Structures: Slices, Arrays & Maps"
+  },
+  "description": {
+    "de": "Verstehe Gos dynamische Speicherstrukturen: SliceHeader (Pointer, Len, Cap), append-Speicherallokation und Hashmaps mit dem Komma-Ok-Idiom.",
+    "en": "Master Go dynamic memory structures: SliceHeader (pointer, len, cap), append memory re-allocations, and hashmaps with the comma-ok idiom."
+  },
+  "sections": [
+    {
+      "id": "go-03-sec-01",
+      "type": "concept",
+      "title": { "de": "Arrays vs. Slices & der SliceHeader", "en": "Arrays vs. Slices & the SliceHeader" },
+      "contentMarkdown": {
+        "de": "In Go sind Arrays und Slices grundverschieden:\n\n* **Arrays (`[N]T`):** Haben eine feste, zur Compile-Zeit unveränderliche Länge. Arrays sind Werte (Values): Die Übergabe an eine Funktion kopiert das gesamte Array im Speicher!\n* **Slices (`[]T`):** Sind dynamische Fenster (Views) auf ein zugrundeliegendes Array. Ein Slice besteht intern aus einem winzigen 24-Byte-Header (`SliceHeader`):\n  1. `Data`: Pointer auf das erste Element des Backing-Arrays\n  2. `Len`: Aktuelle Elementanzahl (`len(s)`)\n  3. `Cap`: Maximale Kapazität bis zur Re-Allokation (`cap(s)`)\n* **Dynamisches Wachsen:** Mit `append(s, elem)` fügst du Elemente hinzu. Übersteigt `len` die `cap`, allokiert Go im Hintergrund automatisch ein doppelt so großes neues Array und kopiert die Daten.",
+        "en": "Arrays and slices differ fundamentally in Go:\n\n* **Arrays (`[N]T`):** Fixed compile-time size. Passing an array copies all elements by value.\n* **Slices (`[]T`):** Dynamic views over a backing array. Slices consist of a 24-byte `SliceHeader`:\n  1. `Data`: Pointer to backing array\n  2. `Len`: Element count (`len(s)`)\n  3. `Cap`: Capacity before reallocation (`cap(s)`)\n* **Growth:** `append(s, elem)` automatically allocates a larger backing array when capacity is exceeded."
+      },
+      "codeSnippet": "// Slice mit Länge 0 und initialer Kapazität 5 erstellen\nports := make([]int, 0, 5)\nports = append(ports, 8080, 8443)\nfmt.Printf(\"len=%d, cap=%d\\n\", len(ports), cap(ports)) // len=2, cap=5"
+    },
+    {
+      "id": "go-03-sec-02",
+      "type": "concept",
+      "title": { "de": "Maps & das Komma-Ok-Idiom", "en": "Maps & the Comma-Ok Idiom" },
+      "contentMarkdown": {
+        "de": "Eine `map[K]V` ist Gos integrierte Hashmap:\n\n* **Initialisierung erforderlich:** Eine uninitialisierte Map (`var m map[string]int`) ist `nil`. Das Lesen liefert den Nullwert (0), aber das **Schreiben führt zu einem Laufzeit-Panic** (`panic: assignment to entry in nil map`). Nutze immer `make(map[K]V)` oder ein Literal `map[string]int{}`!\n* **Das Komma-Ok-Idiom:** In Go liefert der Zugriff auf einen nicht existierenden Key den Nullwert des Typs. Um zu unterscheiden, ob ein Key tatsächlich mit dem Wert 0 existiert oder gar nicht vorhanden ist, nutzt man den zweiten booleschen Rückgabewert:\n  `val, ok := m[\"port\"]`\n  Ist `ok == true`, existiert der Schlüssel in der Map.",
+        "en": "A `map[K]V` is Go's built-in hash table:\n\n* **Initialization Required:** An uninitialized map is `nil`. Reading returns the zero value, but **writing triggers a panic** (`panic: assignment to entry in nil map`). Always initialize with `make(map[K]V)`!\n* **Comma-Ok Idiom:** Accessing a missing key returns the zero value. To check if a key actually exists, use the second boolean return value: `val, ok := m[\"key\"]`."
+      },
+      "codeSnippet": "users := make(map[string]int)\nusers[\"admin\"] = 1001\n\nif id, ok := users[\"guest\"]; ok {\n    fmt.Printf(\"Gefunden: %d\\n\", id)\n} else {\n    fmt.Println(\"Benutzer nicht in Map vorhanden!\")\n}"
+    },
+    {
+      "id": "go-03-sec-03",
+      "type": "quiz_choice",
+      "title": { "de": "Verständnisfrage: Schreiben in eine Nil-Map", "en": "Concept Check: Writing to a Nil Map" },
+      "prompt": {
+        "de": "Was passiert zur Laufzeit, wenn folgender Code ausgeführt wird:\n`var scores map[string]int`\n`scores[\"alex\"] = 42`",
+        "en": "What happens at runtime when the following executes:\n`var scores map[string]int`\n`scores[\"alex\"] = 42`"
+      },
+      "options": [
+        "Das Programm stürzt mit einem Panic ab ('panic: assignment to entry in nil map').",
+        "Die Map wird automatisch im Hintergrund initialisiert.",
+        "Der Wert 42 wird ignoriert und nicht gespeichert.",
+        "Der Go-Compiler meldet bereits vor der Ausführung einen Syntaxfehler."
+      ],
+      "distractorExplanations": {
+        "1": {
+          "de": "Go initialisiert Maps nicht stillschweigend im Hintergrund. Das Allokieren der internen Hash-Buckets muss explizit via 'make(map[string]int)' erfolgen.",
+          "en": "Go does not implicitly allocate backing hash buckets for nil maps upon write."
+        },
+        "2": {
+          "de": "Werte werden nicht stillschweigend verworfen. Ein Schreibzugriff auf 'nil' ist eine unzulässige Pointer-Dereferenzierung und führt zum sofortigen Programmabsturz (Panic).",
+          "en": "Values are not discarded silently; writing to nil causes a runtime panic."
+        },
+        "3": {
+          "de": "Syntaktisch ist die Zeile valide, daher kompiliert der Code fehlerfrei. Erst beim Start stürzt das Programm zur Laufzeit ab.",
+          "en": "Syntactically valid at compile time; fails at runtime upon dereferencing the nil map."
+        }
+      },
+      "solution": 0,
+      "explanation": {
+        "de": "Eine mit `var m map[...]...` deklarierte Map besitzt den Wert `nil`. Während das Lesen von `nil`-Maps gefahrlos den Nullwert liefert, löst jeder Schreibzugriff einen Laufzeit-Panic aus. Maps müssen stets mit `make()` initialisiert werden.",
+        "en": "A zero-value map is `nil`. Reading from a nil map returns the zero-value, but writing to it panics immediately."
+      }
+    },
+    {
+      "id": "go-03-sec-04",
+      "type": "quiz_compiler_fix",
+      "title": { "de": "Compiler-Labor: Laufzeit-Panic bei Nil-Map beheben", "en": "Compiler Lab: Fix Runtime Nil-Map Panic" },
+      "prompt": {
+        "de": "Die Funktion `RegisterService` stürzt bei Ausführung ab, weil die Map `services` nicht mit `make()` initialisiert wurde. Korrigiere die Deklaration so, dass die Map allokiert wird und der Service sicher gespeichert werden kann!",
+        "en": "The `RegisterService` function panics because `services` is not initialized with `make()`. Fix the declaration to properly allocate the map!"
+      },
+      "buggyCode": "package main\n\nimport \"fmt\"\n\nfunc RegisterService(name string, port int) map[string]int {\n    var services map[string]int // Fehler: services ist nil!\n    services[name] = port\n    return services\n}",
+      "solutionCode": "package main\n\nimport \"fmt\"\n\nfunc RegisterService(name string, port int) map[string]int {\n    services := make(map[string]int)\n    services[name] = port\n    return services\n}",
+      "compilerOutput": {
+        "error": "panic: assignment to entry in nil map\ngoroutine 1 [running]:\nmain.RegisterService(0x4a100, 0x4, 0x1f90)\n\t/main.go:7 +0x3d",
+        "success": "[go run ./main.go]\nKompilierung erfolgreich (0.02s) · Exit Code: 0\nService erfolgreich in allokierte Map registriert!"
+      },
+      "explanation": {
+        "de": "Mit `services := make(map[string]int)` werden die internen Hash-Buckets der Map initialisiert. Erst danach können Schlüssel-Wert-Paare ohne Panic gespeichert werden.",
+        "en": "Using `make(map[string]int)` allocates the internal hash buckets, permitting safe write operations."
+      }
+    },
+    {
+      "id": "go-03-sec-05",
+      "type": "quiz_inline_code",
+      "title": { "de": "Inline-Code: Dynamisches Hinzufügen zu Slices", "en": "Inline Code: Dynamic Slice Append" },
+      "prompt": {
+        "de": "Mit welcher eingebauten Go-Funktion fügt man ein neues Element an einen Slice an und fängt das möglicherweise re-allokierte Slice-Ergebnis auf?",
+        "en": "Which built-in Go function appends an element to a slice and returns the updated slice header?"
+      },
+      "starterCode": "numbers = ___(numbers, 42)",
+      "options": ["append", "push", "add", "insert"],
+      "distractorExplanations": {
+        "push": {
+          "de": "'push' existiert in Go nicht (bekannt aus JavaScript-Arrays wie 'arr.push()').",
+          "en": "'push' is a JavaScript Array method, not Go."
+        },
+        "add": {
+          "de": "'add' ist keine Go-Builtin-Funktion für Slices.",
+          "en": "'add' is not a Go built-in slice function."
+        },
+        "insert": {
+          "de": "'insert' existiert in Go nicht als Standardfunktion.",
+          "en": "'insert' is not a Go standard slice built-in."
+        }
+      },
+      "solution": "append",
+      "explanation": {
+        "de": "`append(slice, elem)` ist Gos fundamentale Builtin-Funktion zum Erweitern von Slices. Da bei Überschreitung der Kapazität ein neues Backing-Array erzeugt werden kann, muss das Ergebnis stets der Slice-Variable zugewiesen werden: `s = append(s, val)`.",
+        "en": "`append(slice, elem)` is Go's built-in for expanding slices. Since a reallocation may occur, the result must be reassigned to the slice variable."
+      }
+    }
+  ]
+}

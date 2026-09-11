@@ -30,7 +30,7 @@
         "required": ["id", "type"],
         "properties": {
           "id": { "type": "string" },
-          "type": { "type": "string", "enum": ["concept", "quiz_choice", "quiz_code_puzzle", "interactive_challenge"] },
+          "type": { "type": "string", "enum": ["concept", "quiz_choice", "quiz_code_puzzle", "quiz_compiler_fix", "quiz_inline_code", "interactive_challenge"] },
           "title": {
             "type": "object",
             "properties": {
@@ -46,6 +46,16 @@
             }
           },
           "codeSnippet": { "type": "string" },
+          "buggyCode": { "type": "string" },
+          "solutionCode": { "type": "string" },
+          "compilerOutput": {
+            "type": "object",
+            "properties": {
+              "de": { "type": "string" },
+              "en": { "type": "string" }
+            }
+          },
+          "slots": { "type": "object" },
           "prompt": {
             "type": "object",
             "properties": {
@@ -58,11 +68,15 @@
             "type": "array",
             "items": { "type": "string" }
           },
+          "distractorExplanations": {
+            "type": "object"
+          },
           "solution": {
             "oneOf": [
               { "type": "string" },
               { "type": "integer" },
-              { "type": "array", "items": { "type": "string" } }
+              { "type": "array", "items": { "type": "string" } },
+              { "type": "object" }
             ]
           },
           "explanation": {

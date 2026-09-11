@@ -1,0 +1,118 @@
+{
+  "id": "go-05-interfaces",
+  "courseId": "go",
+  "chapterIndex": 5,
+  "title": {
+    "de": "5. Interfaces & Duck-Typing",
+    "en": "5. Interfaces & Duck-Typing"
+  },
+  "description": {
+    "de": "Gos Entkopplungs-Waffe: Strukturelles Subtyping ohne 'implements'-Keyword, Standard-Interfaces (io.Reader, fmt.Stringer), Type Assertions und Type Switches.",
+    "en": "Go's decoupling powerhouse: Structural subtyping without an 'implements' keyword, core standard interfaces (io.Reader, fmt.Stringer), type assertions, and type switches."
+  },
+  "sections": [
+    {
+      "id": "go-05-sec-01",
+      "type": "concept",
+      "title": { "de": "Implizite Interfaces: Entkopplung ohne Hierarchien", "en": "Implicit Interfaces: Decoupling Without Hierarchies" },
+      "contentMarkdown": {
+        "de": "In Go deklariert ein Interface eine Menge von Methoden-Signaturen. Die Implementierung erfolgt **rein implizit**:\n\n* **Kein `implements`-Keyword:** Wenn ein Typ alle im Interface geforderten Methoden mit identischer Signatur implementiert, erfüllt er das Interface automatisch ('Duck Typing').\n* **Vorteil:** Konsumenten können eigene schlanke Interfaces definieren, ohne dass Drittbibliotheken oder Quellcodes angepasst werden müssen.\n* **Kanonisches Standardbeispiel: `fmt.Stringer`:**\n  ```go\n  type Stringer interface {\n      String() string\n  }\n  ```\n  Implementiert ein Typ `String() string`, wird diese Methode von `fmt.Println` automatisch zur Textausgabe herangezogen.",
+        "en": "In Go, an interface defines a contract of method signatures. Implementation is **entirely implicit**:\n\n* **No `implements` Keyword:** A type implements an interface simply by declaring the matching method signatures.\n* **Advantage:** Consumers define minimal interfaces without modifying upstream library code.\n* **Canonical Example: `fmt.Stringer`:**\n  ```go\n  type Stringer interface {\n      String() string\n  }\n  ```\n  Any type implementing `String() string` is automatically formatted by `fmt.Println`."
+      },
+      "codeSnippet": "type Greeter interface {\n    Greet() string\n}\n\ntype Developer struct{ Name string }\n\n// Erfüllt das Interface 'Greeter' implizit\nfunc (d Developer) Greet() string {\n    return \"Hallo, ich bin \" + d.Name\n}"
+    },
+    {
+      "id": "go-05-sec-02",
+      "type": "concept",
+      "title": { "de": "Type Assertions & Type Switches", "en": "Type Assertions & Type Switches" },
+      "contentMarkdown": {
+        "de": "Ein Interface-Wert kann jeden konkreten Typ speichern, der das Interface erfüllt (z. B. `any` bzw. `interface{}`):\n\n* **Type Assertion (`v, ok := i.(T)`):** Extrahiert den darunterliegenden konkreten Typ. Nutze stets die Zwei-Wert-Form mit dem Komma-Ok-Idiom, um einen Panic bei fehlerhaftem Typ zu verhindern!\n* **Type Switch (`switch v := i.(type)`):** Prüft den konkreten Typ zur Laufzeit über mehrere Verzweigungen.",
+        "en": "An interface value holds both a dynamic value and a concrete type:\n\n* **Type Assertion (`v, ok := i.(T)`):** Extracts the concrete underlying type. Always use the two-value comma-ok form to prevent runtime panics on mismatch.\n* **Type Switch (`switch v := i.(type)`):** Inspects dynamic types across multiple clean cases."
+      },
+      "codeSnippet": "func printValue(val any) {\n    switch v := val.(type) {\n    case int:\n        fmt.Printf(\"Ganzzahl: %d\\n\", v)\n    case string:\n        fmt.Printf(\"Text: %s\\n\", v)\n    default:\n        fmt.Println(\"Unbekannter Typ\")\n    }\n}"
+    },
+    {
+      "id": "go-05-sec-03",
+      "type": "quiz_choice",
+      "title": { "de": "Verständnisfrage: Type Assertion ohne Komma-Ok", "en": "Concept Check: Type Assertion Without Comma-Ok" },
+      "prompt": {
+        "de": "Was passiert bei `val := i.(string)`, wenn die Variable `i` zur Laufzeit eine Ganzzahl `int` enthält?",
+        "en": "What happens during `val := i.(string)` if `i` dynamically holds an `int` at runtime?"
+      },
+      "options": [
+        "Das Programm stürzt mit einem Laufzeit-Panic ab ('panic: interface conversion: ...').",
+        "Es wird ein leerer String \"\" zurückgegeben.",
+        "Der Go-Compiler bricht den Build-Vorgang ab.",
+        "Der int-Wert wird automatisch in einen ASCII-String umgewandelt."
+      ],
+      "distractorExplanations": {
+        "1": {
+          "de": "Der Nullwert '\"\"' wird nur dann geliefert, wenn die sichere Zwei-Wert-Form 'val, ok := i.(string)' verwendet wird und 'ok == false' ist.",
+          "en": "Zero value is returned only when using the two-value form `val, ok := i.(string)`."
+        },
+        "2": {
+          "de": "Der Compiler kann den konkreten Typ hinter einem 'any'-Interface nicht im Voraus kennen, daher kompiliert der Code ohne Warnung.",
+          "en": "The compiler cannot determine dynamic interface types at build time; it compiles clean."
+        },
+        "3": {
+          "de": "Go führt niemals automatische Typumwandlungen (Type Coercion) durch. Typkonvertierungen müssen explizit programmiert werden.",
+          "en": "Go does not perform implicit type coercion; assertions must match strictly."
+        }
+      },
+      "solution": 0,
+      "explanation": {
+        "de": "Die Ein-Wert-Form `val := i.(T)` löst einen Panic aus, wenn der Typ nicht übereinstimmt. Daher ist in Go stets die sichere Form `val, ok := i.(T)` Pflicht.",
+        "en": "The single-value assertion `val := i.(T)` panics on type mismatch. The comma-ok idiom `val, ok := i.(T)` must be used for safe handling."
+      }
+    },
+    {
+      "id": "go-05-sec-04",
+      "type": "quiz_compiler_fix",
+      "title": { "de": "Compiler-Labor: Interface-Methodensignatur erfüllen", "en": "Compiler Lab: Satisfy Interface Signature" },
+      "prompt": {
+        "de": "Der Compiler meldet, dass `ConsoleLogger` das Interface `Logger` nicht implementiert, weil die Methode `Log` den falschen Rückgabetyp deklariert (erwartet wird `error`, deklariert ist `string`). Korrigiere die Signatur in `ConsoleLogger`, damit das Interface erfüllt wird!",
+        "en": "The compiler reports `ConsoleLogger` does not satisfy `Logger` due to a return type mismatch (expects `error`, declared `string`). Fix the method signature in `ConsoleLogger`!"
+      },
+      "buggyCode": "package main\n\nimport \"fmt\"\n\ntype Logger interface {\n    Log(msg string) error\n}\n\ntype ConsoleLogger struct{}\n\n// Fehler: Gibt string zurück statt error!\nfunc (c ConsoleLogger) Log(msg string) string {\n    fmt.Println(msg)\n    return \"ok\"\n}\n\nfunc Run(l Logger) {\n    l.Log(\"System gestartet\")\n}",
+      "solutionCode": "package main\n\nimport \"fmt\"\n\ntype Logger interface {\n    Log(msg string) error\n}\n\ntype ConsoleLogger struct{}\n\n// Korrekt: Gibt error zurück (nil bei Erfolg)\nfunc (c ConsoleLogger) Log(msg string) error {\n    fmt.Println(msg)\n    return nil\n}\n\nfunc Run(l Logger) {\n    l.Log(\"System gestartet\")\n}",
+      "compilerOutput": {
+        "error": "./main.go:19:9: cannot use ConsoleLogger{} (value of type ConsoleLogger) as Logger value in argument to Run:\n\tConsoleLogger does not implement Logger (wrong type for method Log)\n\t\thave Log(msg string) string\n\t\twant Log(msg string) error",
+        "success": "[go build ./main.go]\nKompilierung erfolgreich (0.02s) · Exit Code: 0\nStatus: ConsoleLogger erfüllt Interface 'Logger' vollständig!"
+      },
+      "explanation": {
+        "de": "Damit ein Typ ein Interface erfüllt, müssen alle Methodennamen, Eingabeparameter und Rückgabetypen exakt übereinstimmen. `ConsoleLogger.Log` muss `error` (und im Erfolgsfall `return nil`) zurückgeben.",
+        "en": "Types implement interfaces only when all method names, parameter types, and return types match precisely."
+      }
+    },
+    {
+      "id": "go-05-sec-05",
+      "type": "quiz_inline_code",
+      "title": { "de": "Inline-Code: Sichere Type Assertion", "en": "Inline Code: Safe Type Assertion" },
+      "prompt": {
+        "de": "Ergänze die zweite Variable, mit der geprüft wird, ob die Type Assertion auf `string` erfolgreich war:",
+        "en": "Complete the second variable checking whether the type assertion to `string` succeeded:"
+      },
+      "starterCode": "str, ___ := val.(string)\nif ok {\n    fmt.Println(str)\n}",
+      "options": ["ok", "err", "valid", "found"],
+      "distractorExplanations": {
+        "err": {
+          "de": "Type Assertions geben keinen 'error' zurück, sondern ein 'bool' (true/false). Das idiomatische Bezeichnerkürzel in Go lautet 'ok'.",
+          "en": "Type assertions return a boolean flag named 'ok', not an 'error'."
+        },
+        "valid": {
+          "de": "'valid' funktioniert syntaktisch, aber die nachfolgende if-Bedingung prüft 'if ok'. Das Standardkürzel in Go ist 'ok'.",
+          "en": "The standard Go idiom for boolean success flags is 'ok'."
+        },
+        "found": {
+          "de": "In Go ist 'ok' die universelle Konvention für Type Assertions, Map-Lookups und Channel-Empfangstests.",
+          "en": "'ok' is the universal Go convention for assertions and lookups."
+        }
+      },
+      "solution": "ok",
+      "explanation": {
+        "de": "Das Komma-Ok-Idiom `val, ok := i.(T)` schützt vor Abstürzen. Ist `ok == false`, bleibt `val` der Nullwert und das Programm läuft sicher weiter.",
+        "en": "The comma-ok pattern `val, ok := i.(T)` guarantees safety, setting `ok = false` instead of panicking on mismatch."
+      }
+    }
+  ]
+}

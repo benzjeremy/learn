@@ -7,12 +7,12 @@
   "maxScore": 100,
   "passingScore": 50,
   "title": {
-    "de": "🏛️ IHK-Prüfungsmodul (90 Min): Security Audit & Härtung",
-    "en": "🏛️ IHK Exam Module (90 Min): Security Audit & Hardening"
+    "de": "🎓 Abschlussprüfung (90 Min): Security Audit & Härtung",
+    "en": "🎓 Final Exam (90 Min): Security Audit & Hardening"
   },
   "description": {
-    "de": "Ganzheitliche schriftliche IHK-Prüfungssimulation: Handlungsbezogene Aufgabenstellungen zu Netzwerksegmentierung, Kryptografie, Incident Response und OWASP Top 10.",
-    "en": "Holistic written IHK exam simulation: Scenario-based tasks on network segmentation, cryptography, incident response and OWASP Top 10."
+    "de": "Ganzheitliche schriftliche Abschlussprüfungssimulation: Handlungsbezogene Aufgabenstellungen zu Netzwerksegmentierung, Kryptografie, Incident Response und OWASP Top 10.",
+    "en": "Holistic written Final exam simulation: Scenario-based tasks on network segmentation, cryptography, incident response and OWASP Top 10."
   },
   "scenario": {
     "de": "Ausgangssituation: Sie sind Fachinformatiker/in bei der CyberSecure GmbH. Ihr Kunde betreibt einen webbasierten Onlineshop mit angeschlossener Kundendatenbank. Im Rahmen eines Sicherheitsaudits sollen Sie die Architektur auf Schwachstellen prüfen, Incident-Response-Maßnahmen festlegen und Härtungsstandards nach BSI IT-Grundschutz umsetzen.",

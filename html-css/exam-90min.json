@@ -7,12 +7,12 @@
   "maxScore": 100,
   "passingScore": 50,
   "title": {
-    "de": "🏛️ IHK-Prüfungsmodul (90 Min): Responsive Layouts & Barrierefreiheit",
-    "en": "🏛️ IHK Exam Module (90 Min): Responsive Layouts & Accessibility"
+    "de": "🎓 Abschlussprüfung (90 Min): Responsive Layouts & Barrierefreiheit",
+    "en": "🎓 Final Exam (90 Min): Responsive Layouts & Accessibility"
   },
   "description": {
-    "de": "IHK-Abschlussprüfungssimulation: Responsive Web-Ergonomie, WCAG/BITV Barrierefreiheit, CSS-Kaskadierungsregeln (Spezifität) und Touch-Target-Optimierung.",
-    "en": "IHK exam simulation: Responsive web ergonomics, WCAG/BITV accessibility, CSS cascade rules (specificity), and touch target optimization."
+    "de": "Schriftliche Abschlussprüfungssimulation: Responsive Web-Ergonomie, WCAG/BITV Barrierefreiheit, CSS-Kaskadierungsregeln (Spezifität) und Touch-Target-Optimierung.",
+    "en": "Final exam simulation: Responsive web ergonomics, WCAG/BITV accessibility, CSS cascade rules (specificity), and touch target optimization."
   },
   "scenario": {
     "de": "Handlungssituation: Als Web-Entwickler/in bei einem kommunalen IT-Dienstleister sollen Sie das Bürgerportal der Stadt barrierefrei nach den gesetzlichen Vorgaben der BITV 2.0 / WCAG 2.1 umgestalten. Gleichzeitig müssen mobile Darstellungsfehler behoben und die CSS-Spezifität bereinigt werden.",

@@ -15,7 +15,7 @@
       "id": "astro-exam-90min",
       "file": "exam-90min.json",
       "type": "exam_90min",
-      "title": { "de": "🏛️ IHK-Prüfungsmodul (90 Min): Web-Architektur & Performance", "en": "🏛️ IHK Exam Module (90 Min): Web Architecture & Performance" },
+      "title": { "de": "🎓 Abschlussprüfung (90 Min): Web-Architektur & Performance", "en": "🎓 Final Exam (90 Min): Web Architecture & Performance" },
       "durationMinutes": 90
     }
   ]

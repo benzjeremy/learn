@@ -7,8 +7,8 @@
   "maxScore": 100,
   "passingScore": 50,
   "title": {
-    "de": "🏛️ IHK-Prüfungsmodul (90 Min): Python Automation & Data Structures",
-    "en": "🏛️ IHK Exam Module (90 Min): Python Automation & Data Structures"
+    "de": "🎓 Abschlussprüfung (90 Min): Python Automation & Data Structures",
+    "en": "🎓 Final Exam (90 Min): Python Automation & Data Structures"
   },
   "description": {
     "de": "Prüfungssimulation für Systemintegration und Anwendungsentwicklung: Automatisierungsskripte, Datenverarbeitung, Fehlerbehandlung und Multiprocessing.",
@@ -88,7 +88,7 @@
       "scoreWeight": 20,
       "title": { "de": "Frage 4 (20 Punkte): Virtuelle Umgebungen (venv)", "en": "Question 4 (20 Points): Virtual Environments (venv)" },
       "prompt": {
-        "de": "Warum verlangt der IHK-Qualitätsstandard für Softwareentwicklung, dass Python-Projekte immer in einer virtuellen Umgebung (`python -m venv .venv`) betrieben werden?",
+        "de": "Warum verlangt der Qualitätsstandard für Softwareentwicklung, dass Python-Projekte immer in einer virtuellen Umgebung (`python -m venv .venv`) betrieben werden?",
         "en": "Why do software engineering standards mandate isolating Python projects inside virtual environments (`python -m venv .venv`)?"
       },
       "options": [

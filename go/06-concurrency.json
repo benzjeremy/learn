@@ -1,0 +1,118 @@
+{
+  "id": "go-06-concurrency",
+  "courseId": "go",
+  "chapterIndex": 6,
+  "title": {
+    "de": "6. Concurrency: Goroutines, Channels & WaitGroups",
+    "en": "6. Concurrency: Goroutines, Channels & WaitGroups"
+  },
+  "description": {
+    "de": "Gos Paradedisziplin: Communicating Sequential Processes (CSP), asynchrone Goroutines, gepufferte und ungepufferte Channels, Koordination mit sync.WaitGroup und select.",
+    "en": "Go's defining strength: Communicating Sequential Processes (CSP), asynchronous goroutines, buffered/unbuffered channels, and coordination with sync.WaitGroup and select."
+  },
+  "sections": [
+    {
+      "id": "go-06-sec-01",
+      "type": "concept",
+      "title": { "de": "Das CSP-Paradigma & Goroutines", "en": "The CSP Paradigm & Goroutines" },
+      "contentMarkdown": {
+        "de": "Go folgt Rob Pikes berühmtem Leitsatz:\n> *\"Do not communicate by sharing memory; instead, share memory by communicating.\"*\n\n* **Goroutines:** Werden mit dem Keyword `go` vor einem Funktionsaufruf gestartet. Sie besitzen einen minimalen dynamischen Stack (ca. 2 KB) und werden im User-Space durch Gos M:N-Scheduler auf Kernel-Threads verteilt.\n* **Keine geteilten Variablen:** Statt komplexer Mutex-Sperren kommunizieren Goroutines über typsichere Datenleitungen: **Channels**.",
+        "en": "Go follows Rob Pike's core axiom:\n> *\"Do not communicate by sharing memory; instead, share memory by communicating.\"*\n\n* **Goroutines:** Started with the `go` keyword. They run with a tiny initial 2 KB stack multiplexed over OS threads via Go's user-space M:N scheduler.\n* **No Shared Mutable State:** Instead of locks, goroutines communicate via typed pipes called **Channels**."
+      },
+      "codeSnippet": "go func(id int) {\n    fmt.Printf(\"Worker %d arbeitet nebenläufig\\n\", id)\n}(1)"
+    },
+    {
+      "id": "go-06-sec-02",
+      "type": "concept",
+      "title": { "de": "Channels: Ungepuffert vs. Gepuffert & sync.WaitGroup", "en": "Channels: Unbuffered vs. Buffered & sync.WaitGroup" },
+      "contentMarkdown": {
+        "de": "* **Ungepufferte Channels (`make(chan T)`):** Synchronisieren Sender und Empfänger. Der Sender blockiert, bis der Empfänger bereit ist, und umgekehrt (Handshake).\n* **Gepufferte Channels (`make(chan T, 10)`):** Besitzen einen internen Ringpuffer. Der Sender blockiert erst, wenn die Puffergrenze (10) erreicht ist.\n* **`sync.WaitGroup`:** Wartet auf die Fertigstellung mehrerer Goroutines:\n  - `wg.Add(n)`: Erhöht den Zähler (muss **vor** dem `go`-Start aufgerufen werden!)\n  - `defer wg.Done()`: Signalisiert Fertigstellung am Ende der Goroutine\n  - `wg.Wait()`: Blockiert, bis der Zähler 0 erreicht",
+        "en": "* **Unbuffered Channels (`make(chan T)`):** Synchronous handshake. The sender blocks until the receiver is ready, and vice versa.\n* **Buffered Channels (`make(chan T, 10)`):** Contains an internal ring buffer. Senders only block when capacity is exhausted.\n* **`sync.WaitGroup`:** Coordinates goroutine completion:\n  - `wg.Add(n)`: Increments counter (**must** precede `go` call)\n  - `defer wg.Done()`: Decrements counter when goroutine exits\n  - `wg.Wait()`: Blocks until counter reaches zero"
+      },
+      "codeSnippet": "var wg sync.WaitGroup\nfor i := 0; i < 3; i++ {\n    wg.Add(1)\n    go func(id int) {\n        defer wg.Done()\n        fmt.Printf(\"Task %d erledigt\\n\", id)\n    }(i)\n}\nwg.Wait() // Wartet auf alle 3 Worker"
+    },
+    {
+      "id": "go-06-sec-03",
+      "type": "quiz_choice",
+      "title": { "de": "Verständnisfrage: Ungepufferter Channel Deadlock", "en": "Concept Check: Unbuffered Channel Deadlock" },
+      "prompt": {
+        "de": "Was passiert bei `ch := make(chan int); ch <- 42` in einer einzelnen Goroutine (ohne parallelen Empfänger)?",
+        "en": "What happens when executing `ch := make(chan int); ch <- 42` in a single goroutine without a concurrent receiver?"
+      },
+      "options": [
+        "Das Programm stoppt mit einem fatalen Deadlock-Absturz ('fatal error: all goroutines are asleep - deadlock!').",
+        "Die Zahl 42 wird zwischengespeichert und später abgerufen.",
+        "Der Wert wird gelöscht und das Programm läuft normal weiter.",
+        "Go startet automatisch eine Hintergrund-Goroutine für den Empfang."
+      ],
+      "distractorExplanations": {
+        "1": {
+          "de": "Ein ungepufferter Channel besitzt keine Speicherkapazität (Cap=0). Ein Zwischenspeichern ist nur bei gepufferten Channels wie 'make(chan int, 1)' möglich.",
+          "en": "Unbuffered channels have zero capacity; buffering requires `make(chan int, 1)`."
+        },
+        "2": {
+          "de": "Werte werden niemals stillschweigend verworfen. Go blockiert die Goroutine so lange, bis ein Empfänger bereitsteht.",
+          "en": "Channels never discard data; the runtime halts until an active receiver reads the value."
+        },
+        "3": {
+          "de": "Go startet niemals eigenmächtig Hintergrund-Goroutines ohne den expliziten Befehl 'go'.",
+          "en": "Go never spawns hidden background goroutines automatically."
+        }
+      },
+      "solution": 0,
+      "explanation": {
+        "de": "Bei ungepufferten Channels blockiert das Senden `ch <- 42`, bis eine andere Goroutine `<-ch` ausführt. Da keine andere Goroutine existiert, schläft das gesamte Programm und die Go-Runtime erkennt den fatalen Deadlock.",
+        "en": "Unbuffered sends block indefinitely until a peer reads `<-ch`. With no other goroutines running, the runtime triggers a fatal deadlock panic."
+      }
+    },
+    {
+      "id": "go-06-sec-04",
+      "type": "quiz_compiler_fix",
+      "title": { "de": "Compiler-Labor: WaitGroup Deadlock beheben", "en": "Compiler Lab: Fix WaitGroup Deadlock" },
+      "prompt": {
+        "de": "Im folgenden Worker-Programm blockiert `wg.Wait()` für immer, weil die Goroutine vergisst, `wg.Done()` aufzurufen. Füge `defer wg.Done()` in der Goroutine ein, damit der Zähler dekrementiert wird und das Programm fehlerfrei terminiert!",
+        "en": "In the worker below, `wg.Wait()` deadlocks because the worker never calls `wg.Done()`. Add `defer wg.Done()` inside the goroutine so the counter decrements and the program finishes!"
+      },
+      "buggyCode": "package main\n\nimport (\n    \"fmt\"\n    \"sync\"\n)\n\nfunc main() {\n    var wg sync.WaitGroup\n    wg.Add(1)\n\n    go func() {\n        // Fehler: wg.Done() fehlt! wg.Wait() wartet ewig!\n        fmt.Println(\"Datenverarbeitung abgeschlossen\")\n    }()\n\n    wg.Wait()\n    fmt.Println(\"Hauptprogramm beendet\")\n}",
+      "solutionCode": "package main\n\nimport (\n    \"fmt\"\n    \"sync\"\n)\n\nfunc main() {\n    var wg sync.WaitGroup\n    wg.Add(1)\n\n    go func() {\n        defer wg.Done()\n        fmt.Println(\"Datenverarbeitung abgeschlossen\")\n    }()\n\n    wg.Wait()\n    fmt.Println(\"Hauptprogramm beendet\")\n}",
+      "compilerOutput": {
+        "error": "fatal error: all goroutines are asleep - deadlock!\ngoroutine 1 [semacquire]:\nsync.runtime_Semacquire(0x40c110)\n\t/usr/local/go/src/runtime/sema.go:62 +0x25\nsync.(*WaitGroup).Wait(0x40c108)\n\t/usr/local/go/src/sync/waitgroup.go:116 +0x7b",
+        "success": "[go run ./main.go]\nKompilierung erfolgreich (0.03s) · Exit Code: 0\nAusgabe: Datenverarbeitung abgeschlossen\nHauptprogramm beendet"
+      },
+      "explanation": {
+        "de": "Jedes `wg.Add(1)` muss mit einem korrespondierenden `wg.Done()` quittiert werden. Durch `defer wg.Done()` wird sichergestellt, dass die WaitGroup selbst im Falle vorzeitiger Returns oder Panics dekrementiert wird.",
+        "en": "Every `wg.Add(1)` must be balanced with `wg.Done()`. Placing `defer wg.Done()` at the top of the goroutine ensures clean decrementing."
+      }
+    },
+    {
+      "id": "go-06-sec-05",
+      "type": "quiz_inline_code",
+      "title": { "de": "Inline-Code: Werte aus Channel empfangen", "en": "Inline Code: Receive from Channel" },
+      "prompt": {
+        "de": "Mit welchem Operator liest man einen Wert aus einem Channel aus?",
+        "en": "Which operator reads a value from a channel?"
+      },
+      "starterCode": "msg := ___msgChan",
+      "options": ["<-", "->", "=>", ":="],
+      "distractorExplanations": {
+        "->": {
+          "de": "'->' existiert in Go nicht als Operator.",
+          "en": "'->' does not exist in Go."
+        },
+        "=>": {
+          "de": "'=>' ist der Fat-Arrow aus JS/PHP und existiert in Go nicht.",
+          "en": "'=>' is not a valid Go operator."
+        },
+        ":=": {
+          "de": "':=' steht links vor dem Variablennamen ('msg := ...'), nicht direkt vor dem Channel.",
+          "en": "':=' precedes the variable name, not placed directly before the channel."
+        }
+      },
+      "solution": "<-",
+      "explanation": {
+        "de": "Der Pfeil `<-` vor dem Channel-Namen (`val := <-ch`) empfängt den nächsten Wert aus dem Channel. Steht er hinter dem Channel (`ch <- val`), sendet er hinein.",
+        "en": "Prefixing a channel with `<-` (`val := <-ch`) reads from it; postfixing (`ch <- val`) writes to it."
+      }
+    }
+  ]
+}

@@ -24,7 +24,7 @@
     {
       "id": "sql-01-sec-02",
       "type": "quiz_choice",
-      "title": { "de": "IHK-Prüfungsfrage: Die 3. Normalform (3NF)", "en": "IHK Exam Question: Third Normal Form (3NF)" },
+      "title": { "de": "Prüfungsfrage: Die 3. Normalform (3NF)", "en": "Exam Question: Third Normal Form (3NF)" },
       "prompt": {
         "de": "Gegeben ist eine Tabelle mit Kundendaten, die bereits die 2. Normalform erfüllt. Das Attribut 'Wohnort' ist jedoch funktional abhängig von der 'Postleitzahl' (PLZ), welche selbst kein Primärschlüssel ist. Welcher Regelverstoß liegt vor?",
         "en": "A table fulfills 2NF. However, the attribute 'City' is functionally dependent on 'Postal Code' (ZIP), which is not a candidate key. Which normalization rule is violated?"

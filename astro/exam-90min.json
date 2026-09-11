@@ -7,8 +7,8 @@
   "maxScore": 100,
   "passingScore": 50,
   "title": {
-    "de": "🏛️ IHK-Prüfungsmodul (90 Min): Web-Architektur & Performance",
-    "en": "🏛️ IHK Exam Module (90 Min): Web Architecture & Performance"
+    "de": "🎓 Abschlussprüfung (90 Min): Web-Architektur & Performance",
+    "en": "🎓 Final Exam (90 Min): Web Architecture & Performance"
   },
   "description": {
     "de": "Prüfungssimulation für Web-Architektur nach IHK-Standard: Core Web Vitals (LCP, INP, CLS), Static Site Generation (SSG), serverseitiges Rendering und Barrierefreiheit.",

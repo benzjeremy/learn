@@ -1,0 +1,118 @@
+{
+  "id": "go-07-tooling",
+  "courseId": "go",
+  "chapterIndex": 7,
+  "title": {
+    "de": "7. Tooling, Module & HTTP-Webserver",
+    "en": "7. Tooling, Modules & HTTP Web Servers"
+  },
+  "description": {
+    "de": "Produktionsreife Softwareentwicklung: Go CLI (go test -race, go vet, go mod), JSON-Serialisierung und der Bau nativer HTTP-Microservices mit net/http ohne externe Frameworks.",
+    "en": "Production-grade software engineering: Go CLI toolchain (go test -race, go vet, go mod), JSON handling, and native HTTP microservices using net/http without third-party frameworks."
+  },
+  "sections": [
+    {
+      "id": "go-07-sec-01",
+      "type": "concept",
+      "title": { "de": "Die Go-Toolchain: Testen, Formatieren & Module", "en": "The Go Toolchain: Testing, Formatting & Modules" },
+      "contentMarkdown": {
+        "de": "Go bringt alle Entwickler-Werkzeuge nativ mit:\n\n* **`go mod init <name>`:** Initialisiert ein Modul mit `go.mod` und `go.sum` (kryptografische Hash-Prüfung aller Abhängigkeiten).\n* **`go test -v -race ./...`:** Führt alle Unit-Tests aus und aktiviert den ThreadSanitizer Race Detector.\n* **`go fmt ./...`:** Formatiert den gesamten Code nach dem universellen Go-Standard (keine Style-Diskussionen!).\n* **`go vet ./...`:** Statische Code-Analyse für subtile Bugs (z. B. ungenutzte Mutex-Kopien oder fehlerhafte Printf-Formatstrings).\n* **`go build -ldflags=\"-s -w\"`:** Kompiliert ein schlankes, gestripptes Single-Binary ohne externe Laufzeit-Abhängigkeiten.",
+        "en": "Go ships with a complete built-in toolchain:\n\n* **`go mod init <name>`:** Sets up a module tracking dependencies via `go.mod` and cryptographic hashes in `go.sum`.\n* **`go test -v -race ./...`:** Runs all test suites instrumented with the ThreadSanitizer race detector.\n* **`go fmt ./...`:** Applies standard formatting across the codebase.\n* **`go vet ./...`:** Performs static analysis detecting suspicious constructs and printf mismatches.\n* **`go build -ldflags=\"-s -w\"`:** Generates optimized, stripped standalone binaries without external runtime dependencies."
+      },
+      "codeSnippet": "# Neues Projekt initialisieren und testen\ngo mod init github.com/benzjeremy/api\ngo test -v -race ./..."
+    },
+    {
+      "id": "go-07-sec-02",
+      "type": "concept",
+      "title": { "de": "Native HTTP-Services mit net/http & JSON", "en": "Native HTTP Services with net/http & JSON" },
+      "contentMarkdown": {
+        "de": "Gos Standardbibliothek enthält mit `net/http` einen vollwertigen, extrem performanten HTTP/1.1- und HTTP/2-Server:\n\n* **Handler-Signatur:** Jeder HTTP-Endpunkt folgt der Signatur:\n  `func(w http.ResponseWriter, r *http.Request)`\n* **JSON-Encoding:** Mit `json.NewEncoder(w).Encode(data)` werden Structs direkt als JSON in den HTTP-Response-Stream geschrieben.\n* **Security & Performance:** Kein Apache, kein Nginx und kein NodeJS nötig. Go startet pro HTTP-Request automatisch eine eigene isolierte Goroutine.",
+        "en": "Go's standard library `net/http` provides a battle-tested HTTP/1.1 and HTTP/2 engine:\n\n* **Handler Signature:** All handlers follow the standard contract:\n  `func(w http.ResponseWriter, r *http.Request)`\n* **JSON Encoding:** `json.NewEncoder(w).Encode(data)` streams serialized JSON directly to the client.\n* **Concurrency:** The runtime spawns an isolated goroutine for every incoming HTTP connection automatically."
+      },
+      "codeSnippet": "package main\n\nimport (\n    \"encoding/json\"\n    \"net/http\"\n)\n\nfunc healthHandler(w http.ResponseWriter, r *http.Request) {\n    w.Header().Set(\"Content-Type\", \"application/json\")\n    json.NewEncoder(w).Encode(map[string]string{\"status\": \"healthy\"})\n}\n\nfunc main() {\n    http.HandleFunc(\"/health\", healthHandler)\n    http.ListenAndServe(\":8080\", nil)\n}"
+    },
+    {
+      "id": "go-07-sec-03",
+      "type": "quiz_choice",
+      "title": { "de": "Verständnisfrage: Race Conditions in Unit-Tests aufspüren", "en": "Concept Check: Detecting Race Conditions in Tests" },
+      "prompt": {
+        "de": "Mit welchem Befehl führst du in Go alle Unit-Tests deines Projekts aus und prüfst gleichzeitig auf ungeschützte nebenläufige Speicherzugriffe (Data Races)?",
+        "en": "Which command runs all unit tests in Go while detecting unsynchronized memory races?"
+      },
+      "options": [
+        "`go test -race ./...`",
+        "`go check -all`",
+        "`go sanitize --threads`",
+        "`go debug -memory`"
+      ],
+      "distractorExplanations": {
+        "1": {
+          "de": "'go check' ist kein gültiger Befehl der Go-Toolchain.",
+          "en": "'go check' is not a valid command in the Go toolchain."
+        },
+        "2": {
+          "de": "'go sanitize' existiert nicht. Die Sanitizer-Funktionalität wird über das '-race'-Flag in 'go test' und 'go run' aktiviert.",
+          "en": "'go sanitize' does not exist; thread checking is controlled via `-race`."
+        },
+        "3": {
+          "de": "'go debug' ist kein Go-Befehl; zum Debuggen wird Delve ('dlv') verwendet.",
+          "en": "'go debug' is not part of the Go CLI (use Delve / `dlv`)."
+        }
+      },
+      "solution": 0,
+      "explanation": {
+        "de": "`go test -race ./...` kompiliert alle Testpakete mit dem integrierten ThreadSanitizer und warnt zuverlässig bei konkurrierenden Variablen-Zugriffen.",
+        "en": "`go test -race ./...` activates the built-in ThreadSanitizer instrumentation detecting concurrent access bugs."
+      }
+    },
+    {
+      "id": "go-07-sec-04",
+      "type": "quiz_compiler_fix",
+      "title": { "de": "Compiler-Labor: HTTP-Handler Signatur korrigieren", "en": "Compiler Lab: Fix HTTP Handler Signature" },
+      "prompt": {
+        "de": "Der folgende HTTP-Handler kompiliert nicht, weil die Parameterliste nicht der Standard-Signatur `http.HandlerFunc` (`w http.ResponseWriter, r *http.Request`) entspricht (der Request-Pointer fehlt). Korrigiere die Signatur in `StatusHandler`, damit der Server gebaut werden kann!",
+        "en": "The HTTP handler fails to compile because the parameter signature does not match `http.HandlerFunc` (`w http.ResponseWriter, r *http.Request`). Fix the signature in `StatusHandler`!"
+      },
+      "buggyCode": "package main\n\nimport \"net/http\"\n\n// Fehler: Request muss *http.Request sein!\nfunc StatusHandler(w http.ResponseWriter, r http.Request) {\n    w.Write([]byte(\"OK\"))\n}\n\nfunc main() {\n    http.HandleFunc(\"/status\", StatusHandler)\n    http.ListenAndServe(\":8080\", nil)\n}",
+      "solutionCode": "package main\n\nimport \"net/http\"\n\n// Korrekt: *http.Request als Zeiger\nfunc StatusHandler(w http.ResponseWriter, r *http.Request) {\n    w.Write([]byte(\"OK\"))\n}\n\nfunc main() {\n    http.HandleFunc(\"/status\", StatusHandler)\n    http.ListenAndServe(\":8080\", nil)\n}",
+      "compilerOutput": {
+        "error": "./main.go:10:29: cannot use StatusHandler (value of type func(w http.ResponseWriter, r http.Request)) as func(http.ResponseWriter, *http.Request) in argument to http.HandleFunc",
+        "success": "[go build ./main.go]\nKompilierung fehlerfrei (0.02s) · Exit Code: 0\nHTTP Webserver erfolgreich kompiliert und startbereit!"
+      },
+      "explanation": {
+        "de": "In Go ist `http.ResponseWriter` ein Interface (kein Pointer nötig), während `*http.Request` stets ein Pointer auf die konkrete Request-Struktur ist. Nur mit `(w http.ResponseWriter, r *http.Request)` ist der Handler kompatibel zu `http.HandleFunc`.",
+        "en": "`http.ResponseWriter` is an interface, whereas `*http.Request` is always passed as a pointer. The handler signature must match `(w http.ResponseWriter, r *http.Request)`."
+      }
+    },
+    {
+      "id": "go-07-sec-05",
+      "type": "quiz_inline_code",
+      "title": { "de": "Inline-Code: HTTP-Route registrieren", "en": "Inline Code: Register HTTP Route" },
+      "prompt": {
+        "de": "Mit welcher Funktion aus `net/http` registrierst du einen Pfad mit seiner zugehörigen Handler-Funktion am Standard-ServeMux?",
+        "en": "Which function in `net/http` registers a path pattern with its handler function on the default ServeMux?"
+      },
+      "starterCode": "http.___(\"/api/v1\", apiHandler)",
+      "options": ["HandleFunc", "RegisterRoute", "AddEndpoint", "Listen"],
+      "distractorExplanations": {
+        "RegisterRoute": {
+          "de": "'RegisterRoute' ist keine Funktion der Go-Standardbibliothek (bekannt aus Third-Party Routern).",
+          "en": "'RegisterRoute' is not a standard library function."
+        },
+        "AddEndpoint": {
+          "de": "'AddEndpoint' existiert nicht in 'net/http'.",
+          "en": "'AddEndpoint' does not exist in 'net/http'."
+        },
+        "Listen": {
+          "de": "'http.ListenAndServe' startet den Netzwerk-Socket, registriert jedoch keine einzelnen Pfade.",
+          "en": "'ListenAndServe' binds the network listener, rather than mapping handler paths."
+        }
+      },
+      "solution": "HandleFunc",
+      "explanation": {
+        "de": "`http.HandleFunc(pattern, handler)` registriert einen HTTP-Pfad auf dem DefaultServeMux der Go-Standardbibliothek.",
+        "en": "`http.HandleFunc(pattern, handler)` maps a pattern to a handler function on Go's default ServeMux."
+      }
+    }
+  ]
+}

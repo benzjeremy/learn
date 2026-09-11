@@ -1,18 +1,18 @@
 {
   "id": "go-exam-90min",
   "courseId": "go",
-  "chapterIndex": 2,
+  "chapterIndex": 8,
   "type": "exam_90min",
   "examDurationMinutes": 90,
   "maxScore": 100,
   "passingScore": 50,
   "title": {
-    "de": "🏛️ IHK-Prüfungsmodul (90 Min): Go Cloud-Native & Concurrency",
-    "en": "🏛️ IHK Exam Module (90 Min): Go Cloud-Native & Concurrency"
+    "de": "🎓 Abschlussprüfung (90 Min): Go Cloud-Native & Concurrency",
+    "en": "🎓 Final Exam (90 Min): Go Cloud-Native & Concurrency"
   },
   "description": {
-    "de": "Schriftliche IHK-Prüfungssimulation: Systemarchitektur mit Go, Race-Bedingungen, Synchronisation von Goroutines, Memory Leak Vermeidung und Interfaces.",
-    "en": "Written IHK exam simulation: Go systems architecture, race conditions, goroutine synchronization, memory leak prevention, and implicit interfaces."
+    "de": "Schriftliche Abschlussprüfung: Systemarchitektur mit Go, Race-Bedingungen, Synchronisation von Goroutines, Memory Leak Vermeidung und Interfaces.",
+    "en": "Comprehensive written final exam: Go systems architecture, race conditions, goroutine synchronization, memory leak prevention, and implicit interfaces."
   },
   "scenario": {
     "de": "Handlungssituation: Sie sind Software-Architekt/in bei einem Cloud-Native-Dienstleister. Für ein Telemetrie-Gateway, das 50.000 Sensor-Datenströme pro Sekunde aggregiert, entwickeln Sie einen Hochleistungs-Daemon in Go. Beantworten Sie die Prüfungsfragen zur Vermeidung von Race Conditions, Deadlocks und inkorrektem Error-Handling.",
@@ -34,6 +34,20 @@
         "`go version`",
         "`go env -debug`"
       ],
+      "distractorExplanations": {
+        "1": {
+          "de": "'go fmt' formatiert ausschließlich Quellcodedateien nach Style-Richtlinien, führt aber keinen Code aus und führt keine Laufzeitanalysen durch.",
+          "en": "'go fmt' reformats source files and does not analyze runtime concurrency."
+        },
+        "2": {
+          "de": "'go version' gibt lediglich die aktuell installierte Go-Compiler-Version aus.",
+          "en": "'go version' simply outputs compiler version information."
+        },
+        "3": {
+          "de": "'go env' zeigt Go-Umgebungsvariablen an (GOPATH, GOROOT, GOOS, GOARCH), prüft jedoch keine Programmlogik.",
+          "en": "'go env' displays configuration variables, not race conditions."
+        }
+      },
       "solution": 0,
       "explanation": {
         "de": "Das Flag `-race` kompiliert Code mit Go's integriertem Race Detector (auf Basis von ThreadSanitizer). Es protokolliert nicht synchronisierte konkurrierende Speicherzugriffe zur Laufzeit mit exaktem Stacktrace.",
@@ -55,6 +69,20 @@
         "Nach dem Aufruf von `wg.Wait()`.",
         "In der `init()`-Funktion des Packages."
       ],
+      "distractorExplanations": {
+        "1": {
+          "de": "Wird 'wg.Add(1)' innerhalb der Goroutine aufgerufen, kann 'wg.Wait()' im Hauptthread bereits durchlaufen sein, bevor der OS-Scheduler die Goroutine anstartet. Dies führt zu vorzeitigem Programmende!",
+          "en": "Calling `wg.Add(1)` inside the goroutine allows `wg.Wait()` to return before the goroutine starts scheduling, causing premature termination."
+        },
+        "2": {
+          "de": "Nach 'wg.Wait()' hat das Warten bereits geendet. Ein nachträgliches 'Add(1)' blockiert niemanden mehr.",
+          "en": "Calling after `wg.Wait()` is too late, as synchronization has already finished."
+        },
+        "3": {
+          "de": "Die 'init()'-Funktion läuft einmalig beim Programmstart; 'wg.Add(1)' muss jedoch dynamisch für jede neu erzeugte Goroutine aufgerufen werden.",
+          "en": "`init()` runs once at boot and cannot dynamically track runtime goroutines."
+        }
+      },
       "solution": 0,
       "explanation": {
         "de": "`wg.Add(1)` muss zwingend VOR dem Aufruf `go func()` erfolgen. Würde es innerhalb der Goroutine aufgerufen, könnte `wg.Wait()` ausgeführt werden, bevor die Goroutine überhaupt anläuft und den Zähler erhöht.",
@@ -76,6 +104,20 @@
         "Es wird nichts ausgegeben.",
         "Eine zufällige Permutation wie 213."
       ],
+      "distractorExplanations": {
+        "1": {
+          "de": "FIFO ('First In, First Out') ist das Queue-Prinzip. 'defer' legt Aufrufe jedoch auf einen Call-Stack (LIFO), sodass der letzte Befehl als erster ausgeführt wird.",
+          "en": "FIFO applies to queues; `defer` pushes onto a LIFO stack, executing the last added statement first."
+        },
+        "2": {
+          "de": "'defer' verzögert die Ausführung lediglich, unterdrückt sie aber nicht.",
+          "en": "`defer` postpones execution, it does not suppress output."
+        },
+        "3": {
+          "de": "Die Ausführung ist streng deterministisch und niemals zufällig.",
+          "en": "Execution is strictly deterministic and never random."
+        }
+      },
       "solution": 0,
       "explanation": {
         "de": "`defer`-Aufrufe werden in Go auf einem Stack abgelegt und beim Verlassen der umgebenden Funktion in umgekehrter Reihenfolge (LIFO) ausgeführt. 3 wird daher zuerst ausgeführt, gefolgt von 2 und 1.",
@@ -97,6 +139,20 @@
         "Über eine Annotation `@Implements(MyInterface)` vor der Struct.",
         "Durch Vererbung von einer abstrakten Basisklasse."
       ],
+      "distractorExplanations": {
+        "1": {
+          "de": "Ein Schlüsselwort 'implements' existiert in Go nicht (bekannt aus Java/PHP/TypeScript). Go verzichtet bewusst auf explizite Bindung.",
+          "en": "'implements' does not exist in Go (known from Java/PHP/TypeScript)."
+        },
+        "2": {
+          "de": "Go besitzt keine Annotationen oder Dekoratoren mit '@'.",
+          "en": "Go does not feature decorators or '@' annotations."
+        },
+        "3": {
+          "de": "Go kennt keine Vererbung und keine abstrakten Basisklassen ('inheritance'). Stattdessen setzt Go auf Komposition ('composition over inheritance').",
+          "en": "Go has no class inheritance or abstract classes; it favors composition."
+        }
+      },
       "solution": 0,
       "explanation": {
         "de": "Go nutzt strukturelles Subtyping (Duck Typing zur Compile-Zeit). Sobald ein Typ alle im Interface deklarierten Methoden implementiert, erfüllt er das Interface automatisch ohne explizite Kopplung.",
@@ -118,6 +174,20 @@
         "Fehler werden in eine globale Variable `errno` geschrieben.",
         "Fehler werden ignoriert, da Go fehlerfreien Code erzwingt."
       ],
+      "distractorExplanations": {
+        "1": {
+          "de": "'panic()' ist in Go ausschließlich für unvorhersehbare Programmierfehler (z. B. Index out of range, Nil-Pointer) reserviert, nicht für reguläre Laufzeitfehler.",
+          "en": "'panic()' is reserved for unexpected fatal defects, not standard control flow."
+        },
+        "2": {
+          "de": "Globale Fehlervariablen wie 'errno' sind thread-unsicher und ein C-Relikt, das in Go durch explizite Rückgabewerte abgelöst wurde.",
+          "en": "Global errno variables are thread-unsafe C patterns obsolete in Go."
+        },
+        "3": {
+          "de": "Fehler dürfen in Go niemals ignoriert werden; unberücksichtigte Fehler führen zu unberechenbarem Systemverhalten.",
+          "en": "Errors must be checked explicitly to ensure system resilience."
+        }
+      },
       "solution": 0,
       "explanation": {
         "de": "In Go sind Fehler reguläre Werte (`error`-Interface). Funktionen geben Fehler explizit zurück (`(result, error)`), und der aufrufende Code behandelt diese transparent ohne versteckten Exception-Kontrollfluss.",

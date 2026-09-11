@@ -15,7 +15,7 @@
       "id": "html-exam-90min",
       "file": "exam-90min.json",
       "type": "exam_90min",
-      "title": { "de": "🏛️ IHK-Prüfungsmodul (90 Min): Responsive Layouts & Barrierefreiheit", "en": "🏛️ IHK Exam Module (90 Min): Responsive Layouts & Accessibility" },
+      "title": { "de": "🎓 Abschlussprüfung (90 Min): Responsive Layouts & Barrierefreiheit", "en": "🎓 Final Exam (90 Min): Responsive Layouts & Accessibility" },
       "durationMinutes": 90
     }
   ]
