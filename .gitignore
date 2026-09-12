@@ -1,6 +1,6 @@
 # Binaries and builds
 bin/
-learn
+/learn
 *.exe
 *.exe~
 *.dll
