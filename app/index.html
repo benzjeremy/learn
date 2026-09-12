@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self';" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <title>learn · Interaktives Web-Cockpit &amp; Prüfungssimulation</title>
+  <title>learn [Pre-Release] · Interaktives Web-Cockpit &amp; Prüfungssimulation</title>
   <meta name="description" content="Interaktive Open-Source Lern-App für Go, Cybersecurity, SQL, C#, Astro, Python, HTML/CSS, JS &amp; PHP mit 90-Minuten-Abschlussprüfungen. Kein Account-Zwang, 100% werbefrei.">
   <link rel="icon" type="image/png" sizes="512x512" href="assets/icon.png">
   <link rel="stylesheet" href="style.css">
@@ -37,7 +37,7 @@
         </a>
         <a href="index.html" class="app-brand">
           <img src="assets/icon.png" alt="learn Logo" class="app-logo" width="30" height="30">
-          <span class="app-title">learn</span>
+          <span class="app-title">learn <span style="font-size:0.75rem; color:#f59e0b;">[Pre-Release]</span></span>
         </a>
       </div>
 
@@ -80,6 +80,15 @@
     <!-- Stage: Chapter Navigator & Lesson Player -->
     <main class="content-stage">
       
+      <!-- Pre-Release Notice -->
+      <div style="margin-bottom: 1rem; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 8px; padding: 0.6rem 0.9rem; color: #f59e0b; font-size: 0.85rem; display: flex; align-items: flex-start; gap: 0.5rem; text-align: left;">
+        <span style="font-size: 1.1rem; line-height: 1;">🚧</span>
+        <div>
+          <div class="lang-de"><strong>Pre-Release Status:</strong> Die Web-App befindet sich in aktiver Entwicklung. Alle Kurse und Prüfungen sind Pre-Release Inhalte (Work in Progress).</div>
+          <div class="lang-en" style="display:none;"><strong>Pre-Release Notice:</strong> This web app is under active development. All courses and exams are Pre-Release content (Work in Progress).</div>
+        </div>
+      </div>
+
       <!-- Stage Header -->
       <div class="stage-header">
         <div class="stage-badge" id="stageBadge">MODERN SYSTEMS</div>
