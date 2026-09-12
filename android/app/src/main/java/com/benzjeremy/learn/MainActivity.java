@@ -2,6 +2,7 @@ package com.benzjeremy.learn;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -943,23 +944,105 @@ public class MainActivity extends Activity implements View.OnClickListener, Time
         infoCard.setOrientation(LinearLayout.VERTICAL);
         infoCard.setBackgroundResource(R.drawable.card_bg);
         infoCard.setPadding(dp(16), dp(16), dp(16), dp(16));
+        LinearLayout.LayoutParams infoLp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        infoLp.setMargins(0, 0, 0, dp(16));
+        infoCard.setLayoutParams(infoLp);
 
         TextView aTitle = new TextView(this);
-        aTitle.setText("ℹ️ Über learn & Datenschutz");
+        aTitle.setText("⚖️ Impressum, DSGVO & Lizenz");
         aTitle.setTextColor(Color.parseColor("#F8FAFC"));
         aTitle.setTextSize(16);
         aTitle.setTypeface(Typeface.DEFAULT_BOLD);
         infoCard.addView(aTitle);
 
-        TextView aBody = new TextView(this);
-        aBody.setText("• 100% Native Android UI (Zero WebView, Zero Tracking)\n• Offline-Fähig & Paywall-frei\n• Lizenz: GNU General Public License v3.0 (GPL-3.0)\n• Entwickler: Jeremy Benz (benzjeremy@pm.me)");
-        aBody.setTextColor(Color.parseColor("#94A3B8"));
-        aBody.setTextSize(12);
-        aBody.setLineSpacing(dp(3), 1.1f);
-        aBody.setPadding(0, dp(8), 0, 0);
-        infoCard.addView(aBody);
+        TextView aIntro = new TextView(this);
+        aIntro.setText("Vollständige gesetzliche Pflichtangaben (§ 5 DDG, DSGVO) offline & nativ direkt in der Anwendung hinterlegt.");
+        aIntro.setTextColor(Color.parseColor("#94A3B8"));
+        aIntro.setTextSize(12);
+        aIntro.setPadding(0, dp(4), 0, dp(12));
+        infoCard.addView(aIntro);
+
+        Button btnLegalDialog = new Button(this);
+        btnLegalDialog.setText("📜 Vollständiges Impressum & Datenschutz öffnen");
+        btnLegalDialog.setTextColor(Color.WHITE);
+        btnLegalDialog.setTag("open_legal_dialog");
+        btnLegalDialog.setBackgroundResource(R.drawable.btn_primary);
+        btnLegalDialog.setOnClickListener(this);
+        infoCard.addView(btnLegalDialog);
+
+        addInlineLegalBlock(infoCard, "1. Impressum (§ 5 DDG & § 18 MStV)",
+                "Diensteanbieter: Jeremy Benz (@benzjeremy)\nSoftware-Entwickler & Open-Source Maintainer\nStandort: Nordrhein-Westfalen (NRW), Deutschland\nE-Mail: benzjeremy@pm.me • Web: https://benzjeremy.github.io\nRedaktionell verantwortlich nach § 18 Abs. 2 MStV: Jeremy Benz, NRW.\nRein private, nicht-kommerzielle Open-Source-Bildungsapp.");
+
+        addInlineLegalBlock(infoCard, "2. Datenschutzerklärung (DSGVO & § 25 TDDDG)",
+                "100% Offline & Absolute Privatsphäre:\n• Keine Internet-Berechtigung: Im Android-Manifest ist absichtlich keine INTERNET-Permission deklariert. Ein Senden oder Empfangen von Daten ist technisch unmöglich.\n• Null Tracking, Null SDKs: Keine Analytics, kein Firebase, keine Werbe-IDs.\n• Lokale Speicherung: Alle Fortschritte und Erinnerungen verbleiben exklusiv auf Ihrem Gerät.\n• Betroffenenrechte nach Art. 15–21 DSGVO: Werden durch 100% lokale Speicherung gewahrt; durch Deinstallation oder App-Daten löschen rückstandslos entfernbar.");
+
+        addInlineLegalBlock(infoCard, "3. Kontakt & Lizenz (GPL-3.0)",
+                "E-Mail: benzjeremy@pm.me (Reaktionszeit < 48 Std.)\nLizenziert unter GNU General Public License v3.0 (GPL-3.0).\nQuellcode: https://github.com/benzjeremy/learn");
 
         contentContainer.addView(infoCard);
+    }
+
+    private void addInlineLegalBlock(LinearLayout parent, String title, String content) {
+        TextView t = new TextView(this);
+        t.setText(title);
+        t.setTextColor(Color.parseColor("#38BDF8"));
+        t.setTextSize(13);
+        t.setTypeface(Typeface.DEFAULT_BOLD);
+        t.setPadding(0, dp(12), 0, dp(2));
+        parent.addView(t);
+
+        TextView c = new TextView(this);
+        c.setText(content);
+        c.setTextColor(Color.parseColor("#CBD5E1"));
+        c.setTextSize(11);
+        c.setLineSpacing(dp(2), 1.15f);
+        parent.addView(c);
+    }
+
+    private void showLegalDialog() {
+        ScrollView sv = new ScrollView(this);
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setPadding(dp(18), dp(14), dp(18), dp(14));
+
+        addLegalCardToContainer(layout, "1. Impressum (§ 5 DDG & § 18 MStV)",
+                "Diensteanbieter:\nJeremy Benz (@benzjeremy)\nSoftware-Entwickler & Open-Source Maintainer\nStandort: Nordrhein-Westfalen (NRW), Deutschland\nE-Mail: benzjeremy@pm.me\nWeb: https://benzjeremy.github.io\n\nRedaktionell verantwortlich nach § 18 Abs. 2 MStV:\nJeremy Benz, NRW, Deutschland\n\nHinweis: Rein private, nicht-kommerzielle Bildungs- und Open-Source-Software ohne Gewinnerzielungsabsicht.");
+
+        addLegalCardToContainer(layout, "2. Datenschutzerklärung (DSGVO & § 25 TDDDG)",
+                "100% Datenschutz & Garantierte Offline-Privatsphäre:\n• KEINE Internet-Berechtigung: Diese App besitzt absichtlich KEINE 'android.permission.INTERNET'-Berechtigung im Android-Manifest. Die App kann technisch und physikalisch zu keinem Zeitpunkt Daten ins Internet senden oder empfangen.\n• Null Tracking, Null SDKs: Weder Google Analytics, Firebase, Sentry noch Werbe-Netzwerke oder Tracker sind enthalten.\n• Lokale Speicherung: Gelöste Aufgaben, Notizen, Code-Entwürfe und die tägliche Erinnerungszeit verbleiben ausschließlich lokal im privaten App-Speicher (SharedPreferences) auf Ihrem Endgerät.\n• Betroffenenrechte: Gemäß Art. 15–21 DSGVO haben Sie das volle Recht auf Datenlöschung. Durch Deinstallation der App oder 'App-Daten löschen' in Android werden alle lokalen Datensätze vollständig und unwiderruflich gelöscht.");
+
+        addLegalCardToContainer(layout, "3. Kontakt & Responsible Disclosure",
+                "E-Mail: benzjeremy@pm.me\nSicherheitsmeldungen: Koordinierte Schwachstellenmeldungen werden binnen 48 Stunden beantwortet.");
+
+        addLegalCardToContainer(layout, "4. Freie Software Lizenz (GNU GPL-3.0)",
+                "Diese Anwendung ist freie Open-Source-Software unter der GNU General Public License v3.0 (GPL-3.0).\nSie dürfen den Code studieren, verändern, forken und frei weiterverbreiten.\nQuellcode: https://github.com/benzjeremy/learn");
+
+        sv.addView(layout);
+
+        new AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Dialog_Alert)
+                .setTitle("⚖️ Rechtliche Hinweise & Datenschutz")
+                .setView(sv)
+                .setPositiveButton("Schließen", null)
+                .show();
+    }
+
+    private void addLegalCardToContainer(LinearLayout container, String title, String content) {
+        TextView tvTitle = new TextView(this);
+        tvTitle.setText(title);
+        tvTitle.setTextColor(Color.parseColor("#38BDF8"));
+        tvTitle.setTextSize(14);
+        tvTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        tvTitle.setPadding(0, dp(8), 0, dp(4));
+        container.addView(tvTitle);
+
+        TextView tvContent = new TextView(this);
+        tvContent.setText(content);
+        tvContent.setTextColor(Color.parseColor("#CBD5E1"));
+        tvContent.setTextSize(12);
+        tvContent.setLineSpacing(dp(3), 1.15f);
+        tvContent.setPadding(0, 0, 0, dp(12));
+        container.addView(tvContent);
     }
 
     // ==========================================
@@ -1027,6 +1110,8 @@ public class MainActivity extends Activity implements View.OnClickListener, Time
                     cancelDailyNotification();
                     Toast.makeText(this, "Erinnerung deaktiviert.", Toast.LENGTH_SHORT).show();
                 }
+            } else if ("open_legal_dialog".equals(tagStr)) {
+                showLegalDialog();
             }
         } else if (tag instanceof QuestionOptionTag) {
             QuestionOptionTag qTag = (QuestionOptionTag) tag;

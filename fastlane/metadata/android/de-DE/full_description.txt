@@ -9,7 +9,9 @@ Meistere moderne Programmiersprachen wie Go (Golang), Astro, Python, HTML5/CSS3,
 • Keine Paywalls & keine "Herzen": Lerne unbegrenzt in deinem eigenen Tempo ohne künstliche Frustrationssperren.
 • 100% Offline-First: Alle Kurse funktionieren autark ohne Internetverbindung im Flugmodus oder Zug.
 • Zero-Telemetry & DSGVO-konform: Keine Werbetracker, keine Analytics-SDKs, keine Google Firebase Abhängigkeit.
+• Nativer Offline-Rechtsschutz: Vollständiges Impressum (§ 5 DDG), Datenschutzerklärung (DSGVO/TDDDG) und Kontakt direkt in der App.
 • Lokales Erinnerungssystem: Tägliche konfigurierbare Lern-Erinnerung und höflicher Inaktivitäts-Nudge ohne Cloud-Push-Server.
 • Floating AI-Roboter-Tutor: Am Bildschirmrand für künftige interaktive Code-Erklärungen.
 
 Quelloffen und frei unter der GNU General Public License v3.0 (GPL-3.0).
+

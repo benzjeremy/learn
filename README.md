@@ -16,14 +16,15 @@ An uncompromising, ad-free alternative to commercial platforms like Mimo or Solo
 * **🛠️ Interactive Compiler Lab:** Real in-browser bugfixing challenges with realistic compiler diagnostic output, line numbers, and terminal exit codes.
 * **💡 Option-Specific Didactic Feedback:** No solution-spoiling on incorrect inputs — the engine explains why your chosen token or operator is incorrect and encourages self-guided learning.
 * **🎓 90-Minute Final Exam Simulations:** Realistic exam sessions with countdown timer, strict grading scale (grades 1–6), and complete reference solutions.
-* **🛡️ Zero-Telemetry & Offline-First:** No analytics SDKs, no Google Firebase, 100% GDPR-compliant. Works offline on planes and subways via local SQLite WAL storage and IndexedDB.
-* **📱 Native Go & Fyne v2:** Compact Android APK (< 20 MB) and native desktop binaries for Linux (Wayland/X11) and Windows. Only ~25 MB RAM.
+* **⚖️ Native In-App Legal & Privacy Notice (v2.2):** Embedded offline in-app legal disclosure complying with German § 5 DDG (Impressum), GDPR / DSGVO & TDDDG, and contact information without external redirects.
+* **🛡️ Zero-Telemetry & Offline-First:** Zero network permissions requested (`android.permission.INTERNET` omitted), no analytics SDKs, no Google Firebase, 100% GDPR-compliant. Works offline anywhere.
+* **📱 Native Android UI (v2.2):** Pure native Android application (zero WebView overhead) under 1 MB with 45 beginner lessons across 9 courses (Go, Python, Web, JS, SQL, C#, PHP, Astro, Security).
 * **🌐 2-Tier Static Web Routing:**
   * **Landingpage & Showcase:** [`https://benzjeremy.github.io/learn/`](https://benzjeremy.github.io/learn/)
   * **Interactive Web Cockpit:** [`https://benzjeremy.github.io/learn/app/`](https://benzjeremy.github.io/learn/app/)
 * **🔀 Git-Powered Content (`content` branch):** Didactics and lessons are cleanly decoupled from the engine. Contribute new languages via Pull Request!
 * **🔔 Local Reminder System:** Daily habit reminders (configurable time, e.g. 18:00) and gentle inactivity nudges running 100% locally through native OS alarms.
-* **🤖 Floating AI Robot Tutor:** Docked at the screen edge in every session for future interactive code assistance.
+* **🤖 Floating AI Robot Tutor:** Docked at the screen edge in every session for interactive code guidance.
 
 ---
 
