@@ -2,8 +2,14 @@
 
 [![CI Pipeline](https://github.com/benzjeremy/learn/actions/workflows/ci.yml/badge.svg)](https://github.com/benzjeremy/learn/actions/workflows/ci.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Status: Pre-Release](https://img.shields.io/badge/Status-Pre--Release%20%2F%20WIP-orange.svg)](https://benzjeremy.github.io/learn/)
 [![Go Report Card](https://goreportcard.com/badge/github.com/benzjeremy/learn)](https://goreportcard.com/report/github.com/benzjeremy/learn)
 [![Website](https://img.shields.io/badge/Web-Live%20Cockpit-brightgreen)](https://benzjeremy.github.io/learn/)
+
+> [!IMPORTANT]
+> ### 🚧 Pre-Release / Active Development Notice
+> **This software is not yet finished and is under active development.**  
+> All releases, Android APKs, and web modules are **Pre-Releases** (Work in Progress), even if not originally announced as such. Lessons, interactive exam simulators, and didactic feedback modules are continuously expanded and refined.
 
 > **Privacy-first open-source code learning application** with interactive compiler lab, option-specific didactic feedback, and 90-minute final exams for Go, Astro, Python, HTML/CSS, JavaScript, SQL, C#, and PHP.
 
