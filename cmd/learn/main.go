@@ -1,14 +1,15 @@
 package main
 
 import (
-	"flag"
-	"fmt"
-	"os"
-	"path/filepath"
-	"time"
+    "flag"
+    "fmt"
+    "os"
+    "path/filepath"
+    "time"
 
-	"github.com/benzjeremy/learn/internal/notify"
-	"github.com/benzjeremy/learn/internal/storage"
+    "github.com/benzjeremy/learn/internal/notify"
+    "github.com/benzjeremy/learn/internal/storage"
+    "github.com/benzjeremy/learn/internal/ui"
 )
 
 const (
@@ -22,8 +23,23 @@ func main() {
 	cliFlag := flag.Bool("cli", false, "Launch interactive CLI mode")
 	checkReminderFlag := flag.Bool("check-reminder", false, "Run local notification check")
 	dbPathFlag := flag.String("db", "", "Path to SQLite database")
+	// Start optional KI‑Tutor HTTP server (Phase 5).
+	tutorPortFlag := flag.Int("tutor-port", 0, "Start KI‑Tutor server on given port (0 = disabled)")
 
 	flag.Parse()
+
+	// If a tutor port is requested, start the server in the background.
+	if *tutorPortFlag != 0 {
+		port := *tutorPortFlag
+		go func() {
+			if err := ui.StartTutorServer(port); err != nil {
+				// Log but do not abort the whole application.
+				fmt.Fprintf(os.Stderr, "Tutor server error: %v\n", err)
+			}
+		}()
+		// Give a short log line for visibility.
+		fmt.Printf("KI‑Tutor server started on port %d (background)\n", port)
+	}
 
 	if *helpFlag {
 		printHelp()
