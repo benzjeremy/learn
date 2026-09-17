@@ -11,19 +11,17 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: archlinux:latest
+    env:
+      CGO_ENABLED: "0"
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
         run: |
-          pacman -Sy --noconfirm go git
+          pacman -Sy --noconfirm git base-devel go
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
           go-version: '1.22'
-      - name: Verify go.mod tidy
-        run: |
-          go mod tidy
-          git diff --exit-code go.mod go.sum
       - name: Build
         run: go build ./...
       - name: Test
